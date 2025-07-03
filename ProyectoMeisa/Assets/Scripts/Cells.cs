@@ -1,27 +1,32 @@
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro; 
 
 public class Cells : MonoBehaviour
 {
-    private InputField input;
+    public RectTransform content;              // El objeto "Content"
+    public GameObject inputFieldPrefab;        // El prefab del InputField
+    public int rows = 10;                      // Número de filas
+    public int columns = 5;                    // Número de columnas
 
-    void Awake()
+    void Start()
     {
-        input = GetComponent<InputField>();
+        SpawnGrid(rows, columns);
     }
 
-    public string GetValue()
+    void SpawnGrid(int rows, int columns)
     {
-        return input.text;
-    }
+        int totalCells = rows * columns;
 
-    public void SetValue(string val)
-    {
-        input.text = val;
-    }
+        for (int i = 0; i < totalCells; i++)
+        {
+            GameObject cell = Instantiate(inputFieldPrefab, content);
+            cell.name = $"Cell_{i / columns}_{i % columns}";
 
-    public void OnValueChanged(string val)
-    {
-        Debug.Log("Celda cambió a: " + val);
+            // Opcional: establecer texto por defecto
+            var input = cell.GetComponent<TMP_InputField>(); // O InputField si no usas TMP
+            if (input != null)
+                input.text = "";
+        }
     }
 }
