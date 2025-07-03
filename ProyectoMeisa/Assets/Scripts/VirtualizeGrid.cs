@@ -32,26 +32,41 @@ public class VirtualizedGrid : MonoBehaviour
 
     void UpdateVisibleCells()
     {
-        // Posición actual del scroll (0 = arriba/izquierda, 1 = abajo/derecha)
-        float normX = scrollRect.horizontalNormalizedPosition;
-        float normY = scrollRect.verticalNormalizedPosition;
+        // El tamaño visible (viewport)
+        float viewportWidth = scrollRect.viewport.rect.width;
+        float viewportHeight = scrollRect.viewport.rect.height;
 
-        // Calcula fila y columna superior izquierda visibles
-        int startCol = Mathf.Clamp((int)(normX * (totalCols - visibleCols)), 0, totalCols - visibleCols);
-        int startRow = Mathf.Clamp((int)((1 - normY) * (totalRows - visibleRows)), 0, totalRows - visibleRows);
+        // Posición actual de scroll en píxeles
+        float contentPosX = content.anchoredPosition.x;
+        float contentPosY = content.anchoredPosition.y;
 
-        // Reutiliza celdas visibles
+        // Asegúrate de que no sea negativo
+        contentPosX = Mathf.Max(0, contentPosX);
+        contentPosY = Mathf.Max(0, contentPosY);
+
+        // Calcula fila y columna iniciales visibles
+        int startCol = Mathf.FloorToInt(contentPosX / cellWidth);
+        int startRow = Mathf.FloorToInt(contentPosY / cellHeight);
+
+        // Cuántas celdas caben en pantalla
+        int visibleCols = Mathf.CeilToInt(viewportWidth / cellWidth) + 1;
+        int visibleRows = Mathf.CeilToInt(viewportHeight / cellHeight) + 1;
+
+        // Limpia las anteriores
         foreach (var cell in activeCells.Values)
             Destroy(cell.gameObject);
         activeCells.Clear();
 
-        // Crea nuevas celdas visibles
+        // Crea las visibles
         for (int r = 0; r < visibleRows; r++)
         {
             for (int c = 0; c < visibleCols; c++)
             {
                 int row = startRow + r;
                 int col = startCol + c;
+
+                if (row >= totalRows || col >= totalCols) continue;
+
                 Vector2Int coord = new(row, col);
 
                 GameObject go = Instantiate(inputFieldPrefab, content);
