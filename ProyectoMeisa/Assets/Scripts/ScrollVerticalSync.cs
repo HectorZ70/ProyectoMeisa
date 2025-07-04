@@ -6,6 +6,8 @@ public class ScrollVerticalSync : MonoBehaviour
     public ScrollRect source;
     public ScrollRect target;
 
+    bool syncing;
+
     void Start()
     {
         if (source != null && target != null)

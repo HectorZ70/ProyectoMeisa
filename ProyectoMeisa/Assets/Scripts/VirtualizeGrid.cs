@@ -8,6 +8,8 @@ public class VirtualizedGrid : MonoBehaviour
     public RectTransform content;                // Content del Scroll View
     public ScrollRect scrollRect;                // ScrollRect que controla el desplazamiento
     public GameObject inputFieldPrefab;          // Prefab de InputField
+    public ScrollRect linkedVerticalScrollRect;
+    public ScrollRect linkedHorizontalScrollRect;
 
     public int totalRows = 1000;
     public int totalCols = 1000;
@@ -19,12 +21,47 @@ public class VirtualizedGrid : MonoBehaviour
 
     private Dictionary<Vector2Int, string> cellData = new(); // Guarda el contenido por celda
     private Dictionary<Vector2Int, TMP_InputField> activeCells = new(); // Celdas visibles
+    bool syncing = false; 
 
     void Start()
     {
-        float totalWidth = totalRows * cellWidth;
-        content.sizeDelta = new Vector2(totalWidth, totalRows * cellHeight);
+        content.sizeDelta = new Vector2(totalCols * cellWidth, totalRows * cellHeight);
 
+        scrollRect.onValueChanged.AddListener(_ =>
+        {
+            if (syncing) return;
+            syncing = true;
+
+            if (linkedVerticalScrollRect)
+                linkedVerticalScrollRect.verticalNormalizedPosition = scrollRect.verticalNormalizedPosition;
+
+            if (linkedHorizontalScrollRect)
+                linkedHorizontalScrollRect.horizontalNormalizedPosition = scrollRect.horizontalNormalizedPosition;
+
+            syncing = false;
+        });
+
+        if (linkedVerticalScrollRect)
+        {
+            linkedVerticalScrollRect.onValueChanged.AddListener(_ =>
+            {
+                if (syncing) return;
+                syncing = true;
+                scrollRect.verticalNormalizedPosition = linkedVerticalScrollRect.verticalNormalizedPosition;
+                syncing = false;
+            });
+        }
+
+        if (linkedHorizontalScrollRect)
+        {
+            linkedHorizontalScrollRect.onValueChanged.AddListener(_ =>
+            {
+                if (syncing) return;
+                syncing = true;
+                scrollRect.horizontalNormalizedPosition = linkedHorizontalScrollRect.horizontalNormalizedPosition;
+                syncing = false;
+            });
+        }
         scrollRect.onValueChanged.AddListener(_ => UpdateVisibleCells());
         UpdateVisibleCells();
     }
@@ -36,7 +73,7 @@ public class VirtualizedGrid : MonoBehaviour
         float viewportHeight = scrollRect.viewport.rect.height;
 
         // Posición actual de scroll en píxeles
-        float contentPosX = content.anchoredPosition.x;
+        float contentPosX = -content.anchoredPosition.x;
         float contentPosY = content.anchoredPosition.y;
 
         // Asegúrate de que no sea negativo

@@ -9,10 +9,12 @@ public class ScrollableGrid : MonoBehaviour
     public ScrollRect scrollRect;
     public RectTransform content;
     public GameObject inputFieldPrefab;
+    public ScrollRect linkedVerticalScrollRect;
+    public ScrollRect linkedHorizontalScrollRect;
 
-    public int totalRows = 100;
-    public int totalDateCols = 30;
-    public float cellWidth = 150f;
+    public int totalRows = 1000;
+    public int totalDateCols = 1000;
+    public float cellWidth = 250f;
     public float cellHeight = 50f;
 
     public DateTime fechaInicial = new(2025, 7, 1);
@@ -20,8 +22,46 @@ public class ScrollableGrid : MonoBehaviour
     Dictionary<Vector2Int, string> data = new();
     Dictionary<Vector2Int, TMP_InputField> activeCells = new();
 
+    bool syncing = false;
+
     void Start()
     {
+        scrollRect.onValueChanged.AddListener(_ =>
+        {
+            if (syncing) return;
+            syncing = true;
+
+            if (linkedVerticalScrollRect)
+                linkedVerticalScrollRect.verticalNormalizedPosition = scrollRect.verticalNormalizedPosition;
+
+            if (linkedHorizontalScrollRect)
+                linkedHorizontalScrollRect.horizontalNormalizedPosition = scrollRect.horizontalNormalizedPosition;
+
+            syncing = false;
+        });
+
+        if (linkedVerticalScrollRect)
+        {
+            linkedVerticalScrollRect.onValueChanged.AddListener(_ =>
+            {
+                if (syncing) return;
+                syncing = true;
+                scrollRect.verticalNormalizedPosition = linkedVerticalScrollRect.verticalNormalizedPosition;
+                syncing = false;
+            });
+        }
+
+        if (linkedHorizontalScrollRect)
+        {
+            linkedHorizontalScrollRect.onValueChanged.AddListener(_ =>
+            {
+                if (syncing) return;
+                syncing = true;
+                scrollRect.horizontalNormalizedPosition = linkedHorizontalScrollRect.horizontalNormalizedPosition;
+                syncing = false;
+            });
+        }
+
         scrollRect.onValueChanged.AddListener(_ => UpdateVisibleCells());
         UpdateVisibleCells();
     }
