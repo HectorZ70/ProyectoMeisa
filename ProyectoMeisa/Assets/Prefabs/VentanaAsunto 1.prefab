@@ -812,7 +812,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 6123300340907197540}
         m_TargetAssemblyTypeName: PopUp, Assembly-CSharp
         m_MethodName: Close
         m_Mode: 1
@@ -1081,7 +1081,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 6123300340907197540}
         m_TargetAssemblyTypeName: PopUp, Assembly-CSharp
         m_MethodName: Close
         m_Mode: 1
@@ -2789,6 +2789,7 @@ GameObject:
   - component: {fileID: 2832597594678618796}
   - component: {fileID: 1488567665839944834}
   - component: {fileID: 2185027794303937247}
+  - component: {fileID: 6123300340907197540}
   m_Layer: 5
   m_Name: VentanaAsunto 1
   m_TagString: Untagged
@@ -2870,6 +2871,21 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &6123300340907197540
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4494751296228782409}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bdb71c0969a614c4b887f595bd08bb75, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rowsInput: {fileID: 0}
+  colsInput: {fileID: 0}
+  dropdown: {fileID: 0}
 --- !u!1 &4929573907518473583
 GameObject:
   m_ObjectHideFlags: 0

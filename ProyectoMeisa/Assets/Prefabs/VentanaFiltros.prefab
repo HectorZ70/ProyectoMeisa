@@ -866,6 +866,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rowsInput: {fileID: 0}
   colsInput: {fileID: 0}
+  dropdown: {fileID: 0}
 --- !u!1 &3563839300636419303
 GameObject:
   m_ObjectHideFlags: 0
@@ -1122,7 +1123,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2811904219521451390}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 7099520652077297906}
+        m_TargetAssemblyTypeName: PopUp, Assembly-CSharp
+        m_MethodName: Close
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &4147808751299146053
 GameObject:
   m_ObjectHideFlags: 0
