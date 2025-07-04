@@ -29,7 +29,7 @@ public class ScrollableGrid : MonoBehaviour
     void UpdateVisibleCells()
     {
         Vector2 pos = content.anchoredPosition;
-        float posX = Mathf.Max(0, pos.x);
+        float posX = -pos.x;
         float posY = Mathf.Max(0, pos.y);
 
         float viewWidth = scrollRect.viewport.rect.width;

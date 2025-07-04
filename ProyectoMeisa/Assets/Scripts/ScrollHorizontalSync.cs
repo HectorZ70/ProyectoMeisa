@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ScrollSync : MonoBehaviour
+public class ScrollHorizontalSync : MonoBehaviour
 {
     public ScrollRect source;
     public ScrollRect target;

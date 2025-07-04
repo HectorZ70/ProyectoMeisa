@@ -22,10 +22,9 @@ public class VirtualizedGrid : MonoBehaviour
 
     void Start()
     {
-        // Establece el tamaño del content
-        content.sizeDelta = new Vector2(totalCols * cellWidth, totalRows * cellHeight);
+        float totalWidth = totalRows * cellWidth;
+        content.sizeDelta = new Vector2(totalWidth, totalRows * cellHeight);
 
-        // Llama a UpdateVisibleCells cada vez que se hace scroll
         scrollRect.onValueChanged.AddListener(_ => UpdateVisibleCells());
         UpdateVisibleCells();
     }
