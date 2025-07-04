@@ -2681,8 +2681,8 @@ MonoBehaviour:
   linkedHorizontalScrollRect: {fileID: 0}
   totalRows: 1000
   totalCols: 1000
-  visibleRows: 20
-  visibleCols: 10
+  visibleRows: 250
+  visibleCols: 50
 --- !u!1 &663858088
 GameObject:
   m_ObjectHideFlags: 0
@@ -5641,7 +5641,7 @@ PrefabInstance:
       objectReference: {fileID: 222617205}
     - target: {fileID: 3284583923572612650, guid: 4f88db5fa172e4f4388223bde65d4ddb, type: 3}
       propertyPath: popupPrefabs.Array.size
-      value: 2
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 3284583923572612650, guid: 4f88db5fa172e4f4388223bde65d4ddb, type: 3}
       propertyPath: 'popupPrefabs.Array.data[0]'
@@ -5654,15 +5654,15 @@ PrefabInstance:
     - target: {fileID: 3284583923572612650, guid: 4f88db5fa172e4f4388223bde65d4ddb, type: 3}
       propertyPath: 'popupPrefabs.Array.data[2]'
       value: 
-      objectReference: {fileID: 7949222475094946661, guid: 0b04c50d2297d074a9a06618bf5cd55f, type: 3}
+      objectReference: {fileID: 106825131707387932, guid: bcde2cb66290047428328b6dc50d1749, type: 3}
     - target: {fileID: 3284583923572612650, guid: 4f88db5fa172e4f4388223bde65d4ddb, type: 3}
       propertyPath: 'popupPrefabs.Array.data[3]'
       value: 
-      objectReference: {fileID: 7949222475094946661, guid: 0b04c50d2297d074a9a06618bf5cd55f, type: 3}
+      objectReference: {fileID: 1127109391634615417, guid: c7ebf637df7174040921e1008ce34324, type: 3}
     - target: {fileID: 3284583923572612650, guid: 4f88db5fa172e4f4388223bde65d4ddb, type: 3}
       propertyPath: 'popupPrefabs.Array.data[4]'
       value: 
-      objectReference: {fileID: 7949222475094946661, guid: 0b04c50d2297d074a9a06618bf5cd55f, type: 3}
+      objectReference: {fileID: 1051671889882736752, guid: 0f17b77b3e2148545b13b385ad80f424, type: 3}
     - target: {fileID: 7266355378309540519, guid: 4f88db5fa172e4f4388223bde65d4ddb, type: 3}
       propertyPath: m_Name
       value: PopUps
