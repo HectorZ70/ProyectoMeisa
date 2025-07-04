@@ -10,7 +10,7 @@ public class FixedGrid : MonoBehaviour
     public GameObject inputFieldPrefab;
 
     public int totalRows = 100;
-    public float cellWidth = 150f;
+    public float cellWidth = 250f;
     public float cellHeight = 50f;
 
     Dictionary<Vector2Int, string> data = new();
