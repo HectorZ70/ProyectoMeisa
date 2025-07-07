@@ -30,6 +30,8 @@ public class VirtualizedGrid : MonoBehaviour
     {
         content.sizeDelta = new Vector2(totalCols * cellWidth, totalRows * cellHeight);
 
+
+
         scrollRect.onValueChanged.AddListener(_ =>
         {
             if (syncing) return;
@@ -112,32 +114,32 @@ public class VirtualizedGrid : MonoBehaviour
     }
     void UpdateVisibleCells()
     {
-   
+
         float viewportWidth = scrollRect.viewport.rect.width;
         float viewportHeight = scrollRect.viewport.rect.height;
 
-  
+
         float contentPosX = -content.anchoredPosition.x;
         float contentPosY = content.anchoredPosition.y;
 
-       
+
         contentPosX = Mathf.Max(0, contentPosX);
         contentPosY = Mathf.Max(0, contentPosY);
 
-      
+
         int startCol = Mathf.FloorToInt(contentPosX / cellWidth);
         int startRow = Mathf.FloorToInt(contentPosY / cellHeight);
 
-      
+
         int visibleCols = Mathf.CeilToInt(viewportWidth / cellWidth) + 1;
         int visibleRows = Mathf.CeilToInt(viewportHeight / cellHeight) + 1;
 
-   
+
         foreach (var cell in activeCells.Values)
             Destroy(cell.gameObject);
         activeCells.Clear();
 
-       
+
         for (int r = 0; r < visibleRows; r++)
         {
             for (int c = 0; c < visibleCols; c++)
@@ -169,12 +171,13 @@ public class VirtualizedGrid : MonoBehaviour
                 rt.anchoredPosition = new Vector2(col * cellWidth, -row * cellHeight);
                 rt.sizeDelta = new Vector2(cellWidth, cellHeight);
 
-               
+
                 if (highlightedColumns.Contains(col))
                     HighlightCell(input);
                 else
                     ResetCellVisual(input);
             }
         }
+        UpdateHighlighting();
     }
 }
