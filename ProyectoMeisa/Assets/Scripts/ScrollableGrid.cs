@@ -66,6 +66,24 @@ public class ScrollableGrid : MonoBehaviour
         UpdateVisibleCells();
     }
 
+    public Dictionary<int, DateTime> GetVisibleDateColumns()
+    {
+        Dictionary<int, DateTime> visibleDates = new();
+
+        foreach (var kvp in activeCells)
+        {
+            Vector2Int coord = kvp.Key;
+            TMP_InputField cell = kvp.Value;
+
+            if (coord.x == 0 && DateTime.TryParse(cell.text, out DateTime date))
+            {
+                visibleDates[coord.y - 2] = date; // key = columna
+            }
+        }
+
+        return visibleDates;
+    }
+
     void UpdateVisibleCells()
     {
         Vector2 pos = content.anchoredPosition;
@@ -91,7 +109,7 @@ public class ScrollableGrid : MonoBehaviour
 
             for (int c = 0; c < visibleCols; c++)
             {
-                int col = 2 + startCol + c;
+                int col = startCol + c;
                 if (col >= totalDateCols + 2) continue;
 
                 Vector2Int coord = new(row, col);

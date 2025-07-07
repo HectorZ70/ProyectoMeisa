@@ -7,6 +7,9 @@ public class PopUpSpawner : MonoBehaviour
     public Transform parentCanvas;
     public GridManager gridManager;
 
+    public ScrollableGrid scrollableGrid;
+    public VirtualizedGrid virtualizedGrid;
+
     public void ShowPopup(int index)
     {
         if (index < 0 || index >= popupPrefabs.Length)
@@ -20,7 +23,7 @@ public class PopUpSpawner : MonoBehaviour
         PopUp popupScript = popup.GetComponent<PopUp>();
         if (popupScript != null)
         {
-            popupScript.Init(gridManager, this);
+            popupScript.Init(gridManager, this, scrollableGrid, virtualizedGrid);
         }
     }
 }

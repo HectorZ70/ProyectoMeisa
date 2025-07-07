@@ -5705,6 +5705,14 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 222617205}
     - target: {fileID: 3284583923572612650, guid: 4f88db5fa172e4f4388223bde65d4ddb, type: 3}
+      propertyPath: scrollableGrid
+      value: 
+      objectReference: {fileID: 79121795}
+    - target: {fileID: 3284583923572612650, guid: 4f88db5fa172e4f4388223bde65d4ddb, type: 3}
+      propertyPath: virtualizedGrid
+      value: 
+      objectReference: {fileID: 1219161283}
+    - target: {fileID: 3284583923572612650, guid: 4f88db5fa172e4f4388223bde65d4ddb, type: 3}
       propertyPath: popupPrefabs.Array.size
       value: 5
       objectReference: {fileID: 0}
