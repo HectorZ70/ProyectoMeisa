@@ -8,12 +8,20 @@ public class DropdownHandler : MonoBehaviour
 
     void Start()
     {
-        dropdown.onValueChanged.AddListener(OnDropdownValueChanged);
+        if (dropdown == null)
+            dropdown = GetComponent<TMP_Dropdown>();
+
+        if (dropdown != null)
+            dropdown.onValueChanged.AddListener(OnDropdownValueChanged);
+
+        if (popupSpawner == null)
+            popupSpawner = FindFirstObjectByType<PopUpSpawner>();
+
     }
 
     void OnDropdownValueChanged(int index)
     {
-        if (index > 0)
+        if (index > 0 && popupSpawner != null)
         {
             popupSpawner.ShowPopup(index - 1); 
         }
@@ -22,6 +30,7 @@ public class DropdownHandler : MonoBehaviour
 
     private void OnDestroy()
     {
-        dropdown.onValueChanged.RemoveListener(OnDropdownValueChanged);
+        if (dropdown != null)
+            dropdown.onValueChanged.RemoveListener(OnDropdownValueChanged);
     }
 }

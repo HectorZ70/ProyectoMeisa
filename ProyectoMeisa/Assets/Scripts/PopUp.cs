@@ -7,7 +7,8 @@ public class PopUp : MonoBehaviour
 {
     public TMP_InputField rowsInput;
     public TMP_InputField colsInput;
-    public TMP_Dropdown dropdown;
+    public TMP_Dropdown popupDropdown;
+    public TMP_Dropdown colorDropdown;
     public TMP_InputField startDateInput;
     public TMP_InputField endDateInput;
 
@@ -17,6 +18,7 @@ public class PopUp : MonoBehaviour
 
     private GridManager gridManager;
     private PopUpSpawner popupSpawner;
+    private Color selectedColor = Color.red;
 
     public void Init(GridManager manager, PopUpSpawner spawner, ScrollableGrid dateGrid, VirtualizedGrid virtualGrid)
     {
@@ -25,19 +27,53 @@ public class PopUp : MonoBehaviour
         this.dateGrid = dateGrid;
         this.virtualizedGrid = virtualGrid;
 
-        if (dropdown == null)
-            dropdown = GetComponentInChildren<TMP_Dropdown>();
+        if (popupDropdown == null)
+            popupDropdown = transform.Find("PopupDropdown")?.GetComponent<TMP_Dropdown>();
 
+        if (colorDropdown == null)
+            colorDropdown = transform.Find("ColorDropdown")?.GetComponent<TMP_Dropdown>();
 
-        if (dropdown != null)
-        {
-            dropdown.onValueChanged.AddListener(OnDropdownChanged);
-        }
+        if (popupDropdown != null)
+            popupDropdown.onValueChanged.AddListener(OnPopupDropdownChanged);
+
+        if (colorDropdown != null)
+            colorDropdown.onValueChanged.AddListener(OnColorDropdownChanged);
     }
 
-    private Color GetSelectedColor()
+   public void OnAccept()
+{
+    if (DateTime.TryParse(startDateInput.text, out DateTime startDate) &&
+        DateTime.TryParse(endDateInput.text, out DateTime endDate))
     {
-        return dropdown.value switch
+        Dictionary<int, DateTime> visibleDates = dateGrid.GetVisibleDateColumns();
+        virtualizedGrid.HighlightColumnsByDateRange(startDate, endDate, visibleDates, selectedColor);
+        Destroy(gameObject);
+    }
+    else
+    {
+        Debug.LogWarning("Fechas inválidas.");
+    }
+}
+
+    public void OnPopupDropdownChanged(int index)
+    {
+        if (index > 0 && popupSpawner != null)
+        {
+            popupSpawner.ShowPopup(index - 1); 
+            Destroy(gameObject); 
+        }
+
+        popupDropdown.value = 0; 
+    }
+
+    public void OnColorDropdownChanged(int index)
+    {
+        selectedColor = GetSelectedColor(index);
+    }
+
+    private Color GetSelectedColor(int index)
+    {
+        return index switch
         {
             0 => Color.red,
             1 => Color.yellow,
@@ -50,33 +86,6 @@ public class PopUp : MonoBehaviour
             8 => Color.lightGreen,
             _ => Color.violet
         };
-    }
-
-   public void OnAccept()
-{
-    if (DateTime.TryParse(startDateInput.text, out DateTime startDate) &&
-        DateTime.TryParse(endDateInput.text, out DateTime endDate))
-    {
-        Dictionary<int, DateTime> visibleDates = dateGrid.GetVisibleDateColumns();
-        Color selectedColor = GetSelectedColor();
-        virtualizedGrid.HighlightColumnsByDateRange(startDate, endDate, visibleDates, selectedColor);
-        Destroy(gameObject);
-    }
-    else
-    {
-        Debug.LogWarning("Fechas inválidas.");
-    }
-}
-
-    public void OnDropdownChanged(int index)
-    {
-        if (index > 0 && popupSpawner != null)
-        {
-            popupSpawner.ShowPopup(index - 1); 
-            Destroy(gameObject); 
-        }
-
-        dropdown.value = 0; 
     }
 
     public void Close()
