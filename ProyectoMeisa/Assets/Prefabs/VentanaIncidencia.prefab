@@ -488,7 +488,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rowsInput: {fileID: 0}
   colsInput: {fileID: 0}
-  dropdown: {fileID: 0}
+  popupDropdown: {fileID: 9019564055570532465}
+  colorDropdown: {fileID: 4308901218118212287}
   startDateInput: {fileID: 4133419859145377403}
   endDateInput: {fileID: 6263336451889753061}
   dateGrid: {fileID: 0}
