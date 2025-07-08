@@ -26,6 +26,8 @@ public class ScrollableGrid : MonoBehaviour
 
     void Start()
     {
+        fechaInicial = DateTime.Today;
+
         scrollRect.onValueChanged.AddListener(_ =>
         {
             if (syncing) return;
@@ -63,6 +65,7 @@ public class ScrollableGrid : MonoBehaviour
         }
 
         scrollRect.onValueChanged.AddListener(_ => UpdateVisibleCells());
+
         UpdateVisibleCells();
     }
 
@@ -77,7 +80,7 @@ public class ScrollableGrid : MonoBehaviour
 
             if (coord.x == 0 && DateTime.TryParse(cell.text, out DateTime date))
             {
-                visibleDates[coord.y - 2] = date; // key = columna
+                visibleDates[coord.y - 2] = date; 
             }
         }
 
