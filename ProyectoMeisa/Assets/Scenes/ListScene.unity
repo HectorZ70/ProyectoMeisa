@@ -1173,7 +1173,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3284583923572612650, guid: 4f88db5fa172e4f4388223bde65d4ddb, type: 3}
   m_PrefabInstance: {fileID: 6267050106410271535}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 6267050106410271536}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 159d72aee9a05934ab60b8acfbb30361, type: 3}
@@ -4851,14 +4851,14 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 3774056552141335596}
-        m_TargetAssemblyTypeName: ExitButton, Assembly-CSharp
-        m_MethodName: ExitApp
-        m_Mode: 1
+      - m_Target: {fileID: 353922442}
+        m_TargetAssemblyTypeName: PopUpSpawner, Assembly-CSharp
+        m_MethodName: ShowPopup
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 5
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -5669,9 +5669,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 3774056552141335595}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 91d2dbdab5e756a4d8fd4588f321fb55, type: 3}
+  m_Script: {fileID: 11500000, guid: 3451919f6f5782141a34191f450b2046, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  popupPanel: {fileID: 6267050106410271536}
 --- !u!1001 &4639055014895681247
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5803,7 +5804,7 @@ PrefabInstance:
       objectReference: {fileID: 1219161283}
     - target: {fileID: 3284583923572612650, guid: 4f88db5fa172e4f4388223bde65d4ddb, type: 3}
       propertyPath: popupPrefabs.Array.size
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 3284583923572612650, guid: 4f88db5fa172e4f4388223bde65d4ddb, type: 3}
       propertyPath: 'popupPrefabs.Array.data[0]'
@@ -5825,6 +5826,10 @@ PrefabInstance:
       propertyPath: 'popupPrefabs.Array.data[4]'
       value: 
       objectReference: {fileID: 3377734932929482264, guid: e8f53d31ab88d2840a90c718c781bd9b, type: 3}
+    - target: {fileID: 3284583923572612650, guid: 4f88db5fa172e4f4388223bde65d4ddb, type: 3}
+      propertyPath: 'popupPrefabs.Array.data[5]'
+      value: 
+      objectReference: {fileID: 6407997022771083188, guid: 85b652e17b44b974aa5e5d42823bb630, type: 3}
     - target: {fileID: 7266355378309540519, guid: 4f88db5fa172e4f4388223bde65d4ddb, type: 3}
       propertyPath: m_Name
       value: PopUps
@@ -5834,6 +5839,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4f88db5fa172e4f4388223bde65d4ddb, type: 3}
+--- !u!1 &6267050106410271536 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7266355378309540519, guid: 4f88db5fa172e4f4388223bde65d4ddb, type: 3}
+  m_PrefabInstance: {fileID: 6267050106410271535}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

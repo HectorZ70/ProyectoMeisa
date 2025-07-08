@@ -16,6 +16,7 @@ public class PopUp : MonoBehaviour
 
     public ScrollableGrid dateGrid;
     public VirtualizedGrid virtualizedGrid;
+    public GameObject popupPanel;
 
     private GridManager gridManager;
     private PopUpSpawner popupSpawner;
@@ -39,6 +40,20 @@ public class PopUp : MonoBehaviour
 
         if (colorDropdown != null)
             colorDropdown.onValueChanged.AddListener(OnColorDropdownChanged);
+    }
+
+    public void ConfirmExit()
+    {
+        Application.Quit();
+
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+
+#endif
+    }
+    public void CancelExit()
+    {
+        popupPanel.SetActive(false);
     }
 
     public void OnAccept()
