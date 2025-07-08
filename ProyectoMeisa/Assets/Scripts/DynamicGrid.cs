@@ -4,8 +4,8 @@ using UnityEngine.UI;
 
 public class DynamicGrid : MonoBehaviour
 {
-    public RectTransform content;        // Referencia al Content del Scroll View
-    public GameObject inputFieldPrefab;  // Prefab del InputField
+    public RectTransform content;        
+    public GameObject inputFieldPrefab;  
     public int rows = 10;
     public int columns = 5;
 
@@ -20,12 +20,12 @@ public class DynamicGrid : MonoBehaviour
         {
             GameObject field = Instantiate(inputFieldPrefab, content);
             field.name = $"InputField_{i / columns}_{i % columns}";
-            field.GetComponentInChildren<TMP_InputField>().text = ""; // si usas TMP
+            field.GetComponentInChildren<TMP_InputField>().text = ""; 
         }
 
-        // Ajusta el tamaño del Content para scroll automático si no lo hace el ContentSizeFitter
-        float cellHeight = 30f; // o el tamaño real del prefab
-        float spacingY = 10f;   // el valor de spacing del Grid Layout
+        
+        float cellHeight = 30f; 
+        float spacingY = 10f;   
         float totalHeight = (cellHeight + spacingY) * rows;
 
         content.sizeDelta = new Vector2(content.sizeDelta.x, totalHeight);

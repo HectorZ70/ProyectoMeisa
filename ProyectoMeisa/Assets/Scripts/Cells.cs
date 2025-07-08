@@ -4,10 +4,10 @@ using TMPro;
 
 public class Cells : MonoBehaviour
 {
-    public RectTransform content;              // El objeto "Content"
-    public GameObject inputFieldPrefab;        // El prefab del InputField
-    public int rows = 10;                      // Número de filas
-    public int columns = 5;                    // Número de columnas
+    public RectTransform content;              
+    public GameObject inputFieldPrefab;        
+    public int rows = 10;                      
+    public int columns = 5;                    
 
     void Start()
     {
@@ -23,8 +23,7 @@ public class Cells : MonoBehaviour
             GameObject cell = Instantiate(inputFieldPrefab, content);
             cell.name = $"Cell_{i / columns}_{i % columns}";
 
-            // Opcional: establecer texto por defecto
-            var input = cell.GetComponent<TMP_InputField>(); // O InputField si no usas TMP
+            var input = cell.GetComponent<TMP_InputField>(); 
             if (input != null)
                 input.text = "";
         }

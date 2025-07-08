@@ -124,6 +124,31 @@ public class VirtualizedGrid : MonoBehaviour
         }
     }
 
+    public void ClearCellsInColumns(List<int> columnsToClear)
+    {
+        foreach (var col in columnsToClear)
+        {
+            for (int row = 0; row < totalRows; row++)
+            {
+                Vector2Int coord = new(row, col);
+
+                if (cellData.ContainsKey(coord))
+                    cellData.Remove(coord);
+
+                if (activeCells.TryGetValue(coord, out TMP_InputField cell))
+                {
+                    cell.text = "";
+                    ResetCellVisual(cell);
+                }
+            }
+        }
+
+        foreach (var col in columnsToClear)
+            highlightedColumns.Remove(col);
+
+        UpdateHighlighting();
+    }
+
     void UpdateVisibleCells()
     {
 

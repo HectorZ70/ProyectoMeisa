@@ -103,8 +103,10 @@ MonoBehaviour:
   colorDropdown: {fileID: 0}
   startDateInput: {fileID: 1708609951704429701}
   endDateInput: {fileID: 5201396674183786006}
+  customTextInput: {fileID: 0}
   dateGrid: {fileID: 0}
   virtualizedGrid: {fileID: 0}
+  popupPanel: {fileID: 0}
 --- !u!1 &466994493799096099
 GameObject:
   m_ObjectHideFlags: 0
@@ -986,13 +988,13 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 106825131707387932}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
+      - m_Target: {fileID: 1547738379145261332}
+        m_TargetAssemblyTypeName: PopUp, Assembly-CSharp
+        m_MethodName: ClearHighlightedCells
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 

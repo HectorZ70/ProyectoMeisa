@@ -121,6 +121,36 @@ public class PopUp : MonoBehaviour
         };
     }
 
+    public void ClearHighlightedCells()
+    {
+        if (DateTime.TryParse(startDateInput.text, out DateTime startDate) &&
+            DateTime.TryParse(endDateInput.text, out DateTime endDate))
+        {
+            Dictionary<int, DateTime> visibleDates = dateGrid.GetVisibleDateColumns();
+            List<int> columnsToClear = new();
+
+            foreach (var kvp in visibleDates)
+            {
+                if (kvp.Value >= startDate && kvp.Value <= endDate)
+                    columnsToClear.Add(kvp.Key);
+            }
+
+            if (columnsToClear.Count > 0)
+            {
+                virtualizedGrid.ClearCellsInColumns(columnsToClear);
+            }
+            else
+            {
+                Debug.Log("No se encontraron columnas en el rango de fechas.");
+            }
+        }
+        else
+        {
+            Debug.LogWarning("Fechas inválidas.");
+        }
+    }
+
+
     public void Close()
     {
         Destroy(gameObject);
