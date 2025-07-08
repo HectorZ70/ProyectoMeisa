@@ -112,6 +112,18 @@ public class VirtualizedGrid : MonoBehaviour
         if (cell.image != null)
             cell.image.color = Color.white;
     }
+
+    public void WriteToCell(int row, int col, string text)
+    {
+        Vector2Int coord = new(row, col);
+        cellData[coord] = text;
+
+        if (activeCells.TryGetValue(coord, out TMP_InputField cell))
+        {
+            cell.text = text;
+        }
+    }
+
     void UpdateVisibleCells()
     {
 

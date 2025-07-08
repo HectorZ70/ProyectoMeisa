@@ -11,6 +11,7 @@ public class PopUp : MonoBehaviour
     public TMP_Dropdown colorDropdown;
     public TMP_InputField startDateInput;
     public TMP_InputField endDateInput;
+    public TMP_InputField customTextInput;
 
 
     public ScrollableGrid dateGrid;
@@ -40,20 +41,37 @@ public class PopUp : MonoBehaviour
             colorDropdown.onValueChanged.AddListener(OnColorDropdownChanged);
     }
 
-   public void OnAccept()
-{
-    if (DateTime.TryParse(startDateInput.text, out DateTime startDate) &&
-        DateTime.TryParse(endDateInput.text, out DateTime endDate))
+    public void OnAccept()
     {
-        Dictionary<int, DateTime> visibleDates = dateGrid.GetVisibleDateColumns();
-        virtualizedGrid.HighlightColumnsByDateRange(startDate, endDate, visibleDates, selectedColor);
-        Destroy(gameObject);
+        if (DateTime.TryParse(startDateInput.text, out DateTime startDate) &&
+            DateTime.TryParse(endDateInput.text, out DateTime endDate))
+        {
+            Dictionary<int, DateTime> visibleDates = dateGrid.GetVisibleDateColumns();
+
+            List<int> highlightedCols = new();
+
+            foreach (var kvp in visibleDates)
+            {
+                if (kvp.Value >= startDate && kvp.Value <= endDate)
+                    highlightedCols.Add(kvp.Key);
+            }
+
+            virtualizedGrid.HighlightColumnsByDateRange(startDate, endDate, visibleDates, selectedColor);
+
+            if (highlightedCols.Count > 0 && customTextInput != null)
+            {
+                int firstCol = highlightedCols[0];
+                string textToWrite = customTextInput.text;
+                virtualizedGrid.WriteToCell(0, firstCol, textToWrite);
+            }
+
+            Destroy(gameObject);
+        }
+        else
+        {
+            Debug.LogWarning("Fechas inválidas.");
+        }
     }
-    else
-    {
-        Debug.LogWarning("Fechas inválidas.");
-    }
-}
 
     public void OnPopupDropdownChanged(int index)
     {
