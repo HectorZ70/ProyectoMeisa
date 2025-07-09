@@ -9,6 +9,7 @@ public class PopUp : MonoBehaviour
     public TMP_InputField colsInput;
     public TMP_Dropdown popupDropdown;
     public TMP_Dropdown colorDropdown;
+    public TMP_Dropdown fileDropdown;
     public TMP_InputField startDateInput;
     public TMP_InputField endDateInput;
     public TMP_InputField customTextInput;
@@ -17,6 +18,7 @@ public class PopUp : MonoBehaviour
     public ScrollableGrid dateGrid;
     public VirtualizedGrid virtualizedGrid;
     public GameObject popupPanel;
+    public FileIO fileIO;
 
     private GridManager gridManager;
     private PopUpSpawner popupSpawner;
@@ -86,6 +88,26 @@ public class PopUp : MonoBehaviour
         {
             Debug.LogWarning("Fechas inválidas.");
         }
+    }
+
+    public void OnFileDropownChanged(int index)
+    {
+        string selectedOption = fileDropdown.options[index].text;
+
+        switch(selectedOption)
+        {
+            case "Abrir":
+                if(fileIO != null)
+                {
+                    fileIO.OpenFile();
+                }
+                else
+                {
+                    Debug.LogWarning("Referencia a FileIO no asignada");
+                }
+                    break;
+        }
+        fileDropdown.value = 0;
     }
 
     public void OnPopupDropdownChanged(int index)
