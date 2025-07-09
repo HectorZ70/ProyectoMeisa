@@ -149,7 +149,7 @@ public class VirtualizedGrid : MonoBehaviour
         UpdateHighlighting();
     }
 
-    void UpdateVisibleCells()
+    public void UpdateVisibleCells()
     {
 
         float viewportWidth = scrollRect.viewport.rect.width;
