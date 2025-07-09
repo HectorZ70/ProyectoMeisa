@@ -107,7 +107,7 @@ public class PopUp : MonoBehaviour
                 }
                     break;
         }
-        fileDropdown.value = 0;
+        fileDropdown.SetValueWithoutNotify(0);
     }
 
     public void OnPopupDropdownChanged(int index)

@@ -9,27 +9,32 @@ public class FileIO : MonoBehaviour
 {
     public VirtualizedGrid grid;         
     public TextAsset fileToLoad;         
-    public bool isTSV = true;            
+    public bool isTSV = true;
+    private bool isLoadingFile = false;
 
     public void OpenFile()
     {
+        if (isLoadingFile) return;
+        isLoadingFile = true;
+
         var extensions = new[]
         {
-            new ExtensionFilter("TSV files", "tsv"),
-            new ExtensionFilter("CSV files", "csv"),
-            new ExtensionFilter("All files", "*"),
-        };
+        new ExtensionFilter("TSV files", "tsv"),
+        new ExtensionFilter("CSV files", "csv"),
+        new ExtensionFilter("All files", "*"),
+    };
 
-        string[] paths = StandaloneFileBrowser.OpenFilePanel("Seleccionar archivo", "", extensions, false);
-
-        if (paths.Length > 0 && File.Exists(paths[0]))
+        StandaloneFileBrowser.OpenFilePanelAsync("Seleccionar archivo", "", extensions, false, (paths) =>
         {
-            string text = File.ReadAllText(paths[0]);
+            isLoadingFile = false;
 
-            bool isTSV = Path.GetExtension(paths[0]).ToLower() == ".tsv";
-
-            LoadToGrid(text, isTSV);
-        }
+            if (paths.Length > 0 && File.Exists(paths[0]))
+            {
+                string text = File.ReadAllText(paths[0]);
+                this.isTSV = Path.GetExtension(paths[0]).ToLower() == ".tsv";
+                LoadToGrid(text, this.isTSV);
+            }
+        });
     }
 
     public void LoadToGrid(string fileText, bool isTSV)
@@ -41,7 +46,8 @@ public class FileIO : MonoBehaviour
 
         for (int row = 0; row < lines.Length; row++)
         {
-            string[] cells = isTSV ? lines[row].Split('\t') : lines[row].Split(',');
+            char delimiter = DetectDelimiter(lines[row]);
+            string[] cells = lines[row].Split(delimiter);
 
             for (int col = 0; col < cells.Length; col++)
             {
@@ -55,5 +61,15 @@ public class FileIO : MonoBehaviour
         grid.totalRows = Mathf.Max(grid.totalRows, maxRow + 1);
         grid.totalCols = Mathf.Max(grid.totalCols, maxCol + 1);
         grid.UpdateVisibleCells();
+    }
+
+    private char DetectDelimiter(string line)
+    {
+        if (line.Contains('\t')) return '\t';
+        if (line.Contains(';')) return ';';
+        if (line.Contains(',')) return ',';
+
+        Debug.LogWarning("No se detectó delimitador claro en la línea: " + line);
+        return ',';
     }
 }
