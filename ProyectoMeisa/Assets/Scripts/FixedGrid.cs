@@ -31,7 +31,7 @@ public class FixedGrid : MonoBehaviour
         int visibleRows = Mathf.CeilToInt(viewportHeight / cellHeight) + 1;
 
         // Siempre columnas 0 y 1
-        int[] columnasFijas = { 0, 1 };
+        int[] columnasFijas = { 0, 1, 2, 3 };
 
         foreach (var cell in activeCells.Values)
             Destroy(cell.gameObject);
@@ -51,7 +51,13 @@ public class FixedGrid : MonoBehaviour
                 if (row == 0)
                 {
                     input.interactable = false;
-                    input.text = col == 0 ? "Nombre" : "Número";
+                    input.text = col switch
+                    {
+                        0 => "Código",
+                        1 => "Nombre",
+                        2 => "Categoría",
+                        _ => "Rol"
+                    };
                 }
                 else
                 {

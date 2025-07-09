@@ -17,8 +17,8 @@ public class VirtualizedGrid : MonoBehaviour
     public int visibleRows = 20;                
     public int visibleCols = 10;                
 
-    private float cellWidth = 250f;
-    private float cellHeight = 50f;
+    public float cellWidth = 250f;
+    public float cellHeight = 50f;
     private Color highlightColor = Color.yellow;
 
     private Dictionary<Vector2Int, string> cellData = new(); 
