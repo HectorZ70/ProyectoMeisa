@@ -7,9 +7,9 @@ using UnityEngine.UI;
 
 public class FileIO : MonoBehaviour
 {
-    public VirtualizedGrid grid;         // Referencia a tu grilla
-    public TextAsset fileToLoad;         // Opción de archivo precargado
-    public bool isTSV = true;            // Tipo por defecto
+    public VirtualizedGrid grid;         
+    public TextAsset fileToLoad;         
+    public bool isTSV = true;            
 
     public void OpenFile()
     {
@@ -20,14 +20,12 @@ public class FileIO : MonoBehaviour
             new ExtensionFilter("All files", "*"),
         };
 
-        // ?? El cuarto parámetro indica si se pueden seleccionar múltiples archivos (false = uno solo)
         string[] paths = StandaloneFileBrowser.OpenFilePanel("Seleccionar archivo", "", extensions, false);
 
         if (paths.Length > 0 && File.Exists(paths[0]))
         {
             string text = File.ReadAllText(paths[0]);
 
-            // Detecta automáticamente el tipo por la extensión
             bool isTSV = Path.GetExtension(paths[0]).ToLower() == ".tsv";
 
             LoadToGrid(text, isTSV);
@@ -54,7 +52,6 @@ public class FileIO : MonoBehaviour
             maxRow = Mathf.Max(maxRow, row);
         }
 
-        // Ajusta el tamaño de la grilla virtual según lo que se cargó
         grid.totalRows = Mathf.Max(grid.totalRows, maxRow + 1);
         grid.totalCols = Mathf.Max(grid.totalCols, maxCol + 1);
         grid.UpdateVisibleCells();

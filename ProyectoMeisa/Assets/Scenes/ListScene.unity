@@ -5251,6 +5251,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 656366021}
     - target: {fileID: 3122055767906985751, guid: 7bfb699efbf077b42a2e1eab4e70eb39, type: 3}
+      propertyPath: isTSV
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3122055767906985751, guid: 7bfb699efbf077b42a2e1eab4e70eb39, type: 3}
       propertyPath: fileToLoad
       value: 
       objectReference: {fileID: 4900000, guid: 27fe644fed87f6f49b90d4bc3a001a2d, type: 3}
