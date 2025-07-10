@@ -45,5 +45,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   grid: {fileID: 0}
-  fileToLoad: {fileID: 0}
+  fileToLoad: {fileID: 4900000, guid: 27fe644fed87f6f49b90d4bc3a001a2d, type: 3}
   isTSV: 1

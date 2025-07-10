@@ -12,9 +12,30 @@ public class FileIO : MonoBehaviour
     public bool isTSV = true;
     private bool isLoadingFile = false;
 
+    private void Awake()
+    {
+        if (grid == null)
+        {
+            grid = FindFirstObjectByType<VirtualizedGrid>();
+            if (grid == null)
+                Debug.LogError("No se encontró ningún VirtualizedGrid en la escena.");
+        }
+    }
+
     public void OpenFile()
     {
         if (isLoadingFile) return;
+
+        if (grid == null)
+        {
+            grid = FindFirstObjectByType<VirtualizedGrid>();
+            if (grid == null)
+            {
+                Debug.LogError("grid sigue siendo null al abrir archivo.");
+                return;
+            }
+        }
+
         isLoadingFile = true;
 
         var extensions = new[]
