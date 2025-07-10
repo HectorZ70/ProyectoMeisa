@@ -720,7 +720,6 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 656366017}
   - {fileID: 1087710012}
   - {fileID: 507193091}
   - {fileID: 530336953}
@@ -731,6 +730,7 @@ RectTransform:
   - {fileID: 1219161279}
   - {fileID: 1785297248}
   - {fileID: 79121791}
+  - {fileID: 656366017}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -2544,8 +2544,8 @@ MonoBehaviour:
   linkedHorizontalScrollRect: {fileID: 0}
   totalRows: 1000
   totalCols: 1000
-  visibleRows: 20
-  visibleCols: 10
+  visibleRows: 250
+  visibleCols: 50
   cellWidth: 160
   cellHeight: 50
 --- !u!1 &663858088
