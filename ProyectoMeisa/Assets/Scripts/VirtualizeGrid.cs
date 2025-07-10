@@ -3,6 +3,7 @@ using TMPro;
 using UnityEngine.UI;
 using UnityEngine;
 using System;
+using System.Linq;
 
 public class VirtualizedGrid : MonoBehaviour
 {
@@ -147,6 +148,35 @@ public class VirtualizedGrid : MonoBehaviour
             highlightedColumns.Remove(col);
 
         UpdateHighlighting();
+    }
+
+    public void SortGridByColumnNumeric(int colIndex)
+    {
+        List<string[]> allRows = new List<string[]>();
+
+        for (int row = 0; row < totalRows; row++)
+        {
+            string[] rowData = new string[totalCols];
+            for (int col = 0; col < totalCols; col++)
+            {
+                Vector2Int coord = new Vector2Int(row, col);
+                rowData[col] = cellData.TryGetValue(coord, out string value) ? value : "";
+            }
+            allRows.Add(rowData);
+        }
+
+        allRows = allRows.OrderBy(row => int.TryParse(row[colIndex], out int n) ? n : int.MaxValue).ToList();
+
+        cellData.Clear();
+        for (int row = 0; row < allRows.Count; row++)
+        {
+            for (int col = 0; col < totalCols; col++)
+            {
+                Vector2Int coord = new Vector2Int(row, col);
+                cellData[coord] = allRows[row][col];
+            }
+        }
+        UpdateVisibleCells();
     }
 
     public void UpdateVisibleCells()

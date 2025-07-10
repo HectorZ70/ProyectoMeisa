@@ -9,6 +9,7 @@ public class PopUp : MonoBehaviour
     public TMP_InputField colsInput;
     public TMP_Dropdown popupDropdown;
     public TMP_Dropdown colorDropdown;
+    public TMP_Dropdown filterDropdown;
     public TMP_Dropdown fileDropdown;
     public TMP_InputField startDateInput;
     public TMP_InputField endDateInput;
@@ -89,8 +90,22 @@ public class PopUp : MonoBehaviour
             Debug.LogWarning("Fechas inválidas.");
         }
     }
+public void OnSortButtonClicked()
+{
+    int selectedColumn = filterDropdown.value; 
 
-    public void OnFileDropownChanged(int index)
+    if (virtualizedGrid != null)
+    {
+        virtualizedGrid.SortGridByColumnNumeric(selectedColumn);
+    }
+    else
+    {
+        Debug.LogWarning("No se asignó la referencia al grid.");
+    }
+    gameObject.SetActive(false);
+}
+
+public void OnFileDropownChanged(int index)
     {
         string selectedOption = fileDropdown.options[index].text;
 

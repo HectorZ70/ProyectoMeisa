@@ -866,7 +866,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rowsInput: {fileID: 0}
   colsInput: {fileID: 0}
-  dropdown: {fileID: 0}
+  popupDropdown: {fileID: 0}
+  colorDropdown: {fileID: 0}
+  fileDropdown: {fileID: 0}
+  startDateInput: {fileID: 0}
+  endDateInput: {fileID: 0}
+  customTextInput: {fileID: 0}
+  dateGrid: {fileID: 0}
+  virtualizedGrid: {fileID: 0}
+  popupPanel: {fileID: 0}
+  fileIO: {fileID: 0}
 --- !u!1 &3563839300636419303
 GameObject:
   m_ObjectHideFlags: 0
@@ -1659,7 +1668,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Option A
+  m_text: "N\xFAmero Operador"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -2079,7 +2088,7 @@ MonoBehaviour:
   m_MultiSelect: 0
   m_Options:
     m_Options:
-    - m_Text: Option A
+    - m_Text: "N\xFAmero Operador"
       m_Image: {fileID: 0}
       m_Color: {r: 1, g: 1, b: 1, a: 1}
     - m_Text: Option B
@@ -2096,7 +2105,19 @@ MonoBehaviour:
       m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 11500000, guid: d61e645c370199741a3c5842f202da2b, type: 3}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_AlphaFadeSpeed: 0.15
 --- !u!1 &9220586223988809205
 GameObject:
