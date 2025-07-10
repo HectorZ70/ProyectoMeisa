@@ -150,8 +150,19 @@ public class VirtualizedGrid : MonoBehaviour
         UpdateHighlighting();
     }
 
+    private void SyncVisibleCellsToData()
+    {
+        foreach (var kvp in activeCells)
+        {
+            Vector2Int coord = kvp.Key;
+            TMP_InputField input = kvp.Value;
+            cellData[coord] = input.text;
+        }
+    }
+
     public void SortGridByColumnNumeric(int colIndex)
     {
+        SyncVisibleCellsToData();
         List<string[]> allRows = new List<string[]>();
 
         for (int row = 0; row < totalRows; row++)
