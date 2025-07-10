@@ -179,6 +179,8 @@ public class VirtualizedGrid : MonoBehaviour
         UpdateVisibleCells();
     }
 
+
+
     public void UpdateVisibleCells()
     {
 
