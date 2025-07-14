@@ -113,9 +113,7 @@ public class PopUp : MonoBehaviour
 
         int col = index - 1;
 
-        bool isAlphabetical = (col == 1);
-
-        if (isAlphabetical)
+        if (col == 1)
         {
             virtualizedGrid2.SortBySecondColumnAlphabetically(true); 
         }

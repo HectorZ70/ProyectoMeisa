@@ -2110,10 +2110,13 @@ MonoBehaviour:
     - m_Text: "N\xFAmero Operario"
       m_Image: {fileID: 0}
       m_Color: {r: 1, g: 1, b: 1, a: 1}
-    - m_Text: "N\xFAmero Operario"
+    - m_Text: Nombre Operario
       m_Image: {fileID: 0}
       m_Color: {r: 1, g: 1, b: 1, a: 1}
-    - m_Text: "N\xFAmero Operario"
+    - m_Text: "Categor\xEDa Operario"
+      m_Image: {fileID: 0}
+      m_Color: {r: 1, g: 1, b: 1, a: 1}
+    - m_Text: Rol Operario
       m_Image: {fileID: 0}
       m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_OnValueChanged:

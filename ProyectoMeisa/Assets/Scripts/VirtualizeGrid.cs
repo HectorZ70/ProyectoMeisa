@@ -219,7 +219,7 @@ public class VirtualizedGrid : MonoBehaviour
 
     public void SortBySecondColumnAlphabetically(bool ascending = true)
     {
-        SyncVisibleCellsToData(); 
+        SyncVisibleCellsToData();
 
         List<string[]> allRows = new List<string[]>();
 
@@ -234,19 +234,14 @@ public class VirtualizedGrid : MonoBehaviour
             allRows.Add(rowData);
         }
 
-        if (ascending)
-        {
-            allRows = allRows.OrderBy(row => row.Length > 1 ? row[1] : "").ToList();
-        }
-        else
-        {
-            allRows = allRows.OrderByDescending(row => row.Length > 1 ? row[1] : "").ToList();
-        }
+        allRows = ascending
+            ? allRows.OrderBy(row => row.Length > 1 ? row[1] : "").ToList()
+            : allRows.OrderByDescending(row => row.Length > 1 ? row[1] : "").ToList();
 
         cellData.Clear();
         for (int row = 0; row < allRows.Count; row++)
         {
-            for (int col = 0; col < allRows[row].Length; col++)
+            for (int col = 0; col < totalCols; col++)
             {
                 Vector2Int coord = new Vector2Int(row, col);
                 cellData[coord] = allRows[row][col];
