@@ -27,7 +27,9 @@ public class VirtualizedGrid : MonoBehaviour
     private Dictionary<Vector2Int, string> cellData = new(); 
     private Dictionary<Vector2Int, TMP_InputField> activeCells = new(); 
     private HashSet<int> highlightedColumns = new HashSet<int>();
-    bool syncing = false; 
+    bool syncing = false;
+    public int rowCount;
+    public int colCount;
 
     void Start()
     {
@@ -214,6 +216,46 @@ public class VirtualizedGrid : MonoBehaviour
 
         UpdateVisibleCells();
     }
+
+    public void SortBySecondColumnAlphabetically(bool ascending = true)
+    {
+        SyncVisibleCellsToData(); 
+
+        List<string[]> allRows = new List<string[]>();
+
+        for (int row = 0; row < totalRows; row++)
+        {
+            string[] rowData = new string[totalCols];
+            for (int col = 0; col < totalCols; col++)
+            {
+                Vector2Int coord = new Vector2Int(row, col);
+                rowData[col] = cellData.TryGetValue(coord, out string value) ? value : "";
+            }
+            allRows.Add(rowData);
+        }
+
+        if (ascending)
+        {
+            allRows = allRows.OrderBy(row => row.Length > 1 ? row[1] : "").ToList();
+        }
+        else
+        {
+            allRows = allRows.OrderByDescending(row => row.Length > 1 ? row[1] : "").ToList();
+        }
+
+        cellData.Clear();
+        for (int row = 0; row < allRows.Count; row++)
+        {
+            for (int col = 0; col < allRows[row].Length; col++)
+            {
+                Vector2Int coord = new Vector2Int(row, col);
+                cellData[coord] = allRows[row][col];
+            }
+        }
+
+        UpdateVisibleCells();
+    }
+
 
     public void Save()
     {
