@@ -4,7 +4,6 @@ using UnityEngine.UI;
 using UnityEngine;
 using System;
 using System.Linq;
-using UnityEditor.Rendering;
 
 public class VirtualizedGrid : MonoBehaviour
 {
