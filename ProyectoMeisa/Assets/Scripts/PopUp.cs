@@ -45,6 +45,11 @@ public class PopUp : MonoBehaviour
 
         if (colorDropdown != null)
             colorDropdown.onValueChanged.AddListener(OnColorDropdownChanged);
+
+        if (filterDropdown != null)
+        {
+            filterDropdown.onValueChanged.AddListener(delegate { OnSortButtonClicked(); });
+        }
     }
 
     public void ConfirmExit()
