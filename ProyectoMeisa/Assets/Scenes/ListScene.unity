@@ -156,7 +156,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: -17, y: 0}
+  m_SizeDelta: {x: -17, y: 200}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &2028477
 MonoBehaviour:
@@ -857,7 +857,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 460737401}
   m_Direction: 0
   m_Value: 0
-  m_Size: 0.84199995
+  m_Size: 0.9333333
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -1012,7 +1012,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: -17, y: 0}
+  m_SizeDelta: {x: 120, y: 200}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &329290083
 MonoBehaviour:
@@ -1890,7 +1890,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: -17, y: 0}
+  m_SizeDelta: {x: 125.5015, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &543225965
 MonoBehaviour:
@@ -5497,6 +5497,10 @@ PrefabInstance:
       propertyPath: virtualizedGrid
       value: 
       objectReference: {fileID: 1219161283}
+    - target: {fileID: 3284583923572612650, guid: 4f88db5fa172e4f4388223bde65d4ddb, type: 3}
+      propertyPath: virtualizedGrid2
+      value: 
+      objectReference: {fileID: 656366021}
     - target: {fileID: 3284583923572612650, guid: 4f88db5fa172e4f4388223bde65d4ddb, type: 3}
       propertyPath: popupPrefabs.Array.size
       value: 8

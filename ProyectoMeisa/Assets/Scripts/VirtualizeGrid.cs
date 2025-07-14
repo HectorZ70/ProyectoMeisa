@@ -165,6 +165,8 @@ public class VirtualizedGrid : MonoBehaviour
         SyncVisibleCellsToData();
         List<string[]> allRows = new List<string[]>();
 
+        Debug.Log("Ordenando");
+
         for (int row = 0; row < totalRows; row++)
         {
             string[] rowData = new string[totalCols];

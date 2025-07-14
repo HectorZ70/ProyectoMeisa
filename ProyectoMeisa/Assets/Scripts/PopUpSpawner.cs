@@ -9,6 +9,7 @@ public class PopUpSpawner : MonoBehaviour
 
     public ScrollableGrid scrollableGrid;
     public VirtualizedGrid virtualizedGrid;
+    public VirtualizedGrid virtualizedGrid2;
 
     public void ShowPopup(int index)
     {
@@ -20,10 +21,10 @@ public class PopUpSpawner : MonoBehaviour
 
         GameObject popup = Instantiate(popupPrefabs[index], parentCanvas);
 
-        PopUp popupScript = popup.GetComponent<PopUp>();
+        PopUp popupScript = popup.GetComponentInChildren<PopUp>();
         if (popupScript != null)
         {
-            popupScript.Init(gridManager, this, scrollableGrid, virtualizedGrid);
+            popupScript.Init(gridManager, this, scrollableGrid, virtualizedGrid, virtualizedGrid2);
         }
     }
 }

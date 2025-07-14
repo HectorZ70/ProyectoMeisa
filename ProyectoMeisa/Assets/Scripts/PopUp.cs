@@ -18,6 +18,7 @@ public class PopUp : MonoBehaviour
 
     public ScrollableGrid dateGrid;
     public VirtualizedGrid virtualizedGrid;
+    public VirtualizedGrid virtualizedGrid2;
     public GameObject popupPanel;
     public FileIO fileIO;
 
@@ -25,12 +26,13 @@ public class PopUp : MonoBehaviour
     private PopUpSpawner popupSpawner;
     private Color selectedColor = Color.red;
 
-    public void Init(GridManager manager, PopUpSpawner spawner, ScrollableGrid dateGrid, VirtualizedGrid virtualGrid)
+    public void Init(GridManager manager, PopUpSpawner spawner, ScrollableGrid dateGrid, VirtualizedGrid virtualGrid, VirtualizedGrid virtualGrid2)
     {
         gridManager = manager;
         popupSpawner = spawner;
         this.dateGrid = dateGrid;
         this.virtualizedGrid = virtualGrid;
+        this.virtualizedGrid2 = virtualGrid2;
 
         if (popupDropdown == null)
             popupDropdown = transform.Find("PopupDropdown")?.GetComponent<TMP_Dropdown>();
@@ -94,9 +96,9 @@ public void OnSortButtonClicked()
 {
     int selectedColumn = filterDropdown.value; 
 
-    if (virtualizedGrid != null)
+    if (virtualizedGrid2 != null)
     {
-        virtualizedGrid.SortGridByColumnNumeric(selectedColumn);
+        virtualizedGrid2.SortGridByColumnNumeric(selectedColumn);
     }
     else
     {
