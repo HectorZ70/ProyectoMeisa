@@ -4,6 +4,7 @@ using UnityEngine.UI;
 using UnityEngine;
 using System;
 using System.Linq;
+using UnityEditor.Rendering;
 
 public class VirtualizedGrid : MonoBehaviour
 {
@@ -16,7 +17,9 @@ public class VirtualizedGrid : MonoBehaviour
     public int totalRows = 1000;
     public int totalCols = 1000;
     public int visibleRows = 20;                
-    public int visibleCols = 10;                
+    public int visibleCols = 10;        
+    
+    public Button guardarBtn, cargarBtn;
 
     public float cellWidth = 250f;
     public float cellHeight = 50f;
@@ -30,8 +33,6 @@ public class VirtualizedGrid : MonoBehaviour
     void Start()
     {
         content.sizeDelta = new Vector2(totalCols * cellWidth, totalRows * cellHeight);
-
-
 
         scrollRect.onValueChanged.AddListener(_ =>
         {
@@ -192,7 +193,50 @@ public class VirtualizedGrid : MonoBehaviour
         UpdateVisibleCells();
     }
 
+    public void Save()
+    {
+        GridSaveData saveData = new GridSaveData();
 
+        foreach (var kvp in cellData)
+        {
+            Vector2Int coord = kvp.Key;
+            string text = kvp.Value;
+
+            bool isHighlighted = highlightedColumns.Contains(coord.y);
+
+            GridCellSaveData data = new GridCellSaveData
+            {
+                row = coord.x,
+                column = coord.y,
+                text = text,
+                isHighlighted = isHighlighted
+            };
+
+            saveData.cells.Add(data);
+        }
+
+        GridSaveLoad.Save(saveData);
+    }
+
+    public void Load()
+    {
+        GridSaveData loaded = GridSaveLoad.Load();
+        if (loaded == null) return;
+
+        cellData.Clear();
+        highlightedColumns.Clear();
+
+        foreach (var cellDataItem in loaded.cells)
+        {
+            Vector2Int coord = new(cellDataItem.row, cellDataItem.column);
+            cellData[coord] = cellDataItem.text;
+
+            if (cellDataItem.isHighlighted)
+                highlightedColumns.Add(coord.y);
+        }
+
+        UpdateVisibleCells();
+    }
 
     public void UpdateVisibleCells()
     {

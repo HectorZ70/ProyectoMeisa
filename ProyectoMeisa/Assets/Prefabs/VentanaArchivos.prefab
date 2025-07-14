@@ -698,12 +698,16 @@ MonoBehaviour:
   colsInput: {fileID: 0}
   popupDropdown: {fileID: 0}
   colorDropdown: {fileID: 0}
+  filterDropdown: {fileID: 0}
   fileDropdown: {fileID: 9207751566499503137}
   startDateInput: {fileID: 0}
   endDateInput: {fileID: 0}
   customTextInput: {fileID: 0}
+  guardarBtn: {fileID: 0}
+  cargarBtn: {fileID: 0}
   dateGrid: {fileID: 0}
   virtualizedGrid: {fileID: 0}
+  virtualizedGrid2: {fileID: 0}
   popupPanel: {fileID: 0}
   fileIO: {fileID: 3122055767906985751, guid: 7bfb699efbf077b42a2e1eab4e70eb39, type: 3}
 --- !u!1 &2965658948487855079

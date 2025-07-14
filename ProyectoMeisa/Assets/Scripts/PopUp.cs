@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PopUp : MonoBehaviour
 {
@@ -14,7 +15,7 @@ public class PopUp : MonoBehaviour
     public TMP_InputField startDateInput;
     public TMP_InputField endDateInput;
     public TMP_InputField customTextInput;
-
+    public Button guardarBtn, cargarBtn;
 
     public ScrollableGrid dateGrid;
     public VirtualizedGrid virtualizedGrid;
@@ -25,6 +26,12 @@ public class PopUp : MonoBehaviour
     private GridManager gridManager;
     private PopUpSpawner popupSpawner;
     private Color selectedColor = Color.red;
+
+    private void Start()
+    {
+        guardarBtn.onClick.AddListener(virtualizedGrid2.Save);
+        cargarBtn.onClick.AddListener(virtualizedGrid2.Load);
+    }
 
     public void Init(GridManager manager, PopUpSpawner spawner, ScrollableGrid dateGrid, VirtualizedGrid virtualGrid, VirtualizedGrid virtualGrid2)
     {
