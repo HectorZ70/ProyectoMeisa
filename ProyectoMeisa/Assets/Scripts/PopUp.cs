@@ -3,6 +3,7 @@ using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class PopUp : MonoBehaviour
 {
@@ -104,7 +105,8 @@ public class PopUp : MonoBehaviour
             Debug.LogWarning("Fechas inválidas.");
         }
     }
-public void OnSortButtonClicked()
+
+    public void OnSortButtonClicked()
 {
     int selectedColumn = filterDropdown.value; 
 
@@ -118,6 +120,16 @@ public void OnSortButtonClicked()
     }
     gameObject.SetActive(false);
 }
+
+public void OpenFileAndLoadGrid() 
+    {
+        GridSaveData data = GridSaveLoad.Load();
+        if (data != null)
+        {
+            GridLoadBuffer.DataToLoad = data;
+            SceneManager.LoadScene("ListScene");
+        }
+    }
 
 public void OnFileDropownChanged(int index)
     {

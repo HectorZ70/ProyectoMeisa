@@ -17,3 +17,8 @@ public class GridSaveData
 {
     public List<GridCellSaveData> cells = new List<GridCellSaveData>();
 }
+
+public static class GridLoadBuffer
+{
+    public static GridSaveData DataToLoad;
+}

@@ -34,6 +34,12 @@ public class VirtualizedGrid : MonoBehaviour
     {
         content.sizeDelta = new Vector2(totalCols * cellWidth, totalRows * cellHeight);
 
+        if (GridLoadBuffer.DataToLoad != null)
+        {
+            LoadFromData(GridLoadBuffer.DataToLoad);
+            GridLoadBuffer.DataToLoad = null; // Limpieza
+        }
+
         scrollRect.onValueChanged.AddListener(_ =>
         {
             if (syncing) return;
@@ -220,9 +226,19 @@ public class VirtualizedGrid : MonoBehaviour
 
     public void Load()
     {
-        GridSaveData loaded = GridSaveLoad.Load();
-        if (loaded == null) return;
+        GridSaveData data = GridSaveLoad.Load();
+        if (data != null)
+        {
+            LoadFromData(data);
+        }
+        else
+        {
+            Debug.LogWarning("No se encontró ningún dato guardado para cargar.");
+        }
+    }
 
+    public void LoadFromData(GridSaveData loaded)
+    {
         cellData.Clear();
         highlightedColumns.Clear();
 
