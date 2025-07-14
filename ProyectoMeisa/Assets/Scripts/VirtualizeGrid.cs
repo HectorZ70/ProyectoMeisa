@@ -177,12 +177,10 @@ public class VirtualizedGrid : MonoBehaviour
         }
     }
 
-    public void SortGridByColumnNumeric(int colIndex)
+    public void SortGridByColumn(int colIndex, bool isNumeric)
     {
         SyncVisibleCellsToData();
         List<string[]> allRows = new List<string[]>();
-
-        Debug.Log("Ordenando");
 
         for (int row = 0; row < totalRows; row++)
         {
@@ -195,7 +193,14 @@ public class VirtualizedGrid : MonoBehaviour
             allRows.Add(rowData);
         }
 
-        allRows = allRows.OrderBy(row => int.TryParse(row[colIndex], out int n) ? n : int.MaxValue).ToList();
+        if (isNumeric)
+        {
+            allRows = allRows.OrderBy(row => int.TryParse(row[colIndex], out int n) ? n : int.MaxValue).ToList();
+        }
+        else
+        {
+            allRows = allRows.OrderBy(row => row[colIndex]).ToList();
+        }
 
         cellData.Clear();
         for (int row = 0; row < allRows.Count; row++)
@@ -206,6 +211,7 @@ public class VirtualizedGrid : MonoBehaviour
                 cellData[coord] = allRows[row][col];
             }
         }
+
         UpdateVisibleCells();
     }
 
@@ -289,6 +295,12 @@ public class VirtualizedGrid : MonoBehaviour
         totalRows = Mathf.Max(totalRows, maxRow + 1);
         totalCols = Mathf.Max(totalCols, maxCol + 1);
         UpdateVisibleCells();
+    }
+
+    public string ReadFromCell(int row, int col)
+    {
+        Vector2Int coord = new Vector2Int(row, col);
+        return cellData.TryGetValue(coord, out string value) ? value : "";
     }
 
     private char DetectDelimiter(string line)

@@ -4,6 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.Menu;
 
 public class PopUp : MonoBehaviour
 {
@@ -106,16 +107,17 @@ public class PopUp : MonoBehaviour
         }
     }
 
-    public void OnSortDropdownChanged(int selectedColumn)
+    public void OnSortDropdownChanged(int index)
 {
-        if (virtualizedGrid2 != null)
-        {
-            virtualizedGrid2.SortGridByColumnNumeric(selectedColumn);
-        }
-        else
-        {
-            Debug.LogWarning("No se asignó la referencia al grid.");
-        }
+        if (index == 0) return; 
+
+        int col = index - 1;
+
+        string firstValue = virtualizedGrid2.ReadFromCell(0, col);
+        bool isNumeric = int.TryParse(firstValue, out _);
+
+        virtualizedGrid2.SortGridByColumn(col, isNumeric);
+        filterDropdown.SetValueWithoutNotify(0);
         gameObject.SetActive(false);
     }
 
