@@ -214,13 +214,13 @@ MonoBehaviour:
           m_StringArgument: ListScene
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 2712351264661810944, guid: 7d27aee71d680e440902b53fca431882, type: 3}
-        m_TargetAssemblyTypeName: SceneChanger, Assembly-CSharp
-        m_MethodName: 
-        m_Mode: 1
+      - m_Target: {fileID: 83689405126868688, guid: 7d27aee71d680e440902b53fca431882, type: 3}
+        m_TargetAssemblyTypeName: PopUp, Assembly-CSharp
+        m_MethodName: OnFileDropownChanged
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 

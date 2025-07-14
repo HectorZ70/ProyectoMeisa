@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using SFB;
 using System;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class FileIO : MonoBehaviour
 {
@@ -52,8 +53,11 @@ public class FileIO : MonoBehaviour
             if (paths.Length > 0 && File.Exists(paths[0]))
             {
                 string text = File.ReadAllText(paths[0]);
-                this.isTSV = Path.GetExtension(paths[0]).ToLower() == ".tsv";
-                LoadToGrid(text, this.isTSV);
+
+                GridLoadBuffer.RawFileData = text;
+                GridLoadBuffer.IsTSV = Path.GetExtension(paths[0]).ToLower() == ".tsv";
+
+                SceneManager.LoadScene("GridScene");
             }
         });
     }
@@ -92,5 +96,27 @@ public class FileIO : MonoBehaviour
 
         Debug.LogWarning("No se detectó delimitador claro en la línea: " + line);
         return ',';
+    }
+
+    public void LoadFileAndOpenScene()
+    {
+        var extensions = new[]
+        {
+        new ExtensionFilter("TSV files", "tsv"),
+        new ExtensionFilter("CSV files", "csv"),
+        new ExtensionFilter("All files", "*"),
+    };
+
+        StandaloneFileBrowser.OpenFilePanelAsync("Seleccionar archivo", "", extensions, false, (paths) =>
+        {
+            if (paths.Length > 0 && File.Exists(paths[0]))
+            {
+                string text = File.ReadAllText(paths[0]);
+                GridLoadBuffer.RawFileData = text;
+                GridLoadBuffer.IsTSV = Path.GetExtension(paths[0]).ToLower() == ".tsv";
+
+                UnityEngine.SceneManagement.SceneManager.LoadScene("ListScene");
+            }
+        });
     }
 }

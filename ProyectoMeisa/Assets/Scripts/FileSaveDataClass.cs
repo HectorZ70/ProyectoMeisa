@@ -21,4 +21,6 @@ public class GridSaveData
 public static class GridLoadBuffer
 {
     public static GridSaveData DataToLoad;
+    public static string RawFileData;
+    public static bool IsTSV;
 }

@@ -34,6 +34,17 @@ public class VirtualizedGrid : MonoBehaviour
     {
         content.sizeDelta = new Vector2(totalCols * cellWidth, totalRows * cellHeight);
 
+        if (!string.IsNullOrEmpty(GridLoadBuffer.RawFileData))
+        {
+            LoadTSVFromBuffer();
+            GridLoadBuffer.RawFileData = null; // Limpiar buffer
+        }
+        else if (GridLoadBuffer.DataToLoad != null)
+        {
+            LoadFromData(GridLoadBuffer.DataToLoad);
+            GridLoadBuffer.DataToLoad = null;
+        }
+
         if (GridLoadBuffer.DataToLoad != null)
         {
             LoadFromData(GridLoadBuffer.DataToLoad);
@@ -226,14 +237,15 @@ public class VirtualizedGrid : MonoBehaviour
 
     public void Load()
     {
-        GridSaveData data = GridSaveLoad.Load();
+        var data = GridSaveLoad.Load();
         if (data != null)
         {
-            LoadFromData(data);
+            GridLoadBuffer.DataToLoad = data;
+            UnityEngine.SceneManagement.SceneManager.LoadScene("ListScene");
         }
         else
         {
-            Debug.LogWarning("No se encontró ningún dato guardado para cargar.");
+            Debug.LogWarning("No se encontró un archivo válido para cargar.");
         }
     }
 
@@ -253,6 +265,43 @@ public class VirtualizedGrid : MonoBehaviour
 
         UpdateVisibleCells();
     }
+
+    private void LoadTSVFromBuffer()
+    {
+        string[] lines = GridLoadBuffer.RawFileData.Split(new[] { "\r\n", "\n" }, StringSplitOptions.RemoveEmptyEntries);
+
+        int maxRow = 0;
+        int maxCol = 0;
+
+        for (int row = 0; row < lines.Length; row++)
+        {
+            char delimiter = DetectDelimiter(lines[row]);
+            string[] cells = lines[row].Split(delimiter);
+
+            for (int col = 0; col < cells.Length; col++)
+            {
+                WriteToCell(row, col, cells[col]);
+                maxCol = Mathf.Max(maxCol, col);
+            }
+
+            maxRow = Mathf.Max(maxRow, row);
+        }
+
+        totalRows = Mathf.Max(totalRows, maxRow + 1);
+        totalCols = Mathf.Max(totalCols, maxCol + 1);
+        UpdateVisibleCells();
+    }
+
+    private char DetectDelimiter(string line)
+    {
+        if (line.Contains('\t')) return '\t';
+        if (line.Contains(';')) return ';';
+        if (line.Contains(',')) return ',';
+
+        Debug.LogWarning("No se detectó delimitador claro en la línea: " + line);
+        return ',';
+    }
+
 
     public void UpdateVisibleCells()
     {
