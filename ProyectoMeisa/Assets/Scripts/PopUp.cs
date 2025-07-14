@@ -56,7 +56,7 @@ public class PopUp : MonoBehaviour
 
         if (filterDropdown != null)
         {
-            filterDropdown.onValueChanged.AddListener(delegate { OnSortButtonClicked(); });
+            filterDropdown.onValueChanged.AddListener(OnSortDropdownChanged);
         }
     }
 
@@ -106,20 +106,18 @@ public class PopUp : MonoBehaviour
         }
     }
 
-    public void OnSortButtonClicked()
+    public void OnSortDropdownChanged(int selectedColumn)
 {
-    int selectedColumn = filterDropdown.value; 
-
-    if (virtualizedGrid2 != null)
-    {
-        virtualizedGrid2.SortGridByColumnNumeric(selectedColumn);
+        if (virtualizedGrid2 != null)
+        {
+            virtualizedGrid2.SortGridByColumnNumeric(selectedColumn);
+        }
+        else
+        {
+            Debug.LogWarning("No se asignó la referencia al grid.");
+        }
+        gameObject.SetActive(false);
     }
-    else
-    {
-        Debug.LogWarning("No se asignó la referencia al grid.");
-    }
-    gameObject.SetActive(false);
-}
 
 public void OpenFileAndLoadGrid() 
     {

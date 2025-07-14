@@ -885,6 +885,8 @@ MonoBehaviour:
   startDateInput: {fileID: 0}
   endDateInput: {fileID: 0}
   customTextInput: {fileID: 0}
+  guardarBtn: {fileID: 0}
+  cargarBtn: {fileID: 0}
   dateGrid: {fileID: 0}
   virtualizedGrid: {fileID: 0}
   virtualizedGrid2: {fileID: 0}
@@ -2119,8 +2121,8 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 7099520652077297906}
         m_TargetAssemblyTypeName: PopUp, Assembly-CSharp
-        m_MethodName: OnSortButtonClicked
-        m_Mode: 1
+        m_MethodName: OnSortDropdownChanged
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine

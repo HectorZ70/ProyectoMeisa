@@ -57,7 +57,7 @@ public class FileIO : MonoBehaviour
                 GridLoadBuffer.RawFileData = text;
                 GridLoadBuffer.IsTSV = Path.GetExtension(paths[0]).ToLower() == ".tsv";
 
-                SceneManager.LoadScene("GridScene");
+                SceneManager.LoadScene("ListScene");
             }
         });
     }

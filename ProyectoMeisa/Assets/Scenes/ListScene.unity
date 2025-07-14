@@ -156,7 +156,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: -17, y: 100}
+  m_SizeDelta: {x: 0, y: 100}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &2028477
 MonoBehaviour:
@@ -281,7 +281,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: -17, y: -17}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &58785990
 MonoBehaviour:
@@ -933,7 +933,7 @@ RectTransform:
   m_Father: {fileID: 663858089}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -2546,6 +2546,8 @@ MonoBehaviour:
   totalCols: 1000
   visibleRows: 250
   visibleCols: 50
+  guardarBtn: {fileID: 0}
+  cargarBtn: {fileID: 0}
   cellWidth: 160
   cellHeight: 50
 --- !u!1 &663858088
@@ -3163,6 +3165,8 @@ MonoBehaviour:
   totalCols: 1000
   visibleRows: 20
   visibleCols: 30
+  guardarBtn: {fileID: 0}
+  cargarBtn: {fileID: 0}
   cellWidth: 80
   cellHeight: 50
 --- !u!1 &1234314889
@@ -4677,7 +4681,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1639697479
 RectTransform:
   m_ObjectHideFlags: 0
