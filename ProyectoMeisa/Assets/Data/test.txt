@@ -37,7 +37,8 @@
 30	Juan	Montador	Montador 
 12	Joel	Soldador	Jefe de equipo 
 4	Alberto	Cocinero	Pesado 
-20	Simpson	Encargado	No sé30	Juan	Montador	Montador 
+20	Simpson	Encargado	No sé
+30	Juan	Montador	Montador 
 12	Joel	Soldador	Jefe de equipo 
 4	Alberto	Cocinero	Pesado 
 20	Simpson	Encargado	No sé

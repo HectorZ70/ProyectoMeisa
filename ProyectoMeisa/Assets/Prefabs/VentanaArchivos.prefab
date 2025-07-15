@@ -613,7 +613,6 @@ GameObject:
   - component: {fileID: 6296461208557941848}
   - component: {fileID: 775367669562954021}
   - component: {fileID: 83689405126868688}
-  - component: {fileID: 5902271586907775694}
   m_Layer: 5
   m_Name: VentanaArchivos
   m_TagString: Untagged
@@ -704,38 +703,13 @@ MonoBehaviour:
   startDateInput: {fileID: 0}
   endDateInput: {fileID: 0}
   customTextInput: {fileID: 0}
-  guardarBtn: {fileID: 0}
-  cargarBtn: {fileID: 0}
+  guardarBtn: {fileID: 5709215990297298550}
+  cargarBtn: {fileID: 4135266382099020058}
   dateGrid: {fileID: 0}
   virtualizedGrid: {fileID: 0}
   virtualizedGrid2: {fileID: 0}
   popupPanel: {fileID: 0}
   fileIO: {fileID: 3122055767906985751, guid: 7bfb699efbf077b42a2e1eab4e70eb39, type: 3}
---- !u!114 &5902271586907775694
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2712351264661810944}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d61e645c370199741a3c5842f202da2b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  content: {fileID: 0}
-  scrollRect: {fileID: 0}
-  inputFieldPrefab: {fileID: 0}
-  linkedVerticalScrollRect: {fileID: 0}
-  linkedHorizontalScrollRect: {fileID: 0}
-  totalRows: 1000
-  totalCols: 1000
-  visibleRows: 20
-  visibleCols: 10
-  guardarBtn: {fileID: 0}
-  cargarBtn: {fileID: 0}
-  cellWidth: 250
-  cellHeight: 50
 --- !u!1 &2965658948487855079
 GameObject:
   m_ObjectHideFlags: 0

@@ -181,6 +181,7 @@ public class VirtualizedGrid : MonoBehaviour
 
     public void SortGridByColumn(int colIndex, bool isNumeric)
     {
+        Debug.Log("Llamando sort numérico\n" + Environment.StackTrace);
         SyncVisibleCellsToData();
         List<string[]> allRows = new List<string[]>();
 
@@ -215,10 +216,12 @@ public class VirtualizedGrid : MonoBehaviour
         }
 
         UpdateVisibleCells();
+        Debug.Log("Sort numérico terminado");
     }
 
     public void SortBySecondColumnAlphabetically(bool ascending = true)
     {
+        Debug.Log("Llamando sort alfabético");
         SyncVisibleCellsToData();
 
         List<string[]> allRows = new List<string[]>();
@@ -238,19 +241,21 @@ public class VirtualizedGrid : MonoBehaviour
             ? allRows.OrderBy(row => row.Length > 1 ? row[1] : "").ToList()
             : allRows.OrderByDescending(row => row.Length > 1 ? row[1] : "").ToList();
 
-        cellData.Clear();
+        cellData.Clear();                
+        totalRows = allRows.Count;       
+
         for (int row = 0; row < allRows.Count; row++)
         {
             for (int col = 0; col < totalCols; col++)
             {
-                Vector2Int coord = new Vector2Int(row, col);
-                cellData[coord] = allRows[row][col];
+                cellData[new Vector2Int(row, col)] = allRows[row][col];
             }
         }
 
         UpdateVisibleCells();
-    }
 
+        Debug.Log("Sort alfabético terminado");
+    }
 
     public void Save()
     {
