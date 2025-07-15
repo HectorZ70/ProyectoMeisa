@@ -183,38 +183,37 @@ public class VirtualizedGrid : MonoBehaviour
     {
         Debug.Log("Llamando sort numérico\n" + Environment.StackTrace);
         SyncVisibleCellsToData();
-        List<string[]> allRows = new List<string[]>();
+
+        List<string[]> allRows = new();
 
         for (int row = 0; row < totalRows; row++)
         {
             string[] rowData = new string[totalCols];
             for (int col = 0; col < totalCols; col++)
             {
-                Vector2Int coord = new Vector2Int(row, col);
+                Vector2Int coord = new(row, col);
                 rowData[col] = cellData.TryGetValue(coord, out string value) ? value : "";
             }
             allRows.Add(rowData);
         }
 
-        if (isNumeric)
-        {
-            allRows = allRows.OrderBy(row => int.TryParse(row[colIndex], out int n) ? n : int.MaxValue).ToList();
-        }
-        else
-        {
-            allRows = allRows.OrderBy(row => row[colIndex]).ToList();
-        }
+        allRows = isNumeric
+            ? allRows.OrderBy(row => int.TryParse(row[colIndex], out int n) ? n : int.MaxValue).ToList()
+            : allRows.OrderBy(row => row[colIndex]).ToList();
 
         cellData.Clear();
+        totalRows = allRows.Count; 
+
         for (int row = 0; row < allRows.Count; row++)
         {
             for (int col = 0; col < totalCols; col++)
             {
-                Vector2Int coord = new Vector2Int(row, col);
+                Vector2Int coord = new(row, col);
                 cellData[coord] = allRows[row][col];
             }
         }
 
+        ResetScrollToTop();
         UpdateVisibleCells();
         Debug.Log("Sort numérico terminado");
     }
@@ -224,14 +223,14 @@ public class VirtualizedGrid : MonoBehaviour
         Debug.Log("Llamando sort alfabético");
         SyncVisibleCellsToData();
 
-        List<string[]> allRows = new List<string[]>();
+        List<string[]> allRows = new();
 
         for (int row = 0; row < totalRows; row++)
         {
             string[] rowData = new string[totalCols];
             for (int col = 0; col < totalCols; col++)
             {
-                Vector2Int coord = new Vector2Int(row, col);
+                Vector2Int coord = new(row, col);
                 rowData[col] = cellData.TryGetValue(coord, out string value) ? value : "";
             }
             allRows.Add(rowData);
@@ -241,20 +240,28 @@ public class VirtualizedGrid : MonoBehaviour
             ? allRows.OrderBy(row => row.Length > 1 ? row[1] : "").ToList()
             : allRows.OrderByDescending(row => row.Length > 1 ? row[1] : "").ToList();
 
-        cellData.Clear();                
-        totalRows = allRows.Count;       
+        cellData.Clear();
+        totalRows = allRows.Count; 
 
         for (int row = 0; row < allRows.Count; row++)
         {
             for (int col = 0; col < totalCols; col++)
             {
-                cellData[new Vector2Int(row, col)] = allRows[row][col];
+                Vector2Int coord = new(row, col);
+                cellData[coord] = allRows[row][col];
             }
         }
 
+        ResetScrollToTop();
         UpdateVisibleCells();
 
         Debug.Log("Sort alfabético terminado");
+    }
+
+    private void ResetScrollToTop()
+    {
+        Canvas.ForceUpdateCanvases(); 
+        scrollRect.verticalNormalizedPosition = 1f;
     }
 
     public void Save()
