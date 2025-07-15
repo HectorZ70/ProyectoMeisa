@@ -4,6 +4,7 @@ using UnityEngine.UI;
 using UnityEngine;
 using System;
 using System.Linq;
+using System.Collections;
 
 public class VirtualizedGrid : MonoBehaviour
 {
@@ -181,7 +182,6 @@ public class VirtualizedGrid : MonoBehaviour
 
     public void SortGridByColumn(int colIndex, bool isNumeric)
     {
-        Debug.Log("Llamando sort numérico\n" + Environment.StackTrace);
         SyncVisibleCellsToData();
 
         List<string[]> allRows = new();
@@ -215,47 +215,6 @@ public class VirtualizedGrid : MonoBehaviour
 
         ResetScrollToTop();
         UpdateVisibleCells();
-        Debug.Log("Sort numérico terminado");
-    }
-
-    public void SortBySecondColumnAlphabetically(bool ascending = true)
-    {
-        Debug.Log("Llamando sort alfabético");
-        SyncVisibleCellsToData();
-
-        List<string[]> allRows = new();
-
-        for (int row = 0; row < totalRows; row++)
-        {
-            string[] rowData = new string[totalCols];
-            for (int col = 0; col < totalCols; col++)
-            {
-                Vector2Int coord = new(row, col);
-                rowData[col] = cellData.TryGetValue(coord, out string value) ? value : "";
-            }
-            allRows.Add(rowData);
-        }
-
-        allRows = ascending
-            ? allRows.OrderBy(row => row.Length > 1 ? row[1] : "").ToList()
-            : allRows.OrderByDescending(row => row.Length > 1 ? row[1] : "").ToList();
-
-        cellData.Clear();
-        totalRows = allRows.Count; 
-
-        for (int row = 0; row < allRows.Count; row++)
-        {
-            for (int col = 0; col < totalCols; col++)
-            {
-                Vector2Int coord = new(row, col);
-                cellData[coord] = allRows[row][col];
-            }
-        }
-
-        ResetScrollToTop();
-        UpdateVisibleCells();
-
-        Debug.Log("Sort alfabético terminado");
     }
 
     private void ResetScrollToTop()
@@ -385,6 +344,7 @@ public class VirtualizedGrid : MonoBehaviour
         int visibleCols = Mathf.CeilToInt(viewportWidth / cellWidth) + 1;
         int visibleRows = Mathf.CeilToInt(viewportHeight / cellHeight) + 1;
 
+        Debug.Log($"UpdateVisibleCells desde row {startRow}, col {startCol}");
 
         foreach (var cell in activeCells.Values)
             Destroy(cell.gameObject);
@@ -430,5 +390,14 @@ public class VirtualizedGrid : MonoBehaviour
             }
         }
         UpdateHighlighting();
+    }
+
+    private IEnumerator DelayedUpdateVisibleCells()
+    {
+        scrollRect.verticalNormalizedPosition = 1f;
+        Canvas.ForceUpdateCanvases();
+        yield return new WaitForEndOfFrame();
+        Debug.Log("Llamando UpdateVisibleCells tras scroll to top");
+        UpdateVisibleCells();
     }
 }

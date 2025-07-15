@@ -113,18 +113,11 @@ public class PopUp : MonoBehaviour
 
         int col = index - 1;
 
-       if (col == 0)
-        {
+        
             string firstValue = virtualizedGrid2.ReadFromCell(0, col);
             bool isNumeric = int.TryParse(firstValue, out _);
             virtualizedGrid2.SortGridByColumn(col, isNumeric);
-        }
-
-        else if (col == 1)
-        {
-            virtualizedGrid2.SortBySecondColumnAlphabetically(true);
-        }
-
+        
         filterDropdown.SetValueWithoutNotify(0);
         gameObject.SetActive(false);
     }
