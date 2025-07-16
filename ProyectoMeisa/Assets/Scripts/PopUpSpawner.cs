@@ -7,7 +7,7 @@ public class PopUpSpawner : MonoBehaviour
     public Transform parentCanvas;
     public GridManager gridManager;
 
-    public ScrollableGrid scrollableGrid;
+    public VirtualizedGrid dateGrid;
     public VirtualizedGrid virtualizedGrid;
     public VirtualizedGrid virtualizedGrid2;
 
@@ -24,7 +24,7 @@ public class PopUpSpawner : MonoBehaviour
         PopUp popupScript = popup.GetComponentInChildren<PopUp>();
         if (popupScript != null)
         {
-            popupScript.Init(gridManager, this, scrollableGrid, virtualizedGrid, virtualizedGrid2);
+            popupScript.Init(gridManager, this, dateGrid, virtualizedGrid, virtualizedGrid2);
         }
     }
 }

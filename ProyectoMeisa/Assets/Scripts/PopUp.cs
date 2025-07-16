@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.Menu;
+using System.Linq;
 
 public class PopUp : MonoBehaviour
 {
@@ -19,7 +19,7 @@ public class PopUp : MonoBehaviour
     public TMP_InputField customTextInput;
     public Button guardarBtn, cargarBtn;
 
-    public ScrollableGrid dateGrid;
+    public VirtualizedGrid dateGrid;
     public VirtualizedGrid virtualizedGrid;
     public VirtualizedGrid virtualizedGrid2;
     public GameObject popupPanel;
@@ -29,13 +29,7 @@ public class PopUp : MonoBehaviour
     private PopUpSpawner popupSpawner;
     private Color selectedColor = Color.red;
 
-    private void Start()
-    {
-        guardarBtn.onClick.AddListener(virtualizedGrid2.Save);
-        cargarBtn.onClick.AddListener(virtualizedGrid2.Load);
-    }
-
-    public void Init(GridManager manager, PopUpSpawner spawner, ScrollableGrid dateGrid, VirtualizedGrid virtualGrid, VirtualizedGrid virtualGrid2)
+    public void Init(GridManager manager, PopUpSpawner spawner, VirtualizedGrid dateGrid, VirtualizedGrid virtualGrid, VirtualizedGrid virtualGrid2)
     {
         gridManager = manager;
         popupSpawner = spawner;
@@ -59,6 +53,9 @@ public class PopUp : MonoBehaviour
         {
             filterDropdown.onValueChanged.AddListener(OnSortDropdownChanged);
         }
+
+        guardarBtn.onClick.AddListener(virtualizedGrid2.Save);
+        cargarBtn.onClick.AddListener(virtualizedGrid2.Load);
     }
 
     public void ConfirmExit()
@@ -80,23 +77,32 @@ public class PopUp : MonoBehaviour
         if (DateTime.TryParse(startDateInput.text, out DateTime startDate) &&
             DateTime.TryParse(endDateInput.text, out DateTime endDate))
         {
-            Dictionary<int, DateTime> visibleDates = dateGrid.GetVisibleDateColumns();
+            Dictionary<int, DateTime> dateCols = new();
 
-            List<int> highlightedCols = new();
-
-            foreach (var kvp in visibleDates)
+            for(int col = 0; col < dateGrid.totalCols; col++)
             {
-                if (kvp.Value >= startDate && kvp.Value <= endDate)
-                    highlightedCols.Add(kvp.Key);
+                string rawDate = dateGrid.ReadFromCell(0, col);
+                if (DateTime.TryParse(rawDate, out DateTime parseData))
+                    dateCols[col] = parseData;
             }
 
-            virtualizedGrid.HighlightColumnsByDateRange(startDate, endDate, visibleDates, selectedColor);
+            List<int> highlightedCols = dateCols
+                .Where(kvp => kvp.Value >= startDate && kvp.Value <= endDate)
+                .Select(kvp => kvp.Key)
+                .ToList();
+
+            virtualizedGrid2.HighlightColumnsByDateRange(startDate, endDate, dateCols, selectedColor);
 
             if (highlightedCols.Count > 0 && customTextInput != null)
             {
                 int firstCol = highlightedCols[0];
-                string textToWrite = customTextInput.text;
-                virtualizedGrid.WriteToCell(0, firstCol, textToWrite);
+                int selectedRow = virtualizedGrid2.GetSelectedRow();
+
+                if (selectedRow >= 0)
+                {
+                    string textToWrite = customTextInput.text;
+                    virtualizedGrid2.WriteToCell(selectedRow, firstCol, textToWrite);
+                }
             }
 
             Destroy(gameObject);
