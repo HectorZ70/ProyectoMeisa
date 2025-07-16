@@ -17,22 +17,17 @@ public class VirtualizedGrid : MonoBehaviour
     public int totalRows = 1000;
     public int totalCols = 1000;
     public int visibleRows = 20;                
-    public int visibleCols = 10;
-    public DateTime fechaInicial = DateTime.Today;
+    public int visibleCols = 10;        
     
     public Button guardarBtn, cargarBtn;
-
-    public bool isDateGrid = false;
-
-    private int selectedRow = -1;
 
     public float cellWidth = 250f;
     public float cellHeight = 50f;
     private Color highlightColor = Color.yellow;
 
     private Dictionary<Vector2Int, string> cellData = new(); 
-    private Dictionary<Vector2Int, TMP_InputField> activeCells = new();
-    private HashSet<Vector2Int> highlightedCells = new HashSet<Vector2Int>();
+    private Dictionary<Vector2Int, TMP_InputField> activeCells = new(); 
+    private HashSet<int> highlightedColumns = new HashSet<int>();
     bool syncing = false;
     public int rowCount;
     public int colCount;
@@ -44,7 +39,7 @@ public class VirtualizedGrid : MonoBehaviour
         if (!string.IsNullOrEmpty(GridLoadBuffer.RawFileData))
         {
             LoadTSVFromBuffer();
-            GridLoadBuffer.RawFileData = null; 
+            GridLoadBuffer.RawFileData = null; // Limpiar buffer
         }
         else if (GridLoadBuffer.DataToLoad != null)
         {
@@ -55,7 +50,7 @@ public class VirtualizedGrid : MonoBehaviour
         if (GridLoadBuffer.DataToLoad != null)
         {
             LoadFromData(GridLoadBuffer.DataToLoad);
-            GridLoadBuffer.DataToLoad = null; 
+            GridLoadBuffer.DataToLoad = null; // Limpieza
         }
 
         scrollRect.onValueChanged.AddListener(_ =>
@@ -93,33 +88,14 @@ public class VirtualizedGrid : MonoBehaviour
                 syncing = false;
             });
         }
-
-
         scrollRect.onValueChanged.AddListener(_ => UpdateVisibleCells());
         UpdateVisibleCells();
     }
 
-    public void SelectedRow(int row)
-    {
-        selectedRow = row;
-        UpdateVisibleCells();
-    }
-
-    public int GetSelectedRow()
-    {
-        return selectedRow;
-    }
-
     public void HighlightColumnsByDateRange(DateTime startDate, DateTime endDate, Dictionary<int, DateTime> dateColumns, Color highlightColor)
     {
-        highlightedCells.Clear();
+        highlightedColumns.Clear();
         this.highlightColor = highlightColor;
-
-
-        if (selectedRow == -1)
-        {
-            Debug.LogWarning("No hay fila seleccionada para resaltar");
-        }
 
         foreach (var kvp in dateColumns)
         {
@@ -127,10 +103,7 @@ public class VirtualizedGrid : MonoBehaviour
             DateTime date = kvp.Value;
 
             if (date >= startDate && date <= endDate)
-            {
-                Vector2Int coord = new(selectedRow, col);
-                highlightedCells.Add(coord);
-            }
+                highlightedColumns.Add(col);
         }
 
         UpdateHighlighting();
@@ -142,7 +115,7 @@ public class VirtualizedGrid : MonoBehaviour
             Vector2Int coord = kvp.Key;
             TMP_InputField cell = kvp.Value;
 
-            if (highlightedCells.Contains(coord))
+            if (highlightedColumns.Contains(coord.y))
                 HighlightCell(cell);
             else
                 ResetCellVisual(cell);
@@ -192,13 +165,7 @@ public class VirtualizedGrid : MonoBehaviour
         }
 
         foreach (var col in columnsToClear)
-        {
-            for (int row = 0; row < totalRows; row++)
-            {
-                Vector2Int coord = new(row, col);
-                highlightedCells.Remove(coord);
-            }
-        }
+            highlightedColumns.Remove(col);
 
         UpdateHighlighting();
     }
@@ -265,7 +232,7 @@ public class VirtualizedGrid : MonoBehaviour
             Vector2Int coord = kvp.Key;
             string text = kvp.Value;
 
-            bool isHighlighted = highlightedCells.Contains(coord);
+            bool isHighlighted = highlightedColumns.Contains(coord.y);
 
             GridCellSaveData data = new GridCellSaveData
             {
@@ -298,7 +265,7 @@ public class VirtualizedGrid : MonoBehaviour
     public void LoadFromData(GridSaveData loaded)
     {
         cellData.Clear();
-        highlightedCells.Clear();
+        highlightedColumns.Clear();
 
         foreach (var cellDataItem in loaded.cells)
         {
@@ -306,7 +273,7 @@ public class VirtualizedGrid : MonoBehaviour
             cellData[coord] = cellDataItem.text;
 
             if (cellDataItem.isHighlighted)
-                highlightedCells.Add(coord);
+                highlightedColumns.Add(coord.y);
         }
 
         UpdateVisibleCells();
@@ -354,24 +321,6 @@ public class VirtualizedGrid : MonoBehaviour
         return ',';
     }
 
-    public Dictionary<int, DateTime> GetVisibleDateColumns()
-    {
-        Dictionary<int, DateTime> visibleDates = new();
-
-        foreach (var kvp in activeCells)
-        {
-            Vector2Int coord = kvp.Key;
-            TMP_InputField cell = kvp.Value;
-
-            if (coord.x == 0 && DateTime.TryParse(cell.text, out DateTime date))
-            {
-                visibleDates[coord.y - 2] = date;
-            }
-        }
-
-        return visibleDates;
-    }
-
 
     public void UpdateVisibleCells()
     {
@@ -417,31 +366,15 @@ public class VirtualizedGrid : MonoBehaviour
                 TMP_InputField input = go.GetComponent<TMP_InputField>();
                 activeCells[coord] = input;
 
-                if (row == 0 && isDateGrid)
+                input.text = cellData.ContainsKey(coord) ? cellData[coord] : "";
+
+                int capturedRow = row;
+                int capturedCol = col;
+
+                input.onEndEdit.AddListener(value =>
                 {
-                    input.interactable = false;
-                    DateTime fecha = fechaInicial.AddDays(col - 2);
-                    input.text = fecha.ToString("dd/MM/yyyy");
-                    input.textComponent.alignment = TextAlignmentOptions.Center;
-                }
-                else
-                {
-                    input.text = cellData.ContainsKey(coord) ? cellData[coord] : "";
-
-                    int capturedRow = row;
-                    int capturedCol = col;
-
-                    input.onSelect.AddListener(_ =>
-                    {
-                        selectedRow = capturedRow;
-                        Debug.Log("Fila seleccionada: " + selectedRow);
-                    });
-
-                    input.onEndEdit.AddListener(value =>
-                    {
-                        cellData[new Vector2Int(capturedRow, capturedCol)] = value;
-                    });
-                }
+                    cellData[new Vector2Int(capturedRow, capturedCol)] = value;
+                });
 
                 RectTransform rt = go.GetComponent<RectTransform>();
                 rt.anchorMin = rt.anchorMax = new Vector2(0, 1);
@@ -450,12 +383,21 @@ public class VirtualizedGrid : MonoBehaviour
                 rt.sizeDelta = new Vector2(cellWidth, cellHeight);
 
 
-                if (highlightedCells.Contains(coord))
+                if (highlightedColumns.Contains(col))
                     HighlightCell(input);
                 else
                     ResetCellVisual(input);
             }
         }
         UpdateHighlighting();
+    }
+
+    private IEnumerator DelayedUpdateVisibleCells()
+    {
+        scrollRect.verticalNormalizedPosition = 1f;
+        Canvas.ForceUpdateCanvases();
+        yield return new WaitForEndOfFrame();
+        Debug.Log("Llamando UpdateVisibleCells tras scroll to top");
+        UpdateVisibleCells();
     }
 }

@@ -346,8 +346,8 @@ GameObject:
   - component: {fileID: 79121794}
   - component: {fileID: 79121793}
   - component: {fileID: 79121792}
+  - component: {fileID: 79121795}
   - component: {fileID: 79121796}
-  - component: {fileID: 79121797}
   m_Layer: 5
   m_Name: DatesGrid
   m_TagString: Untagged
@@ -445,6 +445,27 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 79121790}
   m_CullTransparentMesh: 1
+--- !u!114 &79121795
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 79121790}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9065cdcf8eb617f44bc90e4f68a13676, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scrollRect: {fileID: 79121792}
+  content: {fileID: 51268533}
+  inputFieldPrefab: {fileID: 351078960}
+  linkedVerticalScrollRect: {fileID: 0}
+  linkedHorizontalScrollRect: {fileID: 1219161280}
+  totalRows: 200
+  totalDateCols: 200
+  cellWidth: 80
+  cellHeight: 50
 --- !u!114 &79121796
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -459,34 +480,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   source: {fileID: 79121792}
   target: {fileID: 1219161280}
---- !u!114 &79121797
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 79121790}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d61e645c370199741a3c5842f202da2b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  content: {fileID: 51268533}
-  scrollRect: {fileID: 79121792}
-  inputFieldPrefab: {fileID: 351078960}
-  linkedVerticalScrollRect: {fileID: 0}
-  linkedHorizontalScrollRect: {fileID: 1219161280}
-  totalRows: 200
-  totalCols: 200
-  visibleRows: 20
-  visibleCols: 10
-  guardarBtn: {fileID: 0}
-  cargarBtn: {fileID: 0}
-  isDateGrid: 1
-  cellWidth: 80
-  cellHeight: 50
-  rowCount: 0
-  colCount: 0
 --- !u!1 &136678091
 GameObject:
   m_ObjectHideFlags: 0
@@ -2435,7 +2428,6 @@ GameObject:
   - component: {fileID: 656366019}
   - component: {fileID: 656366018}
   - component: {fileID: 656366021}
-  - component: {fileID: 656366022}
   m_Layer: 5
   m_Name: VirtualGrid2
   m_TagString: Untagged
@@ -2556,36 +2548,7 @@ MonoBehaviour:
   visibleCols: 50
   guardarBtn: {fileID: 0}
   cargarBtn: {fileID: 0}
-  isDateGrid: 0
   cellWidth: 160
-  cellHeight: 50
-  rowCount: 0
-  colCount: 0
---- !u!114 &656366022
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 656366016}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d61e645c370199741a3c5842f202da2b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  content: {fileID: 0}
-  scrollRect: {fileID: 0}
-  inputFieldPrefab: {fileID: 0}
-  linkedVerticalScrollRect: {fileID: 0}
-  linkedHorizontalScrollRect: {fileID: 0}
-  totalRows: 1000
-  totalCols: 1000
-  visibleRows: 20
-  visibleCols: 10
-  guardarBtn: {fileID: 0}
-  cargarBtn: {fileID: 0}
-  isDateGrid: 1
-  cellWidth: 250
   cellHeight: 50
   rowCount: 0
   colCount: 0
@@ -3206,7 +3169,6 @@ MonoBehaviour:
   visibleCols: 30
   guardarBtn: {fileID: 0}
   cargarBtn: {fileID: 0}
-  isDateGrid: 0
   cellWidth: 80
   cellHeight: 50
   rowCount: 0
@@ -5528,10 +5490,6 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3284583923572612650, guid: 4f88db5fa172e4f4388223bde65d4ddb, type: 3}
-      propertyPath: dateGrid
-      value: 
-      objectReference: {fileID: 79121797}
-    - target: {fileID: 3284583923572612650, guid: 4f88db5fa172e4f4388223bde65d4ddb, type: 3}
       propertyPath: gridManager
       value: 
       objectReference: {fileID: 0}
@@ -5542,7 +5500,7 @@ PrefabInstance:
     - target: {fileID: 3284583923572612650, guid: 4f88db5fa172e4f4388223bde65d4ddb, type: 3}
       propertyPath: scrollableGrid
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 79121795}
     - target: {fileID: 3284583923572612650, guid: 4f88db5fa172e4f4388223bde65d4ddb, type: 3}
       propertyPath: virtualizedGrid
       value: 

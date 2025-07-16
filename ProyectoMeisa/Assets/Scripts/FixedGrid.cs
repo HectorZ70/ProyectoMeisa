@@ -30,6 +30,7 @@ public class FixedGrid : MonoBehaviour
         int startRow = Mathf.FloorToInt(contentY / cellHeight);
         int visibleRows = Mathf.CeilToInt(viewportHeight / cellHeight) + 1;
 
+        // Siempre columnas 0 y 1
         int[] columnasFijas = { 0, 1, 2, 3 };
 
         foreach (var cell in activeCells.Values)
