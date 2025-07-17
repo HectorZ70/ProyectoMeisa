@@ -35,13 +35,14 @@ public class Node : MonoBehaviour ,IBeginDragHandler, IEndDragHandler, IDragHand
     {
         if (!wasDrag && !linksExist)
         {
-            linksSpawner.ShowLinks(this.transform as RectTransform);
+            links = linksSpawner.ShowLinks(this.transform as RectTransform);
             linksExist = true;
         }
 
         else if (!wasDrag && linksExist)
         {
             Destroy(links);
+            links = null;
             linksExist = false;
         }
     }
