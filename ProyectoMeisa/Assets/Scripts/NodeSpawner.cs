@@ -29,5 +29,6 @@ public class NodeSpawner : MonoBehaviour
 
             node.GetComponent<RectTransform>().anchoredPosition = localPos;
         }
+        
     }
 }

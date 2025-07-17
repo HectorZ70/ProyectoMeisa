@@ -6,6 +6,7 @@ public class Node : MonoBehaviour ,IBeginDragHandler, IEndDragHandler, IDragHand
     private RectTransform rectTransform;
     private Canvas canvas;
     public GameObject links;
+    public GameObject node;
     public LinksSpawner linksSpawner;
     private bool wasDrag = false;
     private bool linksExist = false;
@@ -44,6 +45,11 @@ public class Node : MonoBehaviour ,IBeginDragHandler, IEndDragHandler, IDragHand
             Destroy(links);
             links = null;
             linksExist = false;
+        }
+
+        if(eventData.button == PointerEventData.InputButton.Middle)
+        {
+            Destroy(this.gameObject); // Destruir nodo
         }
     }
 }
