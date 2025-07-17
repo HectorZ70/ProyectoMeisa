@@ -23,7 +23,7 @@ public class PopUpSpawner : MonoBehaviour
         PopUp popupScript = popup.GetComponentInChildren<PopUp>();
         if (popupScript != null)
         {
-            popupScript.Init(gridManager, this, virtualizedGrid, virtualizedGrid2);
+            popupScript.Init(gridManager, this, virtualizedGrid);
         }
     }
 }

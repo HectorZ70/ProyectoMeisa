@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 public class GridManager : MonoBehaviour
 {
-    public GameObject cellPrefab;  // Prefab con InputField (Legacy)
+    public GameObject cellPrefab;  
     public int rows = 10;
     public int columns = 10;
 
@@ -26,13 +26,11 @@ public class GridManager : MonoBehaviour
         rows = newRows;
         columns = newColumns;
 
-        // Limpiar celdas viejas
         foreach (Transform child in transform)
         {
             Destroy(child.gameObject);
         }
 
-        // Opcional: Ajustar el tamaño de celda para que encaje
         AdjustCellSize();
 
         GenerateGrid();
@@ -40,7 +38,6 @@ public class GridManager : MonoBehaviour
 
     void AdjustCellSize()
     {
-        // Ajustar el tamaño de las celdas según el tamaño del panel y la cantidad de filas y columnas
         RectTransform rt = GetComponent<RectTransform>();
         float width = rt.rect.width;
         float height = rt.rect.height;
@@ -60,7 +57,7 @@ public class GridManager : MonoBehaviour
 
             InputField inputField = cell.GetComponent<InputField>();
             if (inputField != null)
-                inputField.text = "";  // Resetear el texto al instanciar
+                inputField.text = "";  
         }
     }
 }

@@ -33,7 +33,7 @@ public class PopUp : MonoBehaviour
         cargarBtn.onClick.AddListener(virtualizedGrid.Load);
     }
 
-    public void Init(GridManager manager, PopUpSpawner spawner, VirtualizedGrid virtualGrid, VirtualizedGrid virtualGrid2)
+    public void Init(GridManager manager, PopUpSpawner spawner, VirtualizedGrid virtualGrid)
     {
         gridManager = manager;
         popupSpawner = spawner;

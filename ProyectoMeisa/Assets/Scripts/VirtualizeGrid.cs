@@ -39,7 +39,7 @@ public class VirtualizedGrid : MonoBehaviour
         if (!string.IsNullOrEmpty(GridLoadBuffer.RawFileData))
         {
             LoadTSVFromBuffer();
-            GridLoadBuffer.RawFileData = null; // Limpiar buffer
+            GridLoadBuffer.RawFileData = null; 
         }
         else if (GridLoadBuffer.DataToLoad != null)
         {
@@ -50,7 +50,7 @@ public class VirtualizedGrid : MonoBehaviour
         if (GridLoadBuffer.DataToLoad != null)
         {
             LoadFromData(GridLoadBuffer.DataToLoad);
-            GridLoadBuffer.DataToLoad = null; // Limpieza
+            GridLoadBuffer.DataToLoad = null; 
         }
 
         scrollRect.onValueChanged.AddListener(_ =>
@@ -390,14 +390,5 @@ public class VirtualizedGrid : MonoBehaviour
             }
         }
         UpdateHighlighting();
-    }
-
-    private IEnumerator DelayedUpdateVisibleCells()
-    {
-        scrollRect.verticalNormalizedPosition = 1f;
-        Canvas.ForceUpdateCanvases();
-        yield return new WaitForEndOfFrame();
-        Debug.Log("Llamando UpdateVisibleCells tras scroll to top");
-        UpdateVisibleCells();
     }
 }
