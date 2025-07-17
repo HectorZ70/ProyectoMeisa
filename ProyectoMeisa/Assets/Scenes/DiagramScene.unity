@@ -398,6 +398,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1690997354}
   - component: {fileID: 1690997353}
+  - component: {fileID: 1690997355}
   m_Layer: 0
   m_Name: NodeSpawner
   m_TagString: Untagged
@@ -417,7 +418,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18e63cfc37b162247895def7570cc56e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nodePrefab: {fileID: 930681704827308329, guid: a5b2d592f4aae5f4c9c6f033dc5e9e8e, type: 3}
+  nodePrefab: {fileID: 3448279491072314492, guid: a10fc2fd098ab5f4b8e77c9fe55af7cd, type: 3}
   parentCanvas: {fileID: 1100997837}
 --- !u!4 &1690997354
 Transform:
@@ -434,6 +435,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1690997355
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1690997352}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5278d176e686ba044820aa15009e7e44, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  linkPrefab: {fileID: 7031778884743886326, guid: 6358b25f54dd8724d8bcd1ef09c690ba, type: 3}
+  parentCanvas: {fileID: 1100997837}
 --- !u!1 &1982102251
 GameObject:
   m_ObjectHideFlags: 0
