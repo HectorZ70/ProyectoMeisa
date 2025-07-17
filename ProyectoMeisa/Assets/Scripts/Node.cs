@@ -6,6 +6,7 @@ public class Node : MonoBehaviour ,IBeginDragHandler, IEndDragHandler, IDragHand
     private RectTransform rectTransform;
     private Canvas canvas;
     public GameObject links;
+
     public LinksSpawner linksSpawner;
     private bool wasDrag = false;
     private bool linksExist = false;
@@ -39,7 +40,7 @@ public class Node : MonoBehaviour ,IBeginDragHandler, IEndDragHandler, IDragHand
             linksExist = true;
         }
 
-        else if (!wasDrag && linksExist)
+        else if (!wasDrag && linksExist && eventData.button == PointerEventData.InputButton.Left)
         {
             Destroy(links);
             links = null;
