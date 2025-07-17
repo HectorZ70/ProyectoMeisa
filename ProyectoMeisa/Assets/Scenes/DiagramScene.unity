@@ -495,6 +495,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   linkPrefab: {fileID: 1893433370036666214, guid: 6358b25f54dd8724d8bcd1ef09c690ba, type: 3}
   parentCanvas: {fileID: 1100997837}
+  arrowSpawner: {fileID: 1032285142}
 --- !u!1 &1982102251
 GameObject:
   m_ObjectHideFlags: 0
