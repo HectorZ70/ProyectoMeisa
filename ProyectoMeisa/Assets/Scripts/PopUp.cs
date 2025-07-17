@@ -19,9 +19,7 @@ public class PopUp : MonoBehaviour
     public TMP_InputField customTextInput;
     public Button guardarBtn, cargarBtn;
 
-    public ScrollableGrid dateGrid;
     public VirtualizedGrid virtualizedGrid;
-    public VirtualizedGrid virtualizedGrid2;
     public GameObject popupPanel;
     public FileIO fileIO;
 
@@ -31,17 +29,15 @@ public class PopUp : MonoBehaviour
 
     private void Start()
     {
-        guardarBtn.onClick.AddListener(virtualizedGrid2.Save);
-        cargarBtn.onClick.AddListener(virtualizedGrid2.Load);
+        guardarBtn.onClick.AddListener(virtualizedGrid.Save);
+        cargarBtn.onClick.AddListener(virtualizedGrid.Load);
     }
 
-    public void Init(GridManager manager, PopUpSpawner spawner, ScrollableGrid dateGrid, VirtualizedGrid virtualGrid, VirtualizedGrid virtualGrid2)
+    public void Init(GridManager manager, PopUpSpawner spawner, VirtualizedGrid virtualGrid, VirtualizedGrid virtualGrid2)
     {
         gridManager = manager;
         popupSpawner = spawner;
-        this.dateGrid = dateGrid;
         this.virtualizedGrid = virtualGrid;
-        this.virtualizedGrid2 = virtualGrid2;
 
         if (popupDropdown == null)
             popupDropdown = transform.Find("PopupDropdown")?.GetComponent<TMP_Dropdown>();
@@ -75,12 +71,12 @@ public class PopUp : MonoBehaviour
         popupPanel.SetActive(false);
     }
 
-    public void OnAccept()
+    /*public void OnAccept()
     {
         if (DateTime.TryParse(startDateInput.text, out DateTime startDate) &&
             DateTime.TryParse(endDateInput.text, out DateTime endDate))
         {
-            Dictionary<int, DateTime> visibleDates = dateGrid.GetVisibleDateColumns();
+            Dictionary<int, DateTime> visibleDates = virtualizedGrid.GetVisibleDateColumns();
 
             List<int> highlightedCols = new();
 
@@ -105,7 +101,7 @@ public class PopUp : MonoBehaviour
         {
             Debug.LogWarning("Fechas inválidas.");
         }
-    }
+    }*/
 
     public void OnSortDropdownChanged(int index)
 {
@@ -114,9 +110,9 @@ public class PopUp : MonoBehaviour
         int col = index - 1;
 
         
-            string firstValue = virtualizedGrid2.ReadFromCell(0, col);
+            string firstValue = virtualizedGrid.ReadFromCell(0, col);
             bool isNumeric = int.TryParse(firstValue, out _);
-            virtualizedGrid2.SortGridByColumn(col, isNumeric);
+            virtualizedGrid.SortGridByColumn(col, isNumeric);
         
         filterDropdown.SetValueWithoutNotify(0);
         gameObject.SetActive(false);
@@ -185,7 +181,7 @@ public void OnFileDropownChanged(int index)
         };
     }
 
-    public void ClearHighlightedCells()
+    /*public void ClearHighlightedCells()
     {
         if (DateTime.TryParse(startDateInput.text, out DateTime startDate) &&
             DateTime.TryParse(endDateInput.text, out DateTime endDate))
@@ -212,7 +208,7 @@ public void OnFileDropownChanged(int index)
         {
             Debug.LogWarning("Fechas inválidas.");
         }
-    }
+    }*/
 
 
     public void Close()
