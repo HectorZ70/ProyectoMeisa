@@ -27,20 +27,22 @@ public class ArrowSpawner : MonoBehaviour
             {
                 clickWasOnLink = false;
 
-                Vector2 mousePos;
+                Vector2 localMousePos;
                 RectTransformUtility.ScreenPointToLocalPointInRectangle(
                     canvasTrans as RectTransform,
                     Input.mousePosition,
                     null,
-                    out mousePos
+                    out localMousePos
                 );
+
+                Vector2 localOriginPos = WorldToLocalPosition(canvasTrans as RectTransform, origin.position);
+
+                Vector2 start = localOriginPos;
+                Vector2 end = localMousePos;
+                Vector2 direction = end - start;
 
                 GameObject arrow = Instantiate(arrowPrefab, canvasTrans);
                 RectTransform arrowRect = arrow.GetComponent<RectTransform>();
-
-                Vector2 start = origin.anchoredPosition;
-                Vector2 end = mousePos;
-                Vector2 direction = end - start;
 
                 arrowRect.anchoredPosition = start + direction / 2f;
                 arrowRect.sizeDelta = new Vector2(direction.magnitude, 5f);
@@ -51,5 +53,16 @@ public class ArrowSpawner : MonoBehaviour
                 origin = null;
             }
         }
+    }
+    private Vector2 WorldToLocalPosition(RectTransform canvasRect, Vector3 worldPos)
+    {
+        Vector2 localPoint;
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(
+            canvasRect,
+            worldPos,
+            null,
+            out localPoint
+        );
+        return localPoint;
     }
 }
