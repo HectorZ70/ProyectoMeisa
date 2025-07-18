@@ -53,41 +53,6 @@ public class VirtualizedGrid : MonoBehaviour
             GridLoadBuffer.DataToLoad = null; 
         }
 
-        scrollRect.onValueChanged.AddListener(_ =>
-        {
-            if (syncing) return;
-            syncing = true;
-
-            if (linkedVerticalScrollRect)
-                linkedVerticalScrollRect.verticalNormalizedPosition = scrollRect.verticalNormalizedPosition;
-
-            if (linkedHorizontalScrollRect)
-                linkedHorizontalScrollRect.horizontalNormalizedPosition = scrollRect.horizontalNormalizedPosition;
-
-            syncing = false;
-        });
-
-        if (linkedVerticalScrollRect)
-        {
-            linkedVerticalScrollRect.onValueChanged.AddListener(_ =>
-            {
-                if (syncing) return;
-                syncing = true;
-                scrollRect.verticalNormalizedPosition = linkedVerticalScrollRect.verticalNormalizedPosition;
-                syncing = false;
-            });
-        }
-
-        if (linkedHorizontalScrollRect)
-        {
-            linkedHorizontalScrollRect.onValueChanged.AddListener(_ =>
-            {
-                if (syncing) return;
-                syncing = true;
-                scrollRect.horizontalNormalizedPosition = linkedHorizontalScrollRect.horizontalNormalizedPosition;
-                syncing = false;
-            });
-        }
         scrollRect.onValueChanged.AddListener(_ => UpdateVisibleCells());
         UpdateVisibleCells();
     }

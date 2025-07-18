@@ -8,7 +8,6 @@ public class PopUpSpawner : MonoBehaviour
     public GridManager gridManager;
 
     public VirtualizedGrid virtualizedGrid;
-    public VirtualizedGrid virtualizedGrid2;
 
     public void ShowPopup(int index)
     {
