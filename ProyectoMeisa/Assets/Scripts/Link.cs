@@ -8,7 +8,6 @@ public class Link : MonoBehaviour, IPointerClickHandler
     public void OnPointerClick(PointerEventData eventData)
     {
         arrowSpawner.clickWasOnLink = true;
-        Debug.Log("Se ha clicado al hijo");
         arrowSpawner.SetOrigin(this.transform as RectTransform);
 
         eventData.Use();

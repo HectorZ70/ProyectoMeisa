@@ -13,7 +13,6 @@ public class PopUpSpawner : MonoBehaviour
     {
         if (index < 0 || index >= popupPrefabs.Length)
         {
-            Debug.LogWarning("Índice de popup fuera de rango.");
             return;
         }
 

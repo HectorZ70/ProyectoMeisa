@@ -309,8 +309,6 @@ public class VirtualizedGrid : MonoBehaviour
         int visibleCols = Mathf.CeilToInt(viewportWidth / cellWidth) + 1;
         int visibleRows = Mathf.CeilToInt(viewportHeight / cellHeight) + 1;
 
-        Debug.Log($"UpdateVisibleCells desde row {startRow}, col {startCol}");
-
         foreach (var cell in activeCells.Values)
             Destroy(cell.gameObject);
         activeCells.Clear();

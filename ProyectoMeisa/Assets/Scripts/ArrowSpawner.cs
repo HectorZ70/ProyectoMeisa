@@ -48,8 +48,6 @@ public class ArrowSpawner : MonoBehaviour
                 arrowRect.sizeDelta = new Vector2(direction.magnitude, 5f);
                 arrowRect.rotation = Quaternion.FromToRotation(Vector3.right, direction);
 
-                Debug.Log("Se ha creado la flecha");
-
                 origin = null;
             }
         }
