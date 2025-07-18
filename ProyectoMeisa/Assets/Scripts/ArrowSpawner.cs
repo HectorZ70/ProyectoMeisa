@@ -45,7 +45,7 @@ public class ArrowSpawner : MonoBehaviour
                 RectTransform arrowRect = arrow.GetComponent<RectTransform>();
 
                 arrowRect.anchoredPosition = start + direction / 2f;
-                arrowRect.sizeDelta = new Vector2(direction.magnitude, 5f);
+                arrowRect.sizeDelta = new Vector2(direction.magnitude, 20f);
                 arrowRect.rotation = Quaternion.FromToRotation(Vector3.right, direction);
 
                 origin = null;

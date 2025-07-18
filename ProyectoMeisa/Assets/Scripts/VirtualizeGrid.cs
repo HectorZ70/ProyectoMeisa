@@ -28,7 +28,6 @@ public class VirtualizedGrid : MonoBehaviour
     private Dictionary<Vector2Int, string> cellData = new(); 
     private Dictionary<Vector2Int, TMP_InputField> activeCells = new(); 
     private HashSet<int> highlightedColumns = new HashSet<int>();
-    bool syncing = false;
     public int rowCount;
     public int colCount;
 
@@ -221,10 +220,6 @@ public class VirtualizedGrid : MonoBehaviour
             GridLoadBuffer.DataToLoad = data;
             UnityEngine.SceneManagement.SceneManager.LoadScene("ListScene");
         }
-        else
-        {
-            Debug.LogWarning("No se encontró un archivo válido para cargar.");
-        }
     }
 
     public void LoadFromData(GridSaveData loaded)
@@ -282,7 +277,6 @@ public class VirtualizedGrid : MonoBehaviour
         if (line.Contains(';')) return ';';
         if (line.Contains(',')) return ',';
 
-        Debug.LogWarning("No se detectó delimitador claro en la línea: " + line);
         return ',';
     }
 
