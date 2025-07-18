@@ -34,22 +34,24 @@ public class Node : MonoBehaviour ,IBeginDragHandler, IEndDragHandler, IDragHand
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (!wasDrag && !linksExist)
-        {
-            links = linksSpawner.ShowLinks(this.transform as RectTransform);
-            linksExist = true;
-        }
+        if (eventData.pointerPress != this.gameObject) return;
+            Debug.Log("Se ha clicado al padre");
+            if (!wasDrag && !linksExist)
+            {
+                links = linksSpawner.ShowLinks(this.transform as RectTransform);
+                linksExist = true;
+            }
 
-        else if (!wasDrag && linksExist && eventData.button == PointerEventData.InputButton.Left)
-        {
-            Destroy(links);
-            links = null;
-            linksExist = false;
-        }
+            else if (!wasDrag && linksExist)
+            {
+                Destroy(links);
+                links = null;
+                linksExist = false;
+            }
 
-        if(eventData.button == PointerEventData.InputButton.Middle)
-        {
-            Destroy(this.gameObject); // Destruir nodo
-        }
+            if (eventData.button == PointerEventData.InputButton.Middle)
+            {
+                Destroy(this.gameObject); // Destruir nodo
+            }
     }
 }
