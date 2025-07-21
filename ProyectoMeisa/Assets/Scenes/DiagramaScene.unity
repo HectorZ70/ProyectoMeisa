@@ -129,6 +129,7 @@ GameObject:
   m_Component:
   - component: {fileID: 220530446}
   - component: {fileID: 220530447}
+  - component: {fileID: 220530448}
   m_Layer: 0
   m_Name: NodeSpawner
   m_TagString: Untagged
@@ -165,6 +166,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodePrefab: {fileID: 5946450988344863300, guid: a10fc2fd098ab5f4b8e77c9fe55af7cd, type: 3}
   parentCanvas: {fileID: 1942515403}
+--- !u!114 &220530448
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 220530444}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7770f14283f13734fb5ae8b7092d9097, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  linkPrefab: {fileID: 2467616299126728506, guid: cdcbe9e14aa649442b41d705681d4c77, type: 3}
+  parentCanvas: {fileID: 1942515403}
+  arrowSpawner: {fileID: 249776857}
 --- !u!1 &249776856
 GameObject:
   m_ObjectHideFlags: 0
