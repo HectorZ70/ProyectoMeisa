@@ -178,7 +178,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7770f14283f13734fb5ae8b7092d9097, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  linkPrefab: {fileID: 2467616299126728506, guid: cdcbe9e14aa649442b41d705681d4c77, type: 3}
+  linkPrefab: {fileID: 4515684337315960763, guid: cdcbe9e14aa649442b41d705681d4c77, type: 3}
   parentCanvas: {fileID: 1942515403}
   arrowSpawner: {fileID: 249776857}
 --- !u!1 &249776856
@@ -210,7 +210,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9cdca72098631e43ba453abfed796d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  arrowPrefab: {fileID: 2201310429204331446, guid: 9f3dfa591d05a71478f24a2ad17f660b, type: 3}
+  arrowPrefab: {fileID: 7410343728328350622, guid: 9f3dfa591d05a71478f24a2ad17f660b, type: 3}
   canvasTrans: {fileID: 1942515403}
   raycaster: {fileID: 1942515400}
   clickWasOnLink: 0

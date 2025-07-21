@@ -1,9 +1,8 @@
+using NUnit.Framework;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using NUnit.Framework;
 using UnityEngine.UI;
-using System.Collections.Generic;
-
 
 public class ArrowSpawner : MonoBehaviour
 {
@@ -46,10 +45,8 @@ public class ArrowSpawner : MonoBehaviour
                 RectTransform arrowRect = arrow.GetComponent<RectTransform>();
 
                 arrowRect.anchoredPosition = start + direction / 2f;
-                arrowRect.sizeDelta = new Vector2(direction.magnitude, 5f);
+                arrowRect.sizeDelta = new Vector2(direction.magnitude, 20f);
                 arrowRect.rotation = Quaternion.FromToRotation(Vector3.right, direction);
-
-                Debug.Log("Se ha creado la flecha");
 
                 origin = null;
             }
@@ -66,5 +63,4 @@ public class ArrowSpawner : MonoBehaviour
         );
         return localPoint;
     }
-
 }
