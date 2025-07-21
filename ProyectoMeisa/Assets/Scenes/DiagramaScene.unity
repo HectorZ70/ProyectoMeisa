@@ -164,7 +164,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18e63cfc37b162247895def7570cc56e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nodePrefab: {fileID: 5946450988344863300, guid: a10fc2fd098ab5f4b8e77c9fe55af7cd, type: 3}
+  nodePrefab: {fileID: 2241307124713197283, guid: a10fc2fd098ab5f4b8e77c9fe55af7cd, type: 3}
   parentCanvas: {fileID: 1942515403}
 --- !u!114 &220530448
 MonoBehaviour:
