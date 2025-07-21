@@ -1,0 +1,49 @@
+using UnityEngine;
+using UnityEngine.EventSystems;
+
+public class Node : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHandler, IPointerClickHandler
+{
+    private RectTransform rectTransform;
+    private Canvas canvas;
+    public GameObject links;
+    public LinkSpawner linkSpawner;
+    private bool wasDrag = false;
+    private bool linksExist = false;
+
+    private void Awake()
+    {
+        rectTransform = GetComponent<RectTransform>();
+        canvas = GetComponent<Canvas>();
+    }
+
+    public void OnDrag(PointerEventData eventData)
+    {
+        if (canvas == null) return;
+        rectTransform.anchoredPosition += eventData.delta / canvas.scaleFactor;
+    }
+
+    public void OnBeginDrag(PointerEventData eventData) 
+    {
+        wasDrag = true;
+    }
+    public void OnEndDrag(PointerEventData eventData) 
+    {
+        wasDrag = false;
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        if(!wasDrag && !linksExist)
+        {
+            links = linkSpawner.ShowLinks(this.transform as RectTransform);
+            linksExist = true;
+        }
+
+        else if(!wasDrag && linksExist && eventData.button == PointerEventData.InputButton.Left)
+        {
+            Destroy(links);
+            links = null;
+            linksExist = false;
+        }
+    }
+}
