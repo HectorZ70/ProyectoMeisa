@@ -818,8 +818,8 @@ MonoBehaviour:
   inputFieldPrefab: {fileID: 8571307670280539105, guid: 88eb853db28aadb4597fbd5c75297510, type: 3}
   linkedVerticalScrollRect: {fileID: 1868132106}
   linkedHorizontalScrollRect: {fileID: 938161105}
-  totalRows: 1000
-  totalCols: 1000
+  totalRows: 200
+  totalCols: 200
   visibleRows: 20
   visibleCols: 10
   guardarBtn: {fileID: 0}
@@ -1471,7 +1471,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1631277687}
   m_Direction: 2
   m_Value: -0.0000005149529
-  m_Size: 0.30858216
+  m_Size: 0.30545512
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -1859,7 +1859,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1893849200}
   m_HandleRect: {fileID: 1893849199}
   m_Direction: 2
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -2191,8 +2191,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: -114.79}
+  m_SizeDelta: {x: 0, y: -229.58}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &724181512
 MonoBehaviour:
@@ -3125,8 +3125,8 @@ MonoBehaviour:
   inputFieldPrefab: {fileID: 8571307670280539105, guid: 88eb853db28aadb4597fbd5c75297510, type: 3}
   linkedVerticalScrollRect: {fileID: 0}
   linkedHorizontalScrollRect: {fileID: 0}
-  totalRows: 1000
-  totalDateCols: 1000
+  totalRows: 200
+  totalDateCols: 200
   cellWidth: 250
   cellHeight: 50
 --- !u!114 &938161105
@@ -3949,7 +3949,7 @@ MonoBehaviour:
   scrollRect: {fileID: 793968893}
   content: {fileID: 1245049168}
   inputFieldPrefab: {fileID: 8571307670280539105, guid: 88eb853db28aadb4597fbd5c75297510, type: 3}
-  totalRows: 100
+  totalRows: 1
   cellWidth: 250
   cellHeight: 50
 --- !u!114 &1245049170
@@ -4476,7 +4476,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0.000030994415}
+  m_AnchoredPosition: {x: 0, y: -0.000017166138}
   m_SizeDelta: {x: 0, y: 300}
   m_Pivot: {x: 0, y: 1}
 --- !u!1 &1570352332
@@ -5202,8 +5202,8 @@ MonoBehaviour:
   inputFieldPrefab: {fileID: 8571307670280539105, guid: 88eb853db28aadb4597fbd5c75297510, type: 3}
   linkedVerticalScrollRect: {fileID: 0}
   linkedHorizontalScrollRect: {fileID: 215475547}
-  totalRows: 1000
-  totalCols: 1000
+  totalRows: 200
+  totalCols: 200
   visibleRows: 20
   visibleCols: 10
   guardarBtn: {fileID: 0}
@@ -5423,7 +5423,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.000047564507, y: 207.42004}
+  m_AnchoredPosition: {x: -0.000047564507, y: 207.42012}
   m_SizeDelta: {x: 0, y: 300}
   m_Pivot: {x: 0, y: 1}
 --- !u!1 &2136153929
