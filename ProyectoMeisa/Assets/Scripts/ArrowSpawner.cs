@@ -20,41 +20,41 @@ public class ArrowSpawner : MonoBehaviour
         origin = originTrans;
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (origin != null && Input.GetMouseButtonDown(0))
         {
-            if (clickWasOnLink) {
-
+            if (clickWasOnLink)
+            {
                 clickWasOnLink = false;
 
-            Vector2 localMousePos;
-            RectTransformUtility.ScreenPointToLocalPointInRectangle(
-                canvasTrans as RectTransform,
-                Input.mousePosition,
-                null,
-                out localMousePos
+                Vector2 localMousePos;
+                RectTransformUtility.ScreenPointToLocalPointInRectangle(
+                    canvasTrans as RectTransform,
+                    Input.mousePosition,
+                    null,
+                    out localMousePos
                 );
 
-            GameObject arrow = Instantiate(arrowPrefab, canvasTrans);
-            RectTransform arrowRect = arrow.GetComponent<RectTransform>();
+                Vector2 localOriginPos = WorldToLocalPosition(canvasTrans as RectTransform, origin.position);
 
-            Vector2 localOriginPos = WorldToLocalPosition(canvasTrans as RectTransform, origin.position);
+                Vector2 start = localOriginPos;
+                Vector2 end = localMousePos;
+                Vector2 direction = end - start;
 
-            Vector2 start = localOriginPos;
-            Vector2 end = localMousePos;
-            Vector2 direction = end - start;
+                GameObject arrow = Instantiate(arrowPrefab, canvasTrans);
+                RectTransform arrowRect = arrow.GetComponent<RectTransform>();
 
-            arrowRect.anchoredPosition = start + direction / 2f;
-            arrowRect.sizeDelta = new Vector2(direction.magnitude, 20f);
-            arrowRect.rotation = Quaternion.FromToRotation(Vector3.right, direction);
+                arrowRect.anchoredPosition = start + direction / 2f;
+                arrowRect.sizeDelta = new Vector2(direction.magnitude, 5f);
+                arrowRect.rotation = Quaternion.FromToRotation(Vector3.right, direction);
 
-            origin = null;
-        }
+                Debug.Log("Se ha creado la flecha");
+
+                origin = null;
+            }
         }
     }
-
     private Vector2 WorldToLocalPosition(RectTransform canvasRect, Vector3 worldPos)
     {
         Vector2 localPoint;
@@ -63,7 +63,8 @@ public class ArrowSpawner : MonoBehaviour
             worldPos,
             null,
             out localPoint
-            );
+        );
         return localPoint;
     }
+
 }

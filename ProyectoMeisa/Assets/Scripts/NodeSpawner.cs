@@ -18,7 +18,7 @@ public class NodeSpawner : MonoBehaviour
         if (Input.GetMouseButtonDown(1))
         {
             GameObject node = Instantiate(nodePrefab, parentCanvas);
-            node.GetComponent<Node>().linkSpawner = this.GetComponent<LinkSpawner>();
+            node.GetComponent<Node>().linksSpawner = this.GetComponent<LinkSpawner>();
 
             RectTransformUtility.ScreenPointToLocalPointInRectangle(
                 parentCanvas as RectTransform,
@@ -31,4 +31,5 @@ public class NodeSpawner : MonoBehaviour
         }
 
     }
+
 }

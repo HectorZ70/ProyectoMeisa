@@ -12,21 +12,20 @@ public class LinkSpawner : MonoBehaviour
 
         Link[] subLinks = links.GetComponentsInChildren<Link>();
 
-        foreach(Link sublink in subLinks)
+        foreach (Link subLink in subLinks)
         {
-            sublink.arrowSpawner = arrowSpawner;
+            subLink.arrowSpawner = arrowSpawner;
         }
 
         RectTransform linkRect = links.GetComponent<RectTransform>();
         linkRect.anchorMin = new Vector2(0.5f, 0.5f);
         linkRect.anchorMax = new Vector2(0.5f, 0.5f);
         linkRect.pivot = new Vector2(0.5f, 0.5f);
-
         linkRect.localScale = Vector3.one;
         linkRect.localRotation = Quaternion.identity;
-
         linkRect.anchoredPosition = new Vector2(0f, 0f);
 
         return links;
     }
+
 }
