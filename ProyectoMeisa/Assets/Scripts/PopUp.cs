@@ -29,8 +29,8 @@ public class PopUp : MonoBehaviour
 
     private void Start()
     {
-        guardarBtn.onClick.AddListener(virtualizedGrid.Save);
-        cargarBtn.onClick.AddListener(virtualizedGrid.Load);
+        //guardarBtn.onClick.AddListener(virtualizedGrid.Save);
+        //cargarBtn.onClick.AddListener(virtualizedGrid.Load);
     }
 
     public void Init(GridManager manager, PopUpSpawner spawner, VirtualizedGrid virtualGrid)
@@ -71,7 +71,7 @@ public class PopUp : MonoBehaviour
         popupPanel.SetActive(false);
     }
 
-    /*public void OnAccept()
+    public void OnAccept()
     {
         if (DateTime.TryParse(startDateInput.text, out DateTime startDate) &&
             DateTime.TryParse(endDateInput.text, out DateTime endDate))
@@ -101,7 +101,7 @@ public class PopUp : MonoBehaviour
         {
             Debug.LogWarning("Fechas inválidas.");
         }
-    }*/
+    }
 
     public void OnSortDropdownChanged(int index)
 {
@@ -181,7 +181,7 @@ public void OnFileDropownChanged(int index)
         };
     }
 
-    /*public void ClearHighlightedCells()
+    public void ClearHighlightedCells()
     {
         if (DateTime.TryParse(startDateInput.text, out DateTime startDate) &&
             DateTime.TryParse(endDateInput.text, out DateTime endDate))
@@ -208,7 +208,7 @@ public void OnFileDropownChanged(int index)
         {
             Debug.LogWarning("Fechas inválidas.");
         }
-    }*/
+    }
 
 
     public void Close()
