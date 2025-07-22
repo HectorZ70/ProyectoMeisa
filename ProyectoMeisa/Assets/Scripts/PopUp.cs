@@ -20,6 +20,7 @@ public class PopUp : MonoBehaviour
     public Button guardarBtn, cargarBtn;
 
     public VirtualizedGrid virtualizedGrid;
+    public ScrollableGrid datesGrid;
     public GameObject popupPanel;
     public FileIO fileIO;
 
@@ -76,7 +77,7 @@ public class PopUp : MonoBehaviour
         if (DateTime.TryParse(startDateInput.text, out DateTime startDate) &&
             DateTime.TryParse(endDateInput.text, out DateTime endDate))
         {
-            Dictionary<int, DateTime> visibleDates = virtualizedGrid.GetVisibleDateColumns();
+            Dictionary<int, DateTime> visibleDates = datesGrid.GetVisibleDateColumns();
 
             List<int> highlightedCols = new();
 
@@ -186,7 +187,7 @@ public void OnFileDropownChanged(int index)
         if (DateTime.TryParse(startDateInput.text, out DateTime startDate) &&
             DateTime.TryParse(endDateInput.text, out DateTime endDate))
         {
-            Dictionary<int, DateTime> visibleDates = dateGrid.GetVisibleDateColumns();
+            Dictionary<int, DateTime> visibleDates = datesGrid.GetVisibleDateColumns();
             List<int> columnsToClear = new();
 
             foreach (var kvp in visibleDates)
