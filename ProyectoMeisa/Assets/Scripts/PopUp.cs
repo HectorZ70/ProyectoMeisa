@@ -4,7 +4,6 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.Menu;
 
 public class PopUp : MonoBehaviour
 {
@@ -34,11 +33,13 @@ public class PopUp : MonoBehaviour
         //cargarBtn.onClick.AddListener(virtualizedGrid.Load);
     }
 
-    public void Init(GridManager manager, PopUpSpawner spawner, VirtualizedGrid virtualGrid)
+    public void Init(GridManager manager, PopUpSpawner spawner, VirtualizedGrid virtualGrid, ScrollableGrid dateGrid)
     {
         gridManager = manager;
         popupSpawner = spawner;
         this.virtualizedGrid = virtualGrid;
+        this.datesGrid = dateGrid;
+   
 
         if (popupDropdown == null)
             popupDropdown = transform.Find("PopupDropdown")?.GetComponent<TMP_Dropdown>();

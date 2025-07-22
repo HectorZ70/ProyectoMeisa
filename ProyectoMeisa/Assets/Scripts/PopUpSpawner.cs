@@ -8,6 +8,7 @@ public class PopUpSpawner : MonoBehaviour
     public GridManager gridManager;
 
     public VirtualizedGrid virtualizedGrid;
+    public ScrollableGrid dateGrid;
 
     public void ShowPopup(int index)
     {
@@ -21,7 +22,7 @@ public class PopUpSpawner : MonoBehaviour
         PopUp popupScript = popup.GetComponentInChildren<PopUp>();
         if (popupScript != null)
         {
-            popupScript.Init(gridManager, this, virtualizedGrid);
+            popupScript.Init(gridManager, this, virtualizedGrid, dateGrid);
         }
     }
 }
