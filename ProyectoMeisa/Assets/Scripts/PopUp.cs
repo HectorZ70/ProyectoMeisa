@@ -88,10 +88,10 @@ public class PopUp : MonoBehaviour
         if (DateTime.TryParse(startDateInput.text, out DateTime startDate) &&
             DateTime.TryParse(endDateInput.text, out DateTime endDate))
         {
-            Dictionary<int, DateTime> visibleDates = datesGrid.GetVisibleDateColumns();
+            Dictionary<int, DateTime> allDates = datesGrid.GetAllDateColumns();
             List<int> highlightedCols = new();
 
-            foreach (var kvp in visibleDates)
+            foreach (var kvp in allDates)
             {
                 if (kvp.Value >= startDate && kvp.Value <= endDate)
                     highlightedCols.Add(kvp.Key);
@@ -205,7 +205,7 @@ public void OnFileDropownChanged(int index)
         if (DateTime.TryParse(startDateInput.text, out DateTime startDate) &&
             DateTime.TryParse(endDateInput.text, out DateTime endDate))
         {
-            Dictionary<int, DateTime> visibleDates = datesGrid.GetVisibleDateColumns();
+            Dictionary<int, DateTime> visibleDates = datesGrid.GetAllDateColumns();
             List<int> columnsToClear = new();
 
             foreach (var kvp in visibleDates)

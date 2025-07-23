@@ -69,22 +69,19 @@ public class ScrollableGrid : MonoBehaviour
         UpdateVisibleCells();
     }
 
-    public Dictionary<int, DateTime> GetVisibleDateColumns()
+    
+
+    public Dictionary<int, DateTime> GetAllDateColumns()
     {
-        Dictionary<int, DateTime> visibleDates = new();
+        Dictionary<int, DateTime> allDates = new();
 
-        foreach (var kvp in activeCells)
+        for(int col = 2; col < totalDateCols + 2;col++)
         {
-            Vector2Int coord = kvp.Key;
-            TMP_InputField cell = kvp.Value;
-
-            if (coord.x == 0 && DateTime.TryParse(cell.text, out DateTime date))
-            {
-                visibleDates[coord.y - 2] = date;
-            }
+            DateTime fecha = fechaInicial.AddDays(col - 2);
+            allDates[col - 2] = fecha;
         }
 
-        return visibleDates;
+        return allDates;
     }
 
     void UpdateVisibleCells()
