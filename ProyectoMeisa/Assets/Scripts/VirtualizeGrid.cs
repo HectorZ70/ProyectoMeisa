@@ -27,7 +27,8 @@ public class VirtualizedGrid : MonoBehaviour
     private Color highlightColor = Color.yellow;
 
     private Dictionary<Vector2Int, string> cellData = new(); 
-    private Dictionary<Vector2Int, TMP_InputField> activeCells = new(); 
+    private Dictionary<Vector2Int, TMP_InputField> activeCells = new();
+    private Dictionary<Vector2Int, Color> customCellColor = new();
     private HashSet<int> highlightedColumns = new HashSet<int>();
     public int rowCount;
     public int colCount;
@@ -68,10 +69,18 @@ public class VirtualizedGrid : MonoBehaviour
             DateTime date = kvp.Value;
 
             if (date >= startDate && date <= endDate)
+            {
                 highlightedColumns.Add(col);
+
+                for (int row = 0; row < totalRows; row++)
+                {
+                    Vector2Int coord = new(row, col);
+                    customCellColor[coord] = highlightColor;
+                }
+            }
         }
 
-        UpdateHighlighting();
+        UpdateVisibleCells(); 
     }
     private void UpdateHighlighting()
     {
@@ -118,13 +127,11 @@ public class VirtualizedGrid : MonoBehaviour
     public void HighlightSingleCell(int row, int col, Color color)
     {
         Vector2Int coord = new(row, col);
+        customCellColor[coord] = color;  
 
-        if (activeCells.TryGetValue(coord, out TMP_InputField cell))
+        if (activeCells.TryGetValue(coord, out TMP_InputField cell) && cell.image != null)
         {
-            if (cell.image != null)
-            {
-                cell.image.color = color;
-            }
+            cell.image.color = color;
         }
     }
 
@@ -381,14 +388,20 @@ public class VirtualizedGrid : MonoBehaviour
                 rt.pivot = new Vector2(0, 1);
                 rt.anchoredPosition = new Vector2(col * cellWidth, -row * cellHeight);
                 rt.sizeDelta = new Vector2(cellWidth, cellHeight);
-
-
-                if (highlightedColumns.Contains(col))
+                
+                if(customCellColor.TryGetValue(coord, out Color customColor))
+                { 
+                    input.image.color = customColor;
+                }
+                else if(highlightedColumns.Contains(col))
+                {
                     HighlightCell(input);
+                }
                 else
+                {
                     ResetCellVisual(input);
+                }
             }
         }
-        UpdateHighlighting();
     }
 }
