@@ -219,15 +219,7 @@ public class VirtualizedGrid : MonoBehaviour
                 cellData[coord] = allRows[row][col];
             }
         }
-
-        ResetScrollToTop();
         UpdateVisibleCells();
-    }
-
-    private void ResetScrollToTop()
-    {
-        Canvas.ForceUpdateCanvases(); 
-        scrollRect.verticalNormalizedPosition = 1f;
     }
 
     public void Save()
