@@ -77,13 +77,15 @@ public class PopUp : MonoBehaviour
 
     public void OnAccept()
     {
-        if (virtualizedGrid.selectedRow == null)
+        int? selectedRow = virtualizedGrid.selectedRow ?? virtualizedGrid2?.selectedRow;
+
+        if (selectedRow == null)
         {
             Debug.LogWarning("No se ha seleccionado ninguna fila.");
             return;
         }
 
-        int selectedRow = virtualizedGrid.selectedRow.Value;
+        int row = selectedRow.Value;
 
         if (DateTime.TryParse(startDateInput.text, out DateTime startDate) &&
             DateTime.TryParse(endDateInput.text, out DateTime endDate))
@@ -98,20 +100,20 @@ public class PopUp : MonoBehaviour
             }
 
             foreach (int col in highlightedCols)
-                virtualizedGrid.HighlightSingleCell(selectedRow, col, selectedColor);
+                virtualizedGrid.HighlightSingleCell(row, col, selectedColor);
 
             if (virtualizedGrid2 != null)
             {
                 virtualizedGrid2.selectedRow = selectedRow; 
                 foreach (int col in highlightedCols)
-                   virtualizedGrid2.HighlightSingleCell(selectedRow, col, selectedColor);
+                   virtualizedGrid2.HighlightSingleCell(row, col, selectedColor);
             }
 
             if (highlightedCols.Count > 0 && customTextInput != null)
             {
                 int firstCol = highlightedCols[0];
                 string textToWrite = customTextInput.text;
-                virtualizedGrid.WriteToCell(selectedRow, firstCol, textToWrite);
+                virtualizedGrid.WriteToCell(row, firstCol, textToWrite);
             }
 
             Destroy(gameObject);
