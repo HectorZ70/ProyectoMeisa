@@ -17,7 +17,8 @@ public class VirtualizedGrid : MonoBehaviour
     public int totalRows = 1000;
     public int totalCols = 1000;
     public int visibleRows = 20;                
-    public int visibleCols = 10;        
+    public int visibleCols = 10;
+    public int? selectedRow = null;
     
     public Button guardarBtn, cargarBtn;
 
@@ -90,6 +91,41 @@ public class VirtualizedGrid : MonoBehaviour
     {
         if (cell.image != null)
             cell.image.color = highlightColor;
+    }
+
+    private void HighlightSelectedRow(int row)
+    {
+        foreach (var kvp in activeCells)
+        {
+            TMP_InputField cell = kvp.Value;
+            Vector2Int coord = kvp.Key;
+
+            if (coord.x == row)
+            {
+                cell.image.color = new Color(0.8f, 0.8f, 1f); 
+            }
+            else if (highlightedColumns.Contains(coord.y))
+            {
+                HighlightCell(cell); 
+            }
+            else
+            {
+                ResetCellVisual(cell);
+            }
+        }
+    }
+
+    public void HighlightSingleCell(int row, int col, Color color)
+    {
+        Vector2Int coord = new(row, col);
+
+        if (activeCells.TryGetValue(coord, out TMP_InputField cell))
+        {
+            if (cell.image != null)
+            {
+                cell.image.color = color;
+            }
+        }
     }
 
     private void ResetCellVisual(TMP_InputField cell)
@@ -331,6 +367,13 @@ public class VirtualizedGrid : MonoBehaviour
                 input.onEndEdit.AddListener(value =>
                 {
                     cellData[new Vector2Int(capturedRow, capturedCol)] = value;
+                });
+
+                input.onSelect.AddListener(_ =>
+                {
+                    selectedRow = capturedRow;
+                    Debug.Log("Fila Seleccionad: " + selectedRow);
+                    HighlightSelectedRow(capturedRow);
                 });
 
                 RectTransform rt = go.GetComponent<RectTransform>();

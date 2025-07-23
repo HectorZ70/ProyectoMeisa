@@ -19,6 +19,7 @@ public class PopUp : MonoBehaviour
     public Button guardarBtn, cargarBtn;
 
     public VirtualizedGrid virtualizedGrid;
+    public VirtualizedGrid virtualizedGrid2;
     public ScrollableGrid datesGrid;
     public GameObject popupPanel;
     public FileIO fileIO;
@@ -33,11 +34,12 @@ public class PopUp : MonoBehaviour
         //cargarBtn.onClick.AddListener(virtualizedGrid.Load);
     }
 
-    public void Init(GridManager manager, PopUpSpawner spawner, VirtualizedGrid virtualGrid, ScrollableGrid dateGrid)
+    public void Init(GridManager manager, PopUpSpawner spawner, VirtualizedGrid virtualGrid, ScrollableGrid dateGrid, VirtualizedGrid virtualGrid2 = null)
     {
         gridManager = manager;
         popupSpawner = spawner;
         this.virtualizedGrid = virtualGrid;
+        this.virtualizedGrid2 = virtualGrid2;
         this.datesGrid = dateGrid;
    
 
@@ -75,11 +77,18 @@ public class PopUp : MonoBehaviour
 
     public void OnAccept()
     {
+        if (virtualizedGrid.selectedRow == null)
+        {
+            Debug.LogWarning("No se ha seleccionado ninguna fila.");
+            return;
+        }
+
+        int selectedRow = virtualizedGrid.selectedRow.Value;
+
         if (DateTime.TryParse(startDateInput.text, out DateTime startDate) &&
             DateTime.TryParse(endDateInput.text, out DateTime endDate))
         {
             Dictionary<int, DateTime> visibleDates = datesGrid.GetVisibleDateColumns();
-
             List<int> highlightedCols = new();
 
             foreach (var kvp in visibleDates)
@@ -88,13 +97,21 @@ public class PopUp : MonoBehaviour
                     highlightedCols.Add(kvp.Key);
             }
 
-            virtualizedGrid.HighlightColumnsByDateRange(startDate, endDate, visibleDates, selectedColor);
+            foreach (int col in highlightedCols)
+                virtualizedGrid.HighlightSingleCell(selectedRow, col, selectedColor);
+
+            if (virtualizedGrid2 != null)
+            {
+                virtualizedGrid2.selectedRow = selectedRow; 
+                foreach (int col in highlightedCols)
+                   virtualizedGrid2.HighlightSingleCell(selectedRow, col, selectedColor);
+            }
 
             if (highlightedCols.Count > 0 && customTextInput != null)
             {
                 int firstCol = highlightedCols[0];
                 string textToWrite = customTextInput.text;
-                virtualizedGrid.WriteToCell(0, firstCol, textToWrite);
+                virtualizedGrid.WriteToCell(selectedRow, firstCol, textToWrite);
             }
 
             Destroy(gameObject);
