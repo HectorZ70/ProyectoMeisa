@@ -278,7 +278,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Button
+  m_text: Diagrama
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -419,7 +419,7 @@ PrefabInstance:
       objectReference: {fileID: 1635525698}
     - target: {fileID: 3284583923572612650, guid: 4f88db5fa172e4f4388223bde65d4ddb, type: 3}
       propertyPath: popupPrefabs.Array.size
-      value: 6
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 3284583923572612650, guid: 4f88db5fa172e4f4388223bde65d4ddb, type: 3}
       propertyPath: 'popupPrefabs.Array.data[1]'
@@ -432,13 +432,21 @@ PrefabInstance:
     - target: {fileID: 3284583923572612650, guid: 4f88db5fa172e4f4388223bde65d4ddb, type: 3}
       propertyPath: 'popupPrefabs.Array.data[3]'
       value: 
-      objectReference: {fileID: 2712351264661810944, guid: 7d27aee71d680e440902b53fca431882, type: 3}
+      objectReference: {fileID: 1127109391634615417, guid: c7ebf637df7174040921e1008ce34324, type: 3}
     - target: {fileID: 3284583923572612650, guid: 4f88db5fa172e4f4388223bde65d4ddb, type: 3}
       propertyPath: 'popupPrefabs.Array.data[4]'
       value: 
-      objectReference: {fileID: 4838593621053162619, guid: ba3a8594e39649142bc2d140d5edc658, type: 3}
+      objectReference: {fileID: 1051671889882736752, guid: 0f17b77b3e2148545b13b385ad80f424, type: 3}
     - target: {fileID: 3284583923572612650, guid: 4f88db5fa172e4f4388223bde65d4ddb, type: 3}
       propertyPath: 'popupPrefabs.Array.data[5]'
+      value: 
+      objectReference: {fileID: 2712351264661810944, guid: 7d27aee71d680e440902b53fca431882, type: 3}
+    - target: {fileID: 3284583923572612650, guid: 4f88db5fa172e4f4388223bde65d4ddb, type: 3}
+      propertyPath: 'popupPrefabs.Array.data[6]'
+      value: 
+      objectReference: {fileID: 4838593621053162619, guid: ba3a8594e39649142bc2d140d5edc658, type: 3}
+    - target: {fileID: 3284583923572612650, guid: 4f88db5fa172e4f4388223bde65d4ddb, type: 3}
+      propertyPath: 'popupPrefabs.Array.data[7]'
       value: 
       objectReference: {fileID: 6407997022771083188, guid: 85b652e17b44b974aa5e5d42823bb630, type: 3}
     - target: {fileID: 7266355378309540519, guid: 4f88db5fa172e4f4388223bde65d4ddb, type: 3}
@@ -551,7 +559,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 5
+          m_IntArgument: 7
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -732,6 +740,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 202352302}
   m_CullTransparentMesh: 1
+--- !u!114 &224541277 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3064091804435641696, guid: efd0bcd1599510441aece98fa6a996fa, type: 3}
+  m_PrefabInstance: {fileID: 286213404}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fdea2d00f1782b34a9960f61236a5062, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &256670222
 GameObject:
   m_ObjectHideFlags: 0
@@ -1218,16 +1237,16 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 59169898}
-        m_TargetAssemblyTypeName: PopUpSpawner, Assembly-CSharp
-        m_MethodName: ShowPopup
-        m_Mode: 3
+      - m_Target: {fileID: 224541277}
+        m_TargetAssemblyTypeName: SceneChanger, Assembly-CSharp
+        m_MethodName: LoadScene
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 3
+          m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: DiagramaScene
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &760287919
@@ -2052,7 +2071,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Button
+  m_text: Archivos
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -2489,7 +2508,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 4
+          m_IntArgument: 6
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -2802,7 +2821,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 2
+          m_IntArgument: 5
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0

@@ -35,7 +35,6 @@ public class Node : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHand
     public void OnPointerClick(PointerEventData eventData)
     {
         if (eventData.pointerPress != this.gameObject) return;
-        Debug.Log("Se ha clicado al padre");
         if (!wasDrag && !linksExist)
         {
             links = linksSpawner.ShowLinks(this.transform as RectTransform);
@@ -51,7 +50,12 @@ public class Node : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHand
 
         if (eventData.button == PointerEventData.InputButton.Middle)
         {
-            Destroy(this.gameObject); // Destruir nodo
+            if (linksSpawner != null && linksSpawner.GetComponent<ArrowSpawner>() != null)
+            {
+                linksSpawner.GetComponent<ArrowSpawner>().RemoveArrowsConnectedTo(this.transform);
+            }
+
+            Destroy(this.gameObject);
         }
     }
 

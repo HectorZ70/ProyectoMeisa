@@ -74,6 +74,27 @@ public class ArrowSpawner : MonoBehaviour
         origin = null;
         potentialTarget = null;
     }
+
+    public void RemoveArrowsConnectedTo(Transform node)
+    {
+        List<ArrowLink> toRemove = new List<ArrowLink>();
+
+        foreach (var arrow in arrows)
+        {
+            if ((arrow.origin != null && (arrow.origin == node || arrow.origin.IsChildOf(node))) ||
+                (arrow.target != null && (arrow.target == node || arrow.target.IsChildOf(node))))
+            {
+                Destroy(arrow.arrowRect.gameObject);
+                toRemove.Add(arrow);
+            }
+        }
+
+        foreach (var item in toRemove)
+        {
+            arrows.Remove(item);
+        }
+    }
+
     public void SetOrigin(RectTransform originTrans)
     {
         origin = originTrans;

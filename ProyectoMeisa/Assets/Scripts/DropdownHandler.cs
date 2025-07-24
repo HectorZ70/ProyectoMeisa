@@ -23,7 +23,7 @@ public class DropdownHandler : MonoBehaviour
     {
         if (index > 0 && popupSpawner != null)
         {
-            popupSpawner.ShowPopup(index - 1); 
+            popupSpawner.ShowPopup(index); 
         }
         dropdown.value = 0;
     }
