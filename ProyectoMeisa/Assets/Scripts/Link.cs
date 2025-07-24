@@ -7,13 +7,15 @@ public class Link : MonoBehaviour, IPointerClickHandler
     public ArrowSpawner arrowSpawner;
     public void OnPointerClick(PointerEventData eventData)
     {
+        RectTransform thisPoint = this.transform as RectTransform;
+
         if (arrowSpawner.HasOrigin())
         {
-            arrowSpawner.SetTarget(this.transform as RectTransform);
+            arrowSpawner.SetTarget(thisPoint);
         }
         else 
         {
-            arrowSpawner.SetOrigin(this.transform as RectTransform);
+            arrowSpawner.SetOrigin(thisPoint);
         }
         eventData.Use();
     }

@@ -89,16 +89,4 @@ public class ArrowSpawner : MonoBehaviour
     {
         return origin != null;
     }
-
-    private Vector2 WorldToLocalPosition(RectTransform canvasRect, Vector3 worldPos)
-    {
-        Vector2 localPoint;
-        RectTransformUtility.ScreenPointToLocalPointInRectangle(
-            canvasRect,
-            worldPos,
-            null,
-            out localPoint
-        );
-        return localPoint;
-    }
 }
