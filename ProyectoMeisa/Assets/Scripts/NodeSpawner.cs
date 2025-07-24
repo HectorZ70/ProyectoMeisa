@@ -6,7 +6,6 @@ public class NodeSpawner : MonoBehaviour
 {
     public GameObject nodePrefab;
     public Transform parentCanvas;
-    private Vector3 mousePosition;
 
     void Update()
     {

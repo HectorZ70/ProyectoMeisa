@@ -27,5 +27,4 @@ public class LinkSpawner : MonoBehaviour
 
         return links;
     }
-
 }
