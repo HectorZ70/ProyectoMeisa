@@ -34,7 +34,7 @@ public class ArrowSpawner : MonoBehaviour
             Vector2 direction = localTarget - localOrigin;
 
             arrowRect.anchoredPosition = localOrigin + direction / 2f;
-            arrowRect.sizeDelta = new Vector2(direction.magnitude, 20f);
+            arrowRect.sizeDelta = new Vector2(direction.magnitude, arrowRect.sizeDelta.y);
             arrowRect.rotation = Quaternion.FromToRotation(Vector3.right, direction);
 
             Debug.DrawLine(origin.position, target.position, Color.red);
