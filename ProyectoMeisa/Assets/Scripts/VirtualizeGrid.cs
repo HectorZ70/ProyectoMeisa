@@ -13,6 +13,7 @@ public class VirtualizedGrid : MonoBehaviour
     public GameObject inputFieldPrefab;          
     public ScrollRect linkedVerticalScrollRect;
     public ScrollRect linkedHorizontalScrollRect;
+    public VirtualizedGrid linkedGrid;
 
     public int totalRows = 1000;
     public int totalCols = 1000;
@@ -373,6 +374,12 @@ public class VirtualizedGrid : MonoBehaviour
                     selectedRow = capturedRow;
                     Debug.Log("Fila Seleccionad: " + selectedRow);
                     HighlightSelectedRow(capturedRow);
+
+                    if(linkedGrid != null)
+                    {
+                        linkedGrid.selectedRow = capturedRow;
+                        linkedGrid.HighlightSelectedRow(capturedRow);
+                    }
                 });
 
                 RectTransform rt = go.GetComponent<RectTransform>();

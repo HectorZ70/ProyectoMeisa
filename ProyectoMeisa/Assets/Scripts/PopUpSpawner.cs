@@ -25,5 +25,11 @@ public class PopUpSpawner : MonoBehaviour
         {
             popupScript.Init(gridManager, this, virtualizedGrid, dateGrid, virtualizedGrid2);
         }
+
+        if (virtualizedGrid != null && virtualizedGrid2 != null)
+        {
+            virtualizedGrid.linkedGrid = virtualizedGrid2;
+            virtualizedGrid2.linkedGrid = virtualizedGrid;
+        }
     }
 }
