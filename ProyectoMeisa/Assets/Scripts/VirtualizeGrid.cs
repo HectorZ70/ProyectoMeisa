@@ -34,6 +34,7 @@ public class VirtualizedGrid : MonoBehaviour
     public int rowCount;
     public int colCount;
 
+    [SerializeField]
     public PopUp popup;
 
     void Start()
