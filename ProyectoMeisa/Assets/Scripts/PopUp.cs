@@ -17,6 +17,10 @@ public class PopUp : MonoBehaviour
     public TMP_InputField endDateInput;
     public TMP_InputField customTextInput;
     public Button guardarBtn, cargarBtn;
+    public TMP_Text numOpText;
+    public TMP_Text nameOpText;
+    public TMP_Text contractOpText;
+    public TMP_Text posOpText;
 
     public VirtualizedGrid virtualizedGrid;
     public VirtualizedGrid virtualizedGrid2;
@@ -27,6 +31,7 @@ public class PopUp : MonoBehaviour
     private GridManager gridManager;
     private PopUpSpawner popupSpawner;
     private Color selectedColor = Color.red;
+    public static PopUp CurrentInstance;
 
     private void Start()
     {
@@ -41,6 +46,7 @@ public class PopUp : MonoBehaviour
         this.virtualizedGrid = virtualGrid;
         this.virtualizedGrid2 = virtualGrid2;
         this.datesGrid = dateGrid;
+        CurrentInstance = this;
    
 
         if (popupDropdown == null)
@@ -231,6 +237,27 @@ public void OnFileDropownChanged(int index)
         }
     }
 
+    public void UpdateDetailsFromRow()
+    {
+        if (virtualizedGrid2 == null || virtualizedGrid2.selectedRow == null)
+        {
+            Debug.LogWarning("No hay una fila seleccionada en VirtualizedGrid2.");
+            return;
+        }
+
+        int rowIndex = virtualizedGrid2.selectedRow.Value;
+
+        string numOp = virtualizedGrid2.ReadFromCell(rowIndex, 0);
+        string op = virtualizedGrid2.ReadFromCell(rowIndex, 1);
+        string contractOp = virtualizedGrid2.ReadFromCell(rowIndex, 2);
+        string posOp = virtualizedGrid2.ReadFromCell(rowIndex, 3);
+
+        // Asegurate de tener estas referencias seteadas en el inspector
+        if (numOpText != null) numOpText.text = numOp;
+        if (nameOpText != null) nameOpText.text = op;
+        if (contractOpText != null) contractOpText.text = contractOp;
+        if (posOpText != null) posOpText.text = posOp;
+    }
 
     public void Close()
     {

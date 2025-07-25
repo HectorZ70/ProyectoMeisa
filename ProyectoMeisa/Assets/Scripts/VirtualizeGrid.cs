@@ -34,6 +34,8 @@ public class VirtualizedGrid : MonoBehaviour
     public int rowCount;
     public int colCount;
 
+    public PopUp popup;
+
     void Start()
     {
         content.sizeDelta = new Vector2(totalCols * cellWidth, totalRows * cellHeight);
@@ -380,6 +382,8 @@ public class VirtualizedGrid : MonoBehaviour
                         linkedGrid.selectedRow = capturedRow;
                         linkedGrid.HighlightSelectedRow(capturedRow);
                     }
+
+                    popup.UpdateDetailsFromRow();
                 });
 
                 RectTransform rt = go.GetComponent<RectTransform>();

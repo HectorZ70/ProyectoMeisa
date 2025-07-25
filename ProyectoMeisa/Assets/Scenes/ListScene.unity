@@ -418,6 +418,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1635525698}
     - target: {fileID: 3284583923572612650, guid: 4f88db5fa172e4f4388223bde65d4ddb, type: 3}
+      propertyPath: virtualizedGrid2
+      value: 
+      objectReference: {fileID: 1432239341}
+    - target: {fileID: 3284583923572612650, guid: 4f88db5fa172e4f4388223bde65d4ddb, type: 3}
       propertyPath: popupPrefabs.Array.size
       value: 8
       objectReference: {fileID: 0}
@@ -1673,6 +1677,7 @@ MonoBehaviour:
   cellHeight: 50
   rowCount: 0
   colCount: 0
+  popupInstance: {fileID: 6123300340907197540, guid: f09ab02af63e2fb46a3f32f4840bb6e1, type: 3}
 --- !u!1 &1456432363 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5048282281721104872, guid: 68a637172f8dca34da4beab52387b6f1, type: 3}
@@ -2420,6 +2425,7 @@ MonoBehaviour:
   cellHeight: 50
   rowCount: 0
   colCount: 0
+  popupInstance: {fileID: 6123300340907197540, guid: f09ab02af63e2fb46a3f32f4840bb6e1, type: 3}
 --- !u!1 &1780183353
 GameObject:
   m_ObjectHideFlags: 0

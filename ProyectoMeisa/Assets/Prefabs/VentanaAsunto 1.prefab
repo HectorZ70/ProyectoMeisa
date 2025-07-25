@@ -443,7 +443,7 @@ GameObject:
   - component: {fileID: 3057934895582725450}
   - component: {fileID: 8456407420473223194}
   m_Layer: 5
-  m_Name: Text (TMP) (4)
+  m_Name: "Posici\xF3n"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1117,7 +1117,7 @@ GameObject:
   - component: {fileID: 3957613589031570035}
   - component: {fileID: 7392558763252888454}
   m_Layer: 5
-  m_Name: Text (TMP) (2)
+  m_Name: "C\xF3digo"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2248,7 +2248,7 @@ GameObject:
   - component: {fileID: 1147845088594918754}
   - component: {fileID: 1546945115627690507}
   m_Layer: 5
-  m_Name: Text (TMP) (1)
+  m_Name: OP
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2476,7 +2476,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 94, y: 211}
+  m_AnchoredPosition: {x: 0, y: 203}
   m_SizeDelta: {x: -1290, y: -687.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1488567665839944834
@@ -2533,12 +2533,22 @@ MonoBehaviour:
   colsInput: {fileID: 0}
   popupDropdown: {fileID: 6682270741969968103}
   colorDropdown: {fileID: 0}
+  filterDropdown: {fileID: 0}
+  fileDropdown: {fileID: 0}
   startDateInput: {fileID: 1519470676441055636}
   endDateInput: {fileID: 6870749512816609975}
   customTextInput: {fileID: 1514168377092221570}
-  dateGrid: {fileID: 0}
+  guardarBtn: {fileID: 0}
+  cargarBtn: {fileID: 0}
+  numOpText: {fileID: 7392558763252888454}
+  nameOpText: {fileID: 1546945115627690507}
+  contractOpText: {fileID: 9142564196680000023}
+  posOpText: {fileID: 8456407420473223194}
   virtualizedGrid: {fileID: 0}
+  virtualizedGrid2: {fileID: 0}
+  datesGrid: {fileID: 0}
   popupPanel: {fileID: 0}
+  fileIO: {fileID: 0}
 --- !u!1 &4564450264674099072
 GameObject:
   m_ObjectHideFlags: 0
@@ -3266,7 +3276,7 @@ GameObject:
   - component: {fileID: 324513488345571211}
   - component: {fileID: 9142564196680000023}
   m_Layer: 5
-  m_Name: Text (TMP) (3)
+  m_Name: Contrato
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
