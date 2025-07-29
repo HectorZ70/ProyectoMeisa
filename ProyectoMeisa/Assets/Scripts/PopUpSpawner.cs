@@ -31,9 +31,13 @@ public class PopUpSpawner : MonoBehaviour
         GameObject popup = Instantiate(popupPrefabs[index], parentCanvas);
 
         PopUp popupScript = popup.GetComponentInChildren<PopUp>();
+       
         if (popupScript != null)
         {
             popupScript.Init(gridManager, this, virtualizedGrid, dateGrid, virtualizedGrid2);
+
+            virtualizedGrid.popup = popupScript;
+            virtualizedGrid2.popup = popupScript;
             virtualizedGrid.linkedGrid = virtualizedGrid2;
             virtualizedGrid2.linkedGrid = virtualizedGrid;
         }

@@ -239,6 +239,8 @@ public void OnFileDropownChanged(int index)
 
     public void UpdateDetailsFromRow()
     {
+        Debug.Log("UpdateDetailsFromRow() se está ejecutando");
+
         if (virtualizedGrid2 == null || virtualizedGrid2.selectedRow == null)
         {
             Debug.LogWarning("No hay una fila seleccionada en VirtualizedGrid2.");

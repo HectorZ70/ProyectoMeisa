@@ -378,13 +378,18 @@ public class VirtualizedGrid : MonoBehaviour
                     Debug.Log("Fila Seleccionad: " + selectedRow);
                     HighlightSelectedRow(capturedRow);
 
+                    if(popup != null)
+                    {
+                        popup.UpdateDetailsFromRow();
+                    }
+
                     if(linkedGrid != null)
                     {
                         linkedGrid.selectedRow = capturedRow;
                         linkedGrid.HighlightSelectedRow(capturedRow);
                     }
 
-                    popup.UpdateDetailsFromRow();
+                    popup?.UpdateDetailsFromRow();
                 });
 
                 RectTransform rt = go.GetComponent<RectTransform>();
