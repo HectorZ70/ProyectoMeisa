@@ -65,6 +65,8 @@ public class PopUp : MonoBehaviour
         {
             filterDropdown.onValueChanged.AddListener(OnSortDropdownChanged);
         }
+
+        UpdateDetailsFromRow();
     }
 
     public void ConfirmExit()
