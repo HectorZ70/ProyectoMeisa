@@ -64,4 +64,19 @@ public static class GridSaveLoad
 
         return data;
     }
+
+    public static void SaveTSV(GridSaveData data, string path)
+    {
+        if (string.IsNullOrEmpty(path)) return;
+
+        StringBuilder sb = new StringBuilder();
+        sb.AppendLine("row\tcolumn\ttext\tisHighlighted");
+
+        foreach (var cell in data.cells)
+        {
+            sb.AppendLine($"{cell.row}\t{cell.column}\t{cell.text}\t{cell.isHighlighted}");
+        }
+
+        File.WriteAllText(path, sb.ToString(), Encoding.UTF8);
+    }
 }

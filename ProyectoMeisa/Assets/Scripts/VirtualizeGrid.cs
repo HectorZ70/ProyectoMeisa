@@ -1,3 +1,6 @@
+#if !UNITY_EDITOR
+using SFB;
+#endif
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine.UI;
@@ -249,10 +252,15 @@ public class VirtualizedGrid : MonoBehaviour
         }
 
 #if UNITY_EDITOR
-        GridSaveLoad.Save(saveData);
+        string path = UnityEditor.EditorUtility.SaveFilePanel("Guardar como TSV", "", "griddata", "tsv");
 #else
-    Debug.LogWarning("Guardar como TSV solo está disponible en el editor.");
+    string path = SFB.StandaloneFileBrowser.SaveFilePanel("Guardar como TSV", "", "griddata", "tsv");
 #endif
+
+        if (!string.IsNullOrEmpty(path))
+        {
+            GridSaveLoad.SaveTSV(saveData, path);
+        }
     }
 
     public void Load()
