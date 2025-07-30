@@ -24,6 +24,8 @@ public class ArrowSpawner : MonoBehaviour
         public RectTransform target;
         public RectTransform arrowRect;
 
+      
+
         public void UpdatePosition(RectTransform canvasRect)
         {
             if (origin == null || target == null || arrowRect == null) return;
@@ -49,8 +51,18 @@ public class ArrowSpawner : MonoBehaviour
 
     void Update()
     {
-        foreach (var arrow in arrows)
+        for (int i = arrows.Count - 1; i >= 0; i--)
         {
+            var arrow = arrows[i];
+            if (arrow.origin == null || arrow.target == null)
+            {
+                if (arrow.arrowRect != null)
+                    Destroy(arrow.arrowRect.gameObject);
+
+                arrows.RemoveAt(i);
+                continue;
+            }
+
             arrow.UpdatePosition(canvasTrans as RectTransform);
         }
     }

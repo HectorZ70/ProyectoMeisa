@@ -50,12 +50,15 @@ public class Node : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHand
 
         if (eventData.button == PointerEventData.InputButton.Middle)
         {
-            if (linksSpawner != null && linksSpawner.GetComponent<ArrowSpawner>() != null)
-            {
-                linksSpawner.GetComponent<ArrowSpawner>().RemoveArrowsConnectedTo(this.transform);
-            }
+            Destroy(this.gameObject); 
+        }
+    }
 
-            Destroy(this.gameObject);
+    private void OnDestroy()
+    {
+        if(linksSpawner != null && linksSpawner.arrowSpawner != null)
+        {
+            linksSpawner.arrowSpawner.RemoveArrowsConnectedTo(this.transform);
         }
     }
 
