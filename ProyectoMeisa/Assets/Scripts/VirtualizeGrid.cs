@@ -255,7 +255,7 @@ public class VirtualizedGrid : MonoBehaviour
 #endif
     }
 
-    /*public void Load()
+    public void Load()
     {
         var data = GridSaveLoad.Load();
         if (data != null)
@@ -263,7 +263,7 @@ public class VirtualizedGrid : MonoBehaviour
             GridLoadBuffer.DataToLoad = data;
             UnityEngine.SceneManagement.SceneManager.LoadScene("ListScene");
         }
-    }*/
+    }
 
     public void LoadFromData(GridSaveData loaded)
     {

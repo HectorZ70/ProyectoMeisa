@@ -149,6 +149,7 @@ public class PopUp : MonoBehaviour
 
 public void OpenFileAndLoadGrid() 
     {
+
         GridSaveData data = GridSaveLoad.Load();
         if (data != null)
         {
