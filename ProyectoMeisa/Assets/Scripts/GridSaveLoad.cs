@@ -1,28 +1,29 @@
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 using System;
 using System.IO;
-using System.Collections;
+using System.Text;
 using UnityEngine;
 
 public static class GridSaveLoad 
 {
-    private static readonly string path = Path.Combine(Application.persistentDataPath, "griddata.json");
-
+#if UNITY_EDITOR
     public static void Save(GridSaveData data)
     {
-        string json = JsonUtility.ToJson(data, true);
-        File.WriteAllText(path, json);
-        Debug.Log($"Guardado en: {path}");
-    }
+        string path = EditorUtility.SaveFilePanel("Guardar como TSV", "", "griddata.tsv", "tsv");
+        if (string.IsNullOrEmpty(path)) return;
 
-    public static GridSaveData Load()
-    {
-        if (!File.Exists(path))
+        StringBuilder sb = new StringBuilder();
+
+        sb.AppendLine("ro\tcolumn\ttext\tisHighlighted");
+
+        foreach (var cell in data.cells)
         {
-            Debug.LogWarning("Archivo no encontrado");
-            return null;
+            sb.AppendLine($"{cell.row}\t{cell.column}\t{cell.text}\t{cell.isHighlighted}");
         }
 
-        string json = File.ReadAllText(path);
-        return JsonUtility.FromJson<GridSaveData>(json);
+        File.WriteAllText(path, sb.ToString(), Encoding.UTF8);
     }
+#endif
 }

@@ -248,10 +248,14 @@ public class VirtualizedGrid : MonoBehaviour
             saveData.cells.Add(data);
         }
 
+#if UNITY_EDITOR
         GridSaveLoad.Save(saveData);
+#else
+    Debug.LogWarning("Guardar como TSV solo está disponible en el editor.");
+#endif
     }
 
-    public void Load()
+    /*public void Load()
     {
         var data = GridSaveLoad.Load();
         if (data != null)
@@ -259,7 +263,7 @@ public class VirtualizedGrid : MonoBehaviour
             GridLoadBuffer.DataToLoad = data;
             UnityEngine.SceneManagement.SceneManager.LoadScene("ListScene");
         }
-    }
+    }*/
 
     public void LoadFromData(GridSaveData loaded)
     {
