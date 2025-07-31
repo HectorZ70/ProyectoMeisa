@@ -37,14 +37,15 @@ public class Node : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHand
         if (eventData.pointerPress != this.gameObject) return;
         if (!wasDrag && !linksExist)
         {
-            links = linksSpawner.ShowLinks(this.transform as RectTransform);
+            if (links == null)
+                links = linksSpawner.ShowLinks(this.transform as RectTransform);
+            links.SetActive(true);
             linksExist = true;
         }
 
         else if (!wasDrag && linksExist)
         {
-            Destroy(links);
-            links = null;
+            links.SetActive(false);
             linksExist = false;
         }
 
