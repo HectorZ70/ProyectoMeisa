@@ -44,23 +44,6 @@ public class VirtualizedGrid : MonoBehaviour
     {
         content.sizeDelta = new Vector2(totalCols * cellWidth, totalRows * cellHeight);
 
-        if (!string.IsNullOrEmpty(GridLoadBuffer.RawFileData))
-        {
-            LoadTSVFromBuffer();
-            GridLoadBuffer.RawFileData = null; 
-        }
-        else if (GridLoadBuffer.DataToLoad != null)
-        {
-            LoadFromData(GridLoadBuffer.DataToLoad);
-            GridLoadBuffer.DataToLoad = null;
-        }
-
-        if (GridLoadBuffer.DataToLoad != null)
-        {
-            LoadFromData(GridLoadBuffer.DataToLoad);
-            GridLoadBuffer.DataToLoad = null; 
-        }
-
         scrollRect.onValueChanged.AddListener(_ => UpdateVisibleCells());
         UpdateVisibleCells();
     }
@@ -251,30 +234,14 @@ public class VirtualizedGrid : MonoBehaviour
             saveData.cells.Add(data);
         }
 
-#if UNITY_EDITOR
-        string path = UnityEditor.EditorUtility.SaveFilePanel("Guardar como TSV", "", "griddata", "tsv");
-#else
-    string path = SFB.StandaloneFileBrowser.SaveFilePanel("Guardar como TSV", "", "griddata", "tsv");
-#endif
-
-        if (!string.IsNullOrEmpty(path))
-        {
-            GridSaveLoad.SaveTSV(saveData, path);
-        }
+        GridSaveLoad.Save(saveData);
     }
 
     public void Load()
     {
-        var data = GridSaveLoad.Load();
-        if (data != null)
-        {
-            GridLoadBuffer.DataToLoad = data;
-            UnityEngine.SceneManagement.SceneManager.LoadScene("ListScene");
-        }
-    }
+        GridSaveData loaded = GridSaveLoad.Load();
+        if (loaded == null) return;
 
-    public void LoadFromData(GridSaveData loaded)
-    {
         cellData.Clear();
         highlightedColumns.Clear();
 
@@ -287,32 +254,6 @@ public class VirtualizedGrid : MonoBehaviour
                 highlightedColumns.Add(coord.y);
         }
 
-        UpdateVisibleCells();
-    }
-
-    private void LoadTSVFromBuffer()
-    {
-        string[] lines = GridLoadBuffer.RawFileData.Split(new[] { "\r\n", "\n" }, StringSplitOptions.RemoveEmptyEntries);
-
-        int maxRow = 0;
-        int maxCol = 0;
-
-        for (int row = 0; row < lines.Length; row++)
-        {
-            char delimiter = DetectDelimiter(lines[row]);
-            string[] cells = lines[row].Split(delimiter);
-
-            for (int col = 0; col < cells.Length; col++)
-            {
-                WriteToCell(row, col, cells[col]);
-                maxCol = Mathf.Max(maxCol, col);
-            }
-
-            maxRow = Mathf.Max(maxRow, row);
-        }
-
-        totalRows = Mathf.Max(totalRows, maxRow + 1);
-        totalCols = Mathf.Max(totalCols, maxCol + 1);
         UpdateVisibleCells();
     }
 
