@@ -47,7 +47,7 @@ public class VirtualizedGrid : MonoBehaviour
         if (!string.IsNullOrEmpty(GridLoadBuffer.RawFileData))
         {
             LoadTSVFromBuffer();
-            GridLoadBuffer.RawFileData = null; 
+            GridLoadBuffer.RawFileData = null;
         }
         else if (GridLoadBuffer.DataToLoad != null)
         {
@@ -58,7 +58,7 @@ public class VirtualizedGrid : MonoBehaviour
         if (GridLoadBuffer.DataToLoad != null)
         {
             LoadFromData(GridLoadBuffer.DataToLoad);
-            GridLoadBuffer.DataToLoad = null; 
+            GridLoadBuffer.DataToLoad = null;
         }
 
         scrollRect.onValueChanged.AddListener(_ => UpdateVisibleCells());
@@ -227,50 +227,6 @@ public class VirtualizedGrid : MonoBehaviour
             }
         }
         UpdateVisibleCells();
-    }
-
-    public void Save()
-    {
-        GridSaveData saveData = new GridSaveData();
-
-        foreach (var kvp in cellData)
-        {
-            Vector2Int coord = kvp.Key;
-            string text = kvp.Value;
-
-            bool isHighlighted = highlightedColumns.Contains(coord.y);
-
-            GridCellSaveData data = new GridCellSaveData
-            {
-                row = coord.x,
-                column = coord.y,
-                text = text,
-                isHighlighted = isHighlighted
-            };
-
-            saveData.cells.Add(data);
-        }
-
-#if UNITY_EDITOR
-        string path = UnityEditor.EditorUtility.SaveFilePanel("Guardar como TSV", "", "griddata", "tsv");
-#else
-    string path = SFB.StandaloneFileBrowser.SaveFilePanel("Guardar como TSV", "", "griddata", "tsv");
-#endif
-
-        if (!string.IsNullOrEmpty(path))
-        {
-            GridSaveLoad.SaveTSV(saveData, path);
-        }
-    }
-
-    public void Load()
-    {
-        var data = GridSaveLoad.Load();
-        if (data != null)
-        {
-            GridLoadBuffer.DataToLoad = data;
-            UnityEngine.SceneManagement.SceneManager.LoadScene("ListScene");
-        }
     }
 
     public void LoadFromData(GridSaveData loaded)
