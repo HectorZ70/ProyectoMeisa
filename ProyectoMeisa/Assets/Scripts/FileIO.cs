@@ -58,4 +58,45 @@ public class FileIO : MonoBehaviour
             }
         });
     }
+
+    public void SaveFile()
+    {
+        if (grid == null)
+        {
+            grid = FindFirstObjectByType<VirtualizedGrid>();
+
+            if (grid == null)
+            {
+                Debug.LogError("No se encontró VirtualizedGrid para guardar");
+                return;
+            }
+        }
+        GridSaveData saveData = new GridSaveData();
+
+        foreach (var kvp in grid.cellData)
+        {
+            GridCellSaveData cell = new GridCellSaveData();
+            cell.row = kvp.Key.x;
+            cell.column = kvp.Key.y;
+            cell.text = kvp.Value;
+            cell.isHighlighted = grid.highlightedColumns.Contains(kvp.Key.y);
+
+            saveData.cells.Add(cell);
+        }
+
+        string json = JsonUtility.ToJson(saveData, true);
+
+        string path = StandaloneFileBrowser.SaveFilePanel(
+            "Guardar como JSON",
+            "",
+            "grid_data",
+            "json"
+        );
+
+        if (!string.IsNullOrEmpty(path))
+        {
+            File.WriteAllText(path, json);
+            Debug.Log($"Datos guardados en: {path}");
+        }
+    }
 }

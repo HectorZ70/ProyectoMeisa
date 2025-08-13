@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using System;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class PopUp : MonoBehaviour
@@ -16,7 +15,6 @@ public class PopUp : MonoBehaviour
     public TMP_InputField startDateInput;
     public TMP_InputField endDateInput;
     public TMP_InputField customTextInput;
-    public Button guardarBtn, cargarBtn;
     public TMP_Text numOpText;
     public TMP_Text nameOpText;
     public TMP_Text contractOpText;
@@ -32,12 +30,6 @@ public class PopUp : MonoBehaviour
     private PopUpSpawner popupSpawner;
     private Color selectedColor = Color.red;
     public static PopUp CurrentInstance;
-
-    private void Start()
-    {
-        //guardarBtn.onClick.AddListener(virtualizedGrid.Save);
-        //cargarBtn.onClick.AddListener(virtualizedGrid.Load);
-    }
 
     public void Init(GridManager manager, PopUpSpawner spawner, VirtualizedGrid virtualGrid, ScrollableGrid dateGrid, VirtualizedGrid virtualGrid2 = null)
     {

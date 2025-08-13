@@ -23,17 +23,15 @@ public class VirtualizedGrid : MonoBehaviour
     public int visibleRows = 20;                
     public int visibleCols = 10;
     public int? selectedRow = null;
-    
-    public Button guardarBtn, cargarBtn;
 
     public float cellWidth = 250f;
     public float cellHeight = 50f;
     private Color highlightColor = Color.yellow;
 
-    private Dictionary<Vector2Int, string> cellData = new(); 
+    [SerializeField, HideInInspector] public Dictionary<Vector2Int, string> cellData = new(); 
     private Dictionary<Vector2Int, TMP_InputField> activeCells = new();
     private Dictionary<Vector2Int, Color> customCellColor = new();
-    private HashSet<int> highlightedColumns = new HashSet<int>();
+    [SerializeField, HideInInspector] public HashSet<int> highlightedColumns = new HashSet<int>();
     public int rowCount;
     public int colCount;
 
