@@ -102,13 +102,6 @@ public class PopUp : MonoBehaviour
             foreach (int col in highlightedCols)
                 virtualizedGrid.HighlightSingleCell(row, col, selectedColor);
 
-            if (virtualizedGrid2 != null)
-            {
-                virtualizedGrid2.selectedRow = selectedRow; 
-                foreach (int col in highlightedCols)
-                   virtualizedGrid2.HighlightSingleCell(row, col, selectedColor);
-            }
-
             if (highlightedCols.Count > 0 && customTextInput != null)
             {
                 int firstCol = highlightedCols[0];

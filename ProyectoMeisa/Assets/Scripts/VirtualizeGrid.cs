@@ -23,6 +23,7 @@ public class VirtualizedGrid : MonoBehaviour
     public int visibleRows = 20;                
     public int visibleCols = 10;
     public int? selectedRow = null;
+    private bool supressHighlight = false;
 
     public float cellWidth = 250f;
     public float cellHeight = 50f;
@@ -340,21 +341,18 @@ public class VirtualizedGrid : MonoBehaviour
 
                 input.onSelect.AddListener(_ =>
                 {
+                    if (supressHighlight) return;
+
                     selectedRow = capturedRow;
-                    Debug.Log("Fila Seleccionad: " + selectedRow);
-                    HighlightSelectedRow(capturedRow);
+                    popup?.UpdateDetailsFromRow();
 
-                    if(popup != null)
+                    if(linkedGrid != null && linkedGrid.selectedRow != capturedRow)
                     {
-                        popup.UpdateDetailsFromRow();
-                    }
-
-                    if(linkedGrid != null)
-                    {
+                        linkedGrid.supressHighlight = true;
                         linkedGrid.selectedRow = capturedRow;
                         linkedGrid.HighlightSelectedRow(capturedRow);
+                        linkedGrid.supressHighlight = false;
                     }
-
                     popup?.UpdateDetailsFromRow();
                 });
 

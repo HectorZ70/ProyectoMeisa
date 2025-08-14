@@ -1671,8 +1671,6 @@ MonoBehaviour:
   totalCols: 1000
   visibleRows: 20
   visibleCols: 10
-  guardarBtn: {fileID: 0}
-  cargarBtn: {fileID: 0}
   cellWidth: 165
   cellHeight: 50
   rowCount: 0
@@ -2414,13 +2412,11 @@ MonoBehaviour:
   inputFieldPrefab: {fileID: 8571307670280539105, guid: 88eb853db28aadb4597fbd5c75297510, type: 3}
   linkedVerticalScrollRect: {fileID: 1432239338}
   linkedHorizontalScrollRect: {fileID: 2089009792}
-  linkedGrid: {fileID: 1635525698}
+  linkedGrid: {fileID: 0}
   totalRows: 1000
   totalCols: 1000
   visibleRows: 20
   visibleCols: 10
-  guardarBtn: {fileID: 0}
-  cargarBtn: {fileID: 0}
   cellWidth: 70
   cellHeight: 50
   rowCount: 0
