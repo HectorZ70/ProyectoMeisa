@@ -9,29 +9,35 @@ using UnityEngine;
 
 public static class GridSaveLoad 
 {
-#if UNITY_EDITOR
     public static void Save(GridSaveData data)
     {
-        var extensions = new[] {
-        new ExtensionFilter("TSV Files", "tsv"),
-    };
+        string path = StandaloneFileBrowser.SaveFilePanel("Guardar archivo", "", "", "json");
 
-        string path = StandaloneFileBrowser.SaveFilePanel("Guardar archivo", "", "griddata", "tsv");
-        if (string.IsNullOrEmpty(path)) return;
-
-        StringBuilder sb = new StringBuilder();
-        sb.AppendLine("ro\tcolumn\ttext\tisHighlighted");
-
-        foreach (var cell in data.cells)
+        if(string.IsNullOrEmpty(path))
         {
-            sb.AppendLine($"{cell.row}\t{cell.column}\t{cell.text}\t{cell.isHighlighted}");
+            Debug.Log("Guardado cancelado");
+            return;
         }
 
-        File.WriteAllText(path, sb.ToString(), Encoding.UTF8);
-    }
-#endif
+        string json = JsonUtility.ToJson(data, true);
+        File.WriteAllText(path, json);
 
-    public static GridSaveData Load()
+        Debug.Log($"Guardado en: {path}");
+    }
+
+    public static GridSaveData Load(string path)
+    {
+        if(!File.Exists(path))
+        {
+            Debug.LogWarning($"Archivo no encontrado: {path}");
+            return null;
+        }
+
+        string json = File.ReadAllText(path);
+        return JsonUtility.FromJson<GridSaveData>(json);
+    }
+
+    public static GridSaveData LoadTSV()
     {
         var extensions = new[] {
         new ExtensionFilter("TSV Files", "tsv"),
@@ -63,20 +69,5 @@ public static class GridSaveLoad
         }
 
         return data;
-    }
-
-    public static void SaveTSV(GridSaveData data, string path)
-    {
-        if (string.IsNullOrEmpty(path)) return;
-
-        StringBuilder sb = new StringBuilder();
-        sb.AppendLine("row\tcolumn\ttext\tisHighlighted");
-
-        foreach (var cell in data.cells)
-        {
-            sb.AppendLine($"{cell.row}\t{cell.column}\t{cell.text}\t{cell.isHighlighted}");
-        }
-
-        File.WriteAllText(path, sb.ToString(), Encoding.UTF8);
     }
 }

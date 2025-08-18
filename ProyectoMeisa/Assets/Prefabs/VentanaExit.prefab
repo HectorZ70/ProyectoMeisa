@@ -1047,8 +1047,6 @@ MonoBehaviour:
   startDateInput: {fileID: 0}
   endDateInput: {fileID: 0}
   customTextInput: {fileID: 0}
-  guardarBtn: {fileID: 414187561453649357}
-  cargarBtn: {fileID: 0}
   numOpText: {fileID: 0}
   nameOpText: {fileID: 0}
   contractOpText: {fileID: 0}
@@ -1080,8 +1078,6 @@ MonoBehaviour:
   totalCols: 1000
   visibleRows: 20
   visibleCols: 10
-  guardarBtn: {fileID: 0}
-  cargarBtn: {fileID: 0}
   cellWidth: 250
   cellHeight: 50
   rowCount: 0
@@ -1359,6 +1355,18 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
+      - m_Target: {fileID: 1243435477963600526}
+        m_TargetAssemblyTypeName: VirtualizedGrid, Assembly-CSharp
+        m_MethodName: SaveFile
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: SaveFile()
+          m_BoolArgument: 0
+        m_CallState: 2
       - m_Target: {fileID: 1995982682094527411}
         m_TargetAssemblyTypeName: PopUp, Assembly-CSharp
         m_MethodName: ConfirmExit
@@ -1369,17 +1377,5 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 2830362024302785133}
-        m_TargetAssemblyTypeName: FileIO, Assembly-CSharp
-        m_MethodName: SaveFile
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: SaveFile()
           m_BoolArgument: 0
         m_CallState: 2

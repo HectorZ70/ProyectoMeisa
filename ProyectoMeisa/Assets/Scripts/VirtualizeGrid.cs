@@ -228,6 +228,28 @@ public class VirtualizedGrid : MonoBehaviour
         UpdateVisibleCells();
     }
 
+    public void SaveFile()
+    {
+        GridSaveData saveData = new GridSaveData();
+
+        foreach (var kvp in cellData)
+        {
+            Vector2Int coord = kvp.Key;
+            string text = kvp.Value;
+            bool isHighlighted = highlightedColumns.Contains(coord.y);
+
+            GridCellSaveData data = new GridCellSaveData
+            {
+                row = coord.x,
+                column = coord.y,
+                text = text,
+                isHighlighted = isHighlighted
+            };
+            saveData.cells.Add(data);
+        }
+        GridSaveLoad.Save(saveData);
+    }
+
     public void LoadFromData(GridSaveData loaded)
     {
         cellData.Clear();

@@ -135,7 +135,7 @@ public class PopUp : MonoBehaviour
 public void OpenFileAndLoadGrid() 
     {
 
-        GridSaveData data = GridSaveLoad.Load();
+        GridSaveData data = GridSaveLoad.LoadTSV();
         if (data != null)
         {
             GridLoadBuffer.DataToLoad = data;
