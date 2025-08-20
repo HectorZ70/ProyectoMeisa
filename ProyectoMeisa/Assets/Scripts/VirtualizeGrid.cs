@@ -6,8 +6,11 @@ using TMPro;
 using UnityEngine.UI;
 using UnityEngine;
 using System;
+using System.IO;
 using System.Linq;
 using System.Collections;
+using SFB;
+using static UnityEngine.Rendering.DebugUI;
 
 public class VirtualizedGrid : MonoBehaviour
 {
@@ -234,6 +237,8 @@ public class VirtualizedGrid : MonoBehaviour
 
         foreach (var kvp in cellData)
         {
+            Debug.Log($"CellData count: {cellData.Count}");
+            Debug.Log($"Highlighted count: {highlightedColumns.Count}");
             Vector2Int coord = kvp.Key;
             string text = kvp.Value;
             bool isHighlighted = highlightedColumns.Contains(coord.y);
@@ -245,10 +250,29 @@ public class VirtualizedGrid : MonoBehaviour
                 text = text,
                 isHighlighted = isHighlighted
             };
+
             saveData.cells.Add(data);
         }
-        GridSaveLoad.Save(saveData);
+
+        string path = StandaloneFileBrowser.SaveFilePanel(
+            "Guardar archivo",
+            "",              
+            "",     
+            "json"           
+        );
+
+        if (!string.IsNullOrEmpty(path))
+        {
+            string json = JsonUtility.ToJson(saveData, true);
+            File.WriteAllText(path, json);
+            Debug.Log($"Grid guardada en: {path}");
+        }
+        else
+        {
+            Debug.Log("Guardado cancelado.");
+        }
     }
+
 
     public void LoadFromData(GridSaveData loaded)
     {
@@ -356,6 +380,7 @@ public class VirtualizedGrid : MonoBehaviour
                 int capturedRow = row;
                 int capturedCol = col;
 
+                input.onEndEdit.RemoveAllListeners();
                 input.onEndEdit.AddListener(value =>
                 {
                     cellData[new Vector2Int(capturedRow, capturedCol)] = value;
