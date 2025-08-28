@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
-
+using UnityEngine;
+using UnityEngine.UI;
 
 [System.Serializable]
 public class GridCellSaveData
@@ -8,6 +10,7 @@ public class GridCellSaveData
     public int column;
     public string text;
     public bool isHighlighted;
+    public string colorHex;
 }
 
 [System.Serializable]

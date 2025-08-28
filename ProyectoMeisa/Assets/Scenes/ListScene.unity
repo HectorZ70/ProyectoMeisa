@@ -1664,18 +1664,18 @@ MonoBehaviour:
   content: {fileID: 2034146162}
   scrollRect: {fileID: 1432239338}
   inputFieldPrefab: {fileID: 8571307670280539105, guid: 88eb853db28aadb4597fbd5c75297510, type: 3}
+  linkedGrid: {fileID: 1635525698}
   linkedVerticalScrollRect: {fileID: 1635525695}
   linkedHorizontalScrollRect: {fileID: 0}
-  linkedGrid: {fileID: 1635525698}
   totalRows: 1000
   totalCols: 1000
   visibleRows: 20
   visibleCols: 10
+  selectedRow: -1
   cellWidth: 165
   cellHeight: 50
   rowCount: 0
   colCount: 0
-  popup: {fileID: 6123300340907197540, guid: f09ab02af63e2fb46a3f32f4840bb6e1, type: 3}
 --- !u!1 &1456432363 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5048282281721104872, guid: 68a637172f8dca34da4beab52387b6f1, type: 3}
@@ -2410,18 +2410,18 @@ MonoBehaviour:
   content: {fileID: 1265036280}
   scrollRect: {fileID: 1635525695}
   inputFieldPrefab: {fileID: 8571307670280539105, guid: 88eb853db28aadb4597fbd5c75297510, type: 3}
+  linkedGrid: {fileID: 1432239341}
   linkedVerticalScrollRect: {fileID: 1432239338}
   linkedHorizontalScrollRect: {fileID: 2089009792}
-  linkedGrid: {fileID: 0}
   totalRows: 1000
   totalCols: 1000
   visibleRows: 20
   visibleCols: 10
+  selectedRow: -1
   cellWidth: 70
   cellHeight: 50
   rowCount: 0
   colCount: 0
-  popup: {fileID: 6123300340907197540, guid: f09ab02af63e2fb46a3f32f4840bb6e1, type: 3}
 --- !u!1 &1780183353
 GameObject:
   m_ObjectHideFlags: 0
