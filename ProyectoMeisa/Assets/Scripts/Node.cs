@@ -1,13 +1,13 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class Node : MonoBehaviour ,IBeginDragHandler, IEndDragHandler, IDragHandler, IPointerClickHandler
+public class Node : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHandler, IPointerClickHandler
 {
     private RectTransform rectTransform;
     private Canvas canvas;
     public GameObject links;
 
-    public LinksSpawner linksSpawner;
+    public LinkSpawner linksSpawner;
     private bool wasDrag = false;
     private bool linksExist = false;
 
@@ -35,22 +35,32 @@ public class Node : MonoBehaviour ,IBeginDragHandler, IEndDragHandler, IDragHand
     public void OnPointerClick(PointerEventData eventData)
     {
         if (eventData.pointerPress != this.gameObject) return;
-            if (!wasDrag && !linksExist)
-            {
+        if (!wasDrag && !linksExist)
+        {
+            if (links == null)
                 links = linksSpawner.ShowLinks(this.transform as RectTransform);
-                linksExist = true;
-            }
+            links.SetActive(true);
+            linksExist = true;
+        }
 
-            else if (!wasDrag && linksExist)
-            {
-                Destroy(links);
-                links = null;
-                linksExist = false;
-            }
+        else if (!wasDrag && linksExist)
+        {
+            links.SetActive(false);
+            linksExist = false;
+        }
 
-            if (eventData.button == PointerEventData.InputButton.Middle)
-            {
-                Destroy(this.gameObject); // Destruir nodo
-            }
+        if (eventData.button == PointerEventData.InputButton.Middle)
+        {
+            Destroy(this.gameObject); 
+        }
     }
+
+    private void OnDestroy()
+    {
+        if(linksSpawner != null && linksSpawner.arrowSpawner != null)
+        {
+            linksSpawner.arrowSpawner.RemoveArrowsConnectedTo(this.transform);
+        }
+    }
+
 }

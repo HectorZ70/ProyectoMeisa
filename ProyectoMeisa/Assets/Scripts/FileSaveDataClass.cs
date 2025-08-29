@@ -10,6 +10,7 @@ public class GridCellSaveData
     public int column;
     public string text;
     public bool isHighlighted;
+    public string colorHex;
 }
 
 [System.Serializable]

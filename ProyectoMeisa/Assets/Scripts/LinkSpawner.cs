@@ -1,18 +1,18 @@
 using UnityEngine;
 
-public class LinksSpawner : MonoBehaviour
+public class LinkSpawner : MonoBehaviour
 {
     public GameObject linkPrefab;
     public Transform parentCanvas;
     public ArrowSpawner arrowSpawner;
-    
+
     public GameObject ShowLinks(RectTransform nodeTrans)
     {
         GameObject links = Instantiate(linkPrefab, nodeTrans);
 
         Link[] subLinks = links.GetComponentsInChildren<Link>();
 
-        foreach(Link subLink in subLinks)
+        foreach (Link subLink in subLinks)
         {
             subLink.arrowSpawner = arrowSpawner;
         }

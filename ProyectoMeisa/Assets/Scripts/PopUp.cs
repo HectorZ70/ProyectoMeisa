@@ -4,7 +4,6 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.Menu;
 
 public class PopUp : MonoBehaviour
 {
@@ -19,7 +18,11 @@ public class PopUp : MonoBehaviour
     public TMP_InputField customTextInput;
     public Button guardarBtn, cargarBtn;
 
+    private int selectedRow = 0;
+
+    public ScrollableGrid dateGrid;
     public VirtualizedGrid virtualizedGrid;
+    public VirtualizedGrid virtualizedGrid2;
     public GameObject popupPanel;
     public FileIO fileIO;
 
@@ -27,17 +30,13 @@ public class PopUp : MonoBehaviour
     private PopUpSpawner popupSpawner;
     private Color selectedColor = Color.red;
 
-    private void Start()
-    {
-        guardarBtn.onClick.AddListener(virtualizedGrid.Save);
-        cargarBtn.onClick.AddListener(virtualizedGrid.Load);
-    }
-
-    public void Init(GridManager manager, PopUpSpawner spawner, VirtualizedGrid virtualGrid)
+    public void Init(GridManager manager, PopUpSpawner spawner, ScrollableGrid dateGrid, VirtualizedGrid virtualGrid, VirtualizedGrid virtualGrid2)
     {
         gridManager = manager;
         popupSpawner = spawner;
+        this.dateGrid = dateGrid;
         this.virtualizedGrid = virtualGrid;
+        this.virtualizedGrid2 = virtualGrid2;
 
         if (popupDropdown == null)
             popupDropdown = transform.Find("PopupDropdown")?.GetComponent<TMP_Dropdown>();
@@ -71,54 +70,59 @@ public class PopUp : MonoBehaviour
         popupPanel.SetActive(false);
     }
 
-    /*public void OnAccept()
+    public void OnAccept()
     {
-        if (DateTime.TryParse(startDateInput.text, out DateTime startDate) &&
-            DateTime.TryParse(endDateInput.text, out DateTime endDate))
+        if (!DateTime.TryParse(startDateInput.text, out DateTime startDate) ||
+         !DateTime.TryParse(endDateInput.text, out DateTime endDate))
         {
-            Dictionary<int, DateTime> visibleDates = virtualizedGrid.GetVisibleDateColumns();
-
-            List<int> highlightedCols = new();
-
-            foreach (var kvp in visibleDates)
-            {
-                if (kvp.Value >= startDate && kvp.Value <= endDate)
-                    highlightedCols.Add(kvp.Key);
-            }
-
-            virtualizedGrid.HighlightColumnsByDateRange(startDate, endDate, visibleDates, selectedColor);
-
-            if (highlightedCols.Count > 0 && customTextInput != null)
-            {
-                int firstCol = highlightedCols[0];
-                string textToWrite = customTextInput.text;
-                virtualizedGrid.WriteToCell(0, firstCol, textToWrite);
-            }
-
-            Destroy(gameObject);
+            return;
         }
-        else
+
+        Dictionary<int, DateTime> visibleDates = dateGrid.GetVisibleDateColumns();
+        List<int> highlightedCols = new();
+
+        foreach (var kvp in visibleDates)
         {
-            Debug.LogWarning("Fechas inválidas.");
+            if (kvp.Value >= startDate && kvp.Value <= endDate)
+                highlightedCols.Add(kvp.Key);
         }
-    }*/
+
+        if (virtualizedGrid.selectedRow >= 0)
+        {
+            virtualizedGrid.HighlightColumnsByDateRange(
+                startDate,
+                endDate,
+                visibleDates,
+                virtualizedGrid.selectedRow,
+                selectedColor
+            );
+        }
+
+        if (highlightedCols.Count > 0 && customTextInput != null)
+        {
+            int firstCol = highlightedCols[0];
+            string textToWrite = customTextInput.text;
+            virtualizedGrid.WriteToCell(virtualizedGrid.selectedRow, firstCol, textToWrite);
+        }
+        Destroy(gameObject);
+    }
 
     public void OnSortDropdownChanged(int index)
-{
-        if (index == 0) return; 
+    {
+        if (index == 0) return;
 
         int col = index - 1;
 
-        
-            string firstValue = virtualizedGrid.ReadFromCell(0, col);
-            bool isNumeric = int.TryParse(firstValue, out _);
-            virtualizedGrid.SortGridByColumn(col, isNumeric);
-        
+
+        string firstValue = virtualizedGrid2.ReadFromCell(0, col);
+        bool isNumeric = int.TryParse(firstValue, out _);
+        virtualizedGrid2.SortGridByColumn(col, isNumeric);
+
         filterDropdown.SetValueWithoutNotify(0);
         gameObject.SetActive(false);
     }
 
-public void OpenFileAndLoadGrid() 
+    public void OpenFileAndLoadGrid()
     {
         GridSaveData data = GridSaveLoad.Load();
         if (data != null)
@@ -128,14 +132,14 @@ public void OpenFileAndLoadGrid()
         }
     }
 
-public void OnFileDropownChanged(int index)
+    public void OnFileDropownChanged(int index)
     {
         string selectedOption = fileDropdown.options[index].text;
 
-        switch(selectedOption)
+        switch (selectedOption)
         {
             case "Abrir":
-                if(fileIO != null)
+                if (fileIO != null)
                 {
                     fileIO.OpenFile();
                 }
@@ -143,7 +147,7 @@ public void OnFileDropownChanged(int index)
                 {
                     Debug.LogWarning("Referencia a FileIO no asignada");
                 }
-                    break;
+                break;
         }
         fileDropdown.SetValueWithoutNotify(0);
     }
@@ -152,11 +156,11 @@ public void OnFileDropownChanged(int index)
     {
         if (index > 0 && popupSpawner != null)
         {
-            popupSpawner.ShowPopup(index - 1); 
-            Destroy(gameObject); 
+            popupSpawner.ShowPopup(index - 1);
+            Destroy(gameObject);
         }
 
-        popupDropdown.value = 0; 
+        popupDropdown.value = 0;
     }
 
     public void OnColorDropdownChanged(int index)
@@ -181,7 +185,7 @@ public void OnFileDropownChanged(int index)
         };
     }
 
-    /*public void ClearHighlightedCells()
+    public void ClearHighlightedCells()
     {
         if (DateTime.TryParse(startDateInput.text, out DateTime startDate) &&
             DateTime.TryParse(endDateInput.text, out DateTime endDate))
@@ -208,7 +212,7 @@ public void OnFileDropownChanged(int index)
         {
             Debug.LogWarning("Fechas inválidas.");
         }
-    }*/
+    }
 
 
     public void Close()

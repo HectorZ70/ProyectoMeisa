@@ -7,9 +7,16 @@ public class Link : MonoBehaviour, IPointerClickHandler
     public ArrowSpawner arrowSpawner;
     public void OnPointerClick(PointerEventData eventData)
     {
-        arrowSpawner.clickWasOnLink = true;
-        arrowSpawner.SetOrigin(this.transform as RectTransform);
+        RectTransform thisPoint = this.transform as RectTransform;
 
+        if (arrowSpawner.HasOrigin())
+        {
+            arrowSpawner.SetTarget(thisPoint);
+        }
+        else 
+        {
+            arrowSpawner.SetOrigin(thisPoint);
+        }
         eventData.Use();
     }
 }

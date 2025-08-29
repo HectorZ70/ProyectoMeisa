@@ -8,8 +8,8 @@ using UnityEngine.SceneManagement;
 
 public class FileIO : MonoBehaviour
 {
-    public VirtualizedGrid grid;         
-    public TextAsset fileToLoad;         
+    public VirtualizedGrid grid;
+    public TextAsset fileToLoad;
     public bool isTSV = true;
     private bool isLoadingFile = false;
 

@@ -7,12 +7,15 @@ public class PopUpSpawner : MonoBehaviour
     public Transform parentCanvas;
     public GridManager gridManager;
 
+    public ScrollableGrid dateGrid;
     public VirtualizedGrid virtualizedGrid;
+    public VirtualizedGrid virtualizedGrid2;
 
     public void ShowPopup(int index)
     {
         if (index < 0 || index >= popupPrefabs.Length)
         {
+            Debug.LogWarning("indice de popup fuera de rango.");
             return;
         }
 
@@ -21,7 +24,7 @@ public class PopUpSpawner : MonoBehaviour
         PopUp popupScript = popup.GetComponentInChildren<PopUp>();
         if (popupScript != null)
         {
-            popupScript.Init(gridManager, this, virtualizedGrid);
+            popupScript.Init(gridManager, this, dateGrid, virtualizedGrid, virtualizedGrid2);
         }
     }
 }

@@ -956,6 +956,7 @@ GameObject:
   - component: {fileID: 9140051121283736436}
   - component: {fileID: 1995982682094527411}
   - component: {fileID: 1243435477963600526}
+  - component: {fileID: 2830362024302785133}
   m_Layer: 5
   m_Name: VentanaExit
   m_TagString: Untagged
@@ -1046,11 +1047,13 @@ MonoBehaviour:
   startDateInput: {fileID: 0}
   endDateInput: {fileID: 0}
   customTextInput: {fileID: 0}
-  guardarBtn: {fileID: 414187561453649357}
-  cargarBtn: {fileID: 0}
-  dateGrid: {fileID: 0}
+  numOpText: {fileID: 0}
+  nameOpText: {fileID: 0}
+  contractOpText: {fileID: 0}
+  posOpText: {fileID: 0}
   virtualizedGrid: {fileID: 0}
   virtualizedGrid2: {fileID: 0}
+  datesGrid: {fileID: 0}
   popupPanel: {fileID: 0}
   fileIO: {fileID: 0}
 --- !u!114 &1243435477963600526
@@ -1070,14 +1073,31 @@ MonoBehaviour:
   inputFieldPrefab: {fileID: 0}
   linkedVerticalScrollRect: {fileID: 0}
   linkedHorizontalScrollRect: {fileID: 0}
+  linkedGrid: {fileID: 0}
   totalRows: 1000
   totalCols: 1000
   visibleRows: 20
   visibleCols: 10
-  guardarBtn: {fileID: 0}
-  cargarBtn: {fileID: 0}
   cellWidth: 250
   cellHeight: 50
+  rowCount: 0
+  colCount: 0
+  popup: {fileID: 0}
+--- !u!114 &2830362024302785133
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6407997022771083188}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60b93c6dad142cb41b9f47908d6cdbb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  grid: {fileID: 0}
+  fileToLoad: {fileID: 0}
+  isTSV: 1
 --- !u!1 &8241139369160992936
 GameObject:
   m_ObjectHideFlags: 0
@@ -1335,21 +1355,21 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1995982682094527411}
-        m_TargetAssemblyTypeName: PopUp, Assembly-CSharp
-        m_MethodName: ConfirmExit
+      - m_Target: {fileID: 1243435477963600526}
+        m_TargetAssemblyTypeName: VirtualizedGrid, Assembly-CSharp
+        m_MethodName: SaveFile
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: SaveFile()
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1243435477963600526}
-        m_TargetAssemblyTypeName: VirtualizedGrid, Assembly-CSharp
-        m_MethodName: Save
+      - m_Target: {fileID: 1995982682094527411}
+        m_TargetAssemblyTypeName: PopUp, Assembly-CSharp
+        m_MethodName: ConfirmExit
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

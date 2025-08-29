@@ -5,29 +5,33 @@ using UnityEngine;
 using System;
 using System.Linq;
 using System.Collections;
+using SFB;
 
 public class VirtualizedGrid : MonoBehaviour
 {
-    public RectTransform content;               
-    public ScrollRect scrollRect;               
-    public GameObject inputFieldPrefab;          
+    public RectTransform content;
+    public ScrollRect scrollRect;
+    public GameObject inputFieldPrefab;
+    public VirtualizedGrid linkedGrid;
     public ScrollRect linkedVerticalScrollRect;
     public ScrollRect linkedHorizontalScrollRect;
 
     public int totalRows = 1000;
     public int totalCols = 1000;
-    public int visibleRows = 20;                
-    public int visibleCols = 10;        
-    
-    public Button guardarBtn, cargarBtn;
+    public int visibleRows = 20;
+    public int visibleCols = 10;
+
+    public int selectedRow = -1;
 
     public float cellWidth = 250f;
     public float cellHeight = 50f;
     private Color highlightColor = Color.yellow;
 
-    private Dictionary<Vector2Int, string> cellData = new(); 
-    private Dictionary<Vector2Int, TMP_InputField> activeCells = new(); 
-    private HashSet<int> highlightedColumns = new HashSet<int>();
+    private Dictionary<Vector2Int, string> cellData = new();
+    private Dictionary<Vector2Int, TMP_InputField> activeCells = new();
+    private Dictionary<Vector2Int, Color> customCellColor = new();
+    private HashSet<Vector2Int> highlightedCells = new();
+    bool syncing = false;
     public int rowCount;
     public int colCount;
 
@@ -35,10 +39,18 @@ public class VirtualizedGrid : MonoBehaviour
     {
         content.sizeDelta = new Vector2(totalCols * cellWidth, totalRows * cellHeight);
 
+        UpdateVisibleCells();
+
         if (!string.IsNullOrEmpty(GridLoadBuffer.RawFileData))
         {
-            LoadTSVFromBuffer();
-            GridLoadBuffer.RawFileData = null; 
+            string trimmed = GridLoadBuffer.RawFileData.TrimStart();
+
+            if (trimmed.StartsWith("{"))
+                LoadJsonFromBuffer();
+            else
+                LoadTSVFromBuffer();
+
+            GridLoadBuffer.RawFileData = null;
         }
         else if (GridLoadBuffer.DataToLoad != null)
         {
@@ -46,19 +58,55 @@ public class VirtualizedGrid : MonoBehaviour
             GridLoadBuffer.DataToLoad = null;
         }
 
-        if (GridLoadBuffer.DataToLoad != null)
+        scrollRect.onValueChanged.AddListener(_ =>
         {
-            LoadFromData(GridLoadBuffer.DataToLoad);
-            GridLoadBuffer.DataToLoad = null; 
+            if (syncing) return;
+            syncing = true;
+
+            if (linkedVerticalScrollRect)
+                linkedVerticalScrollRect.verticalNormalizedPosition = scrollRect.verticalNormalizedPosition;
+
+            if (linkedHorizontalScrollRect)
+                linkedHorizontalScrollRect.horizontalNormalizedPosition = scrollRect.horizontalNormalizedPosition;
+
+            syncing = false;
+        });
+
+        if (linkedVerticalScrollRect)
+        {
+            linkedVerticalScrollRect.onValueChanged.AddListener(_ =>
+            {
+                if (syncing) return;
+                syncing = true;
+                scrollRect.verticalNormalizedPosition = linkedVerticalScrollRect.verticalNormalizedPosition;
+                syncing = false;
+            });
+        }
+
+        if (linkedHorizontalScrollRect)
+        {
+            linkedHorizontalScrollRect.onValueChanged.AddListener(_ =>
+            {
+                if (syncing) return;
+                syncing = true;
+                scrollRect.horizontalNormalizedPosition = linkedHorizontalScrollRect.horizontalNormalizedPosition;
+                syncing = false;
+            });
         }
 
         scrollRect.onValueChanged.AddListener(_ => UpdateVisibleCells());
-        UpdateVisibleCells();
     }
 
-    public void HighlightColumnsByDateRange(DateTime startDate, DateTime endDate, Dictionary<int, DateTime> dateColumns, Color highlightColor)
+    public void SelectRow(int row)
     {
-        highlightedColumns.Clear();
+        selectedRow = row;
+
+        if (linkedGrid != null)
+            linkedGrid.selectedRow = row;
+    }
+
+    public void HighlightColumnsByDateRange(DateTime startDate, DateTime endDate, Dictionary<int, DateTime> dateColumns, int selectedRow, Color highlightColor)
+    {
         this.highlightColor = highlightColor;
 
         foreach (var kvp in dateColumns)
@@ -67,11 +115,11 @@ public class VirtualizedGrid : MonoBehaviour
             DateTime date = kvp.Value;
 
             if (date >= startDate && date <= endDate)
-                highlightedColumns.Add(col);
+                highlightedCells.Add(new Vector2Int(selectedRow, col));
         }
-
         UpdateHighlighting();
     }
+
     private void UpdateHighlighting()
     {
         foreach (var kvp in activeCells)
@@ -79,7 +127,7 @@ public class VirtualizedGrid : MonoBehaviour
             Vector2Int coord = kvp.Key;
             TMP_InputField cell = kvp.Value;
 
-            if (highlightedColumns.Contains(coord.y))
+            if (highlightedCells.Contains(coord))
                 HighlightCell(cell);
             else
                 ResetCellVisual(cell);
@@ -125,11 +173,9 @@ public class VirtualizedGrid : MonoBehaviour
                     cell.text = "";
                     ResetCellVisual(cell);
                 }
+                highlightedCells.Remove(coord);
             }
         }
-
-        foreach (var col in columnsToClear)
-            highlightedColumns.Remove(col);
 
         UpdateHighlighting();
     }
@@ -166,7 +212,7 @@ public class VirtualizedGrid : MonoBehaviour
             : allRows.OrderBy(row => row[colIndex]).ToList();
 
         cellData.Clear();
-        totalRows = allRows.Count; 
+        totalRows = allRows.Count;
 
         for (int row = 0; row < allRows.Count; row++)
         {
@@ -183,7 +229,7 @@ public class VirtualizedGrid : MonoBehaviour
 
     private void ResetScrollToTop()
     {
-        Canvas.ForceUpdateCanvases(); 
+        Canvas.ForceUpdateCanvases();
         scrollRect.verticalNormalizedPosition = 1f;
     }
 
@@ -196,36 +242,58 @@ public class VirtualizedGrid : MonoBehaviour
             Vector2Int coord = kvp.Key;
             string text = kvp.Value;
 
-            bool isHighlighted = highlightedColumns.Contains(coord.y);
+            bool isHighlighted = highlightedCells.Contains(coord) || customCellColor.ContainsKey(coord);
 
             GridCellSaveData data = new GridCellSaveData
             {
                 row = coord.x,
                 column = coord.y,
                 text = text,
-                isHighlighted = isHighlighted
+                isHighlighted = isHighlighted,
+                colorHex = ColorUtility.ToHtmlStringRGBA(
+                    customCellColor.ContainsKey(coord) ? customCellColor[coord] : Color.white
+                )
             };
 
             saveData.cells.Add(data);
         }
 
-        GridSaveLoad.Save(saveData);
+        string path = StandaloneFileBrowser.SaveFilePanel("Guardar archivo", "", "", "json");
+
+        if (!string.IsNullOrEmpty(path))
+        {
+            string json = JsonUtility.ToJson(saveData, true);
+            System.IO.File.WriteAllText(path, json);
+            Debug.Log("Archivo guardado en: " + path);
+        }
+        else
+        {
+            Debug.Log("Guardado cancelado por el usuario.");
+        }
     }
 
     public void Load()
     {
-        var data = GridSaveLoad.Load();
-        if (data != null)
+        string[] paths = StandaloneFileBrowser.OpenFilePanel("Cargara archivo", "", "json", false);
+
+        if (paths.Length > 0 && !string.IsNullOrEmpty(paths[0]))
         {
-            GridLoadBuffer.DataToLoad = data;
-            UnityEngine.SceneManagement.SceneManager.LoadScene("ListScene");
+            string json = System.IO.File.ReadAllText(paths[0]);
+            GridSaveData data = JsonUtility.FromJson<GridSaveData>(json);
+            LoadFromData(data);
+            Debug.Log("Archivo cargado desde: " + paths[0]);
+        }
+        else
+        {
+            Debug.Log("Carga cancelada por el usuario");
         }
     }
 
     public void LoadFromData(GridSaveData loaded)
     {
         cellData.Clear();
-        highlightedColumns.Clear();
+        highlightedCells.Clear();
+        customCellColor.Clear();
 
         foreach (var cellDataItem in loaded.cells)
         {
@@ -233,7 +301,7 @@ public class VirtualizedGrid : MonoBehaviour
             cellData[coord] = cellDataItem.text;
 
             if (cellDataItem.isHighlighted)
-                highlightedColumns.Add(coord.y);
+                highlightedCells.Add(coord);
         }
 
         UpdateVisibleCells();
@@ -265,6 +333,27 @@ public class VirtualizedGrid : MonoBehaviour
         UpdateVisibleCells();
     }
 
+    private void LoadJsonFromBuffer()
+    {
+        try
+        {
+            GridSaveData data = JsonUtility.FromJson<GridSaveData>(GridLoadBuffer.RawFileData);
+
+            if (data != null && data.cells != null)
+            {
+                LoadFromData(data);
+            }
+            else
+            {
+                Debug.LogWarning("Corrupto o malformado");
+            }
+        }
+        catch (Exception ex)
+        {
+            Debug.LogError("Error al parsear JSON: " + ex.Message);
+        }
+    }
+
     public string ReadFromCell(int row, int col)
     {
         Vector2Int coord = new Vector2Int(row, col);
@@ -277,6 +366,7 @@ public class VirtualizedGrid : MonoBehaviour
         if (line.Contains(';')) return ';';
         if (line.Contains(',')) return ',';
 
+        Debug.LogWarning("No se detectó delimitador claro en la línea: " + line);
         return ',';
     }
 
@@ -333,6 +423,11 @@ public class VirtualizedGrid : MonoBehaviour
                     cellData[new Vector2Int(capturedRow, capturedCol)] = value;
                 });
 
+                input.onSelect.AddListener(_ =>
+                {
+                    SelectRow(capturedRow);
+                });
+
                 RectTransform rt = go.GetComponent<RectTransform>();
                 rt.anchorMin = rt.anchorMax = new Vector2(0, 1);
                 rt.pivot = new Vector2(0, 1);
@@ -340,7 +435,7 @@ public class VirtualizedGrid : MonoBehaviour
                 rt.sizeDelta = new Vector2(cellWidth, cellHeight);
 
 
-                if (highlightedColumns.Contains(col))
+                if (highlightedCells.Contains(coord))
                     HighlightCell(input);
                 else
                     ResetCellVisual(input);
@@ -349,3 +444,4 @@ public class VirtualizedGrid : MonoBehaviour
         UpdateHighlighting();
     }
 }
+

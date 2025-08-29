@@ -3,7 +3,7 @@ using System.IO;
 using System.Collections;
 using UnityEngine;
 
-public static class GridSaveLoad 
+public static class GridSaveLoad
 {
     private static readonly string path = Path.Combine(Application.persistentDataPath, "griddata.json");
 
