@@ -75,7 +75,6 @@ public class PopUp : MonoBehaviour
         if (!DateTime.TryParse(startDateInput.text, out DateTime startDate) ||
          !DateTime.TryParse(endDateInput.text, out DateTime endDate))
         {
-            Debug.LogWarning("Fechas inválidas.");
             return;
         }
 
