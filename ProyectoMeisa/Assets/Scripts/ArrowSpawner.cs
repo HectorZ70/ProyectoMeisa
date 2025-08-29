@@ -1,7 +1,5 @@
-using NUnit.Framework;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class ArrowSpawner : MonoBehaviour

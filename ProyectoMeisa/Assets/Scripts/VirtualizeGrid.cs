@@ -4,7 +4,6 @@ using UnityEngine.UI;
 using UnityEngine;
 using System;
 using System.Linq;
-using System.Collections;
 using SFB;
 
 public class VirtualizedGrid : MonoBehaviour
@@ -264,11 +263,6 @@ public class VirtualizedGrid : MonoBehaviour
         {
             string json = JsonUtility.ToJson(saveData, true);
             System.IO.File.WriteAllText(path, json);
-            Debug.Log("Archivo guardado en: " + path);
-        }
-        else
-        {
-            Debug.Log("Guardado cancelado por el usuario.");
         }
     }
 
@@ -281,11 +275,6 @@ public class VirtualizedGrid : MonoBehaviour
             string json = System.IO.File.ReadAllText(paths[0]);
             GridSaveData data = JsonUtility.FromJson<GridSaveData>(json);
             LoadFromData(data);
-            Debug.Log("Archivo cargado desde: " + paths[0]);
-        }
-        else
-        {
-            Debug.Log("Carga cancelada por el usuario");
         }
     }
 

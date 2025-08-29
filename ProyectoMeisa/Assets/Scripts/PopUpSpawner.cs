@@ -1,4 +1,3 @@
-using TMPro;
 using UnityEngine;
 
 public class PopUpSpawner : MonoBehaviour
@@ -15,7 +14,6 @@ public class PopUpSpawner : MonoBehaviour
     {
         if (index < 0 || index >= popupPrefabs.Length)
         {
-            Debug.LogWarning("indice de popup fuera de rango.");
             return;
         }
 

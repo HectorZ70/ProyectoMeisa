@@ -1,9 +1,7 @@
 using UnityEngine;
 using System.IO;
-using System.Collections.Generic;
 using SFB;
 using System;
-using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class FileIO : MonoBehaviour
@@ -12,16 +10,6 @@ public class FileIO : MonoBehaviour
     public TextAsset fileToLoad;
     public bool isTSV = true;
     private bool isLoadingFile = false;
-
-    private void Awake()
-    {
-        if (grid == null)
-        {
-            grid = FindFirstObjectByType<VirtualizedGrid>();
-            if (grid == null)
-                Debug.LogError("No se encontró ningún VirtualizedGrid en la escena.");
-        }
-    }
 
     public void OpenFile()
     {
@@ -32,7 +20,6 @@ public class FileIO : MonoBehaviour
             grid = FindFirstObjectByType<VirtualizedGrid>();
             if (grid == null)
             {
-                Debug.LogError("grid sigue siendo null al abrir archivo.");
                 return;
             }
         }

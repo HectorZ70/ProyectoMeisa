@@ -143,10 +143,6 @@ public class PopUp : MonoBehaviour
                 {
                     fileIO.OpenFile();
                 }
-                else
-                {
-                    Debug.LogWarning("Referencia a FileIO no asignada");
-                }
                 break;
         }
         fileDropdown.SetValueWithoutNotify(0);
